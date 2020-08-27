@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Condition from '../../../models/Condition';
+import Policy from '../../../models/Policy';
 
 dbConnect();
 
@@ -11,8 +11,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const conditions = await Condition.find({});
-        res.status(200).json({ success: true, data: conditions });
+        const policies = await Policy.find({});
+        res.status(200).json({ success: true, data: policies });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -22,8 +22,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
-        const condition = await Condition.create(req.body);
-        res.status(201).json({ success: true, data: condition });
+        const policy = await Policy.create(req.body);
+        res.status(201).json({ success: true, data: policy });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

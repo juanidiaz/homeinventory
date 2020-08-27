@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Condition from '../../../models/Condition';
+import Location from '../../../models/Location';
 
 dbConnect();
 
@@ -11,8 +11,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const conditions = await Condition.find({});
-        res.status(200).json({ success: true, data: conditions });
+        const locations = await Location.find({});
+        res.status(200).json({ success: true, data: locations });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -22,8 +22,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
-        const condition = await Condition.create(req.body);
-        res.status(201).json({ success: true, data: condition });
+        const location = await Location.create(req.body);
+        res.status(201).json({ success: true, data: location });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Company from '../../../models/Company';
+import LogEntry from '../../../models/LogEntry';
 
 dbConnect();
 
@@ -14,13 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const company = await Company.findById(id);
+        const logEntry = await LogEntry.findById(id);
 
-        if (!company) {
+        if (!logEntry) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: company });
+        res.status(200).json({ success: true, data: logEntry });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
 
       case 'PUT':
         try {
-          const company = await Company.findByIdAndUpdate(id, req.body, {
+          const logEntry = await LogEntry.findByIdAndUpdate(id, req.body, {
             new: true,
             runValidators: true
           });
   
-          if (!company) {
+          if (!logEntry) {
             return res.status(400).json({ success: false });
           }
   
-          res.status(200).json({ success: true, data: company });
+          res.status(200).json({ success: true, data: logEntry });
   
         } catch (error) {
           res.status(400).json({ success: false, message: error });
@@ -47,13 +47,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
   
         case 'DELETE':
           try {
-            const deletedCompany = await Company.deleteOne({_id: id});
+            const deletedLogEntry = await LogEntry.deleteOne({_id: id});
     
-            if (!deletedCompany) {
+            if (!deletedLogEntry) {
               return res.status(400).json({ success: false });
             }
     
-            res.status(200).json({ success: true, data: deletedCompany });
+            res.status(200).json({ success: true, data: deletedLogEntry });
     
           } catch (error) {
             res.status(400).json({ success: false, message: error });

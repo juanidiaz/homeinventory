@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Condition from '../../../models/Condition';
+import Location from '../../../models/Location';
 
 dbConnect();
 
@@ -14,13 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
   switch (method) {
     case 'GET':
       try {
-        const condition = await Condition.findById(id);
+        const location = await Location.findById(id);
 
-        if (!condition) {
+        if (!location) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: condition });
+        res.status(200).json({ success: true, data: location });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
 
       case 'PUT':
         try {
-          const condition = await Condition.findByIdAndUpdate(id, req.body, {
+          const location = await Location.findByIdAndUpdate(id, req.body, {
             new: true,
             runValidators: true
           });
   
-          if (!condition) {
+          if (!location) {
             return res.status(400).json({ success: false });
           }
   
-          res.status(200).json({ success: true, data: condition });
+          res.status(200).json({ success: true, data: location });
   
         } catch (error) {
           res.status(400).json({ success: false, message: error });
@@ -47,13 +47,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
   
         case 'DELETE':
           try {
-            const deletedCondition = await Condition.deleteOne({_id: id});
+            const deletedLocation = await Location.deleteOne({_id: id});
     
-            if (!deletedCondition) {
+            if (!deletedLocation) {
               return res.status(400).json({ success: false });
             }
     
-            res.status(200).json({ success: true, data: deletedCondition });
+            res.status(200).json({ success: true, data: deletedLocation });
     
           } catch (error) {
             res.status(400).json({ success: false, message: error });
