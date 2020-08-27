@@ -4,7 +4,7 @@ import Contract from '../../../models/Contract';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const {
     query: { id },
@@ -27,40 +27,40 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
       }
       break;
 
-      case 'PUT':
-        try {
-          const contract = await Contract.findByIdAndUpdate(id, req.body, {
-            new: true,
-            runValidators: true
-          });
-  
-          if (!contract) {
-            return res.status(400).json({ success: false });
-          }
-  
-          res.status(200).json({ success: true, data: contract });
-  
-        } catch (error) {
-          res.status(400).json({ success: false, message: error });
+    case 'PUT':
+      try {
+        const contract = await Contract.findByIdAndUpdate(id, req.body, {
+          new: true,
+          runValidators: true
+        });
+
+        if (!contract) {
+          return res.status(400).json({ success: false });
         }
-        break;
-  
-        case 'DELETE':
-          try {
-            const deletedContract = await Contract.deleteOne({_id: id});
-    
-            if (!deletedContract) {
-              return res.status(400).json({ success: false });
-            }
-    
-            res.status(200).json({ success: true, data: deletedContract });
-    
-          } catch (error) {
-            res.status(400).json({ success: false, message: error });
-          }
-          break;
-    
-          default:
+
+        res.status(200).json({ success: true, data: contract });
+
+      } catch (error) {
+        res.status(400).json({ success: false, message: error });
+      }
+      break;
+
+    case 'DELETE':
+      try {
+        const deletedContract = await Contract.deleteOne({ _id: id });
+
+        if (!deletedContract) {
+          return res.status(400).json({ success: false });
+        }
+
+        res.status(200).json({ success: true, data: deletedContract });
+
+      } catch (error) {
+        res.status(400).json({ success: false, message: error });
+      }
+      break;
+
+    default:
       res.status(400).json({ success: false });
       break;
   }

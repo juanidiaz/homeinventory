@@ -4,7 +4,7 @@ import Room from '../../../models/Room';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const {
     query: { id },
@@ -27,40 +27,40 @@ export default async (req: NextApiRequest, res: NextApiResponse) {
       }
       break;
 
-      case 'PUT':
-        try {
-          const room = await Room.findByIdAndUpdate(id, req.body, {
-            new: true,
-            runValidators: true
-          });
-  
-          if (!room) {
-            return res.status(400).json({ success: false });
-          }
-  
-          res.status(200).json({ success: true, data: room });
-  
-        } catch (error) {
-          res.status(400).json({ success: false, message: error });
+    case 'PUT':
+      try {
+        const room = await Room.findByIdAndUpdate(id, req.body, {
+          new: true,
+          runValidators: true
+        });
+
+        if (!room) {
+          return res.status(400).json({ success: false });
         }
-        break;
-  
-        case 'DELETE':
-          try {
-            const deletedRoom = await Room.deleteOne({_id: id});
-    
-            if (!deletedRoom) {
-              return res.status(400).json({ success: false });
-            }
-    
-            res.status(200).json({ success: true, data: deletedRoom });
-    
-          } catch (error) {
-            res.status(400).json({ success: false, message: error });
-          }
-          break;
-    
-          default:
+
+        res.status(200).json({ success: true, data: room });
+
+      } catch (error) {
+        res.status(400).json({ success: false, message: error });
+      }
+      break;
+
+    case 'DELETE':
+      try {
+        const deletedRoom = await Room.deleteOne({ _id: id });
+
+        if (!deletedRoom) {
+          return res.status(400).json({ success: false });
+        }
+
+        res.status(200).json({ success: true, data: deletedRoom });
+
+      } catch (error) {
+        res.status(400).json({ success: false, message: error });
+      }
+      break;
+
+    default:
       res.status(400).json({ success: false });
       break;
   }
