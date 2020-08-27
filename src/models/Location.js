@@ -1,20 +1,13 @@
 const mongoose = require('mongoose');
 
-const CompanySchema = new mongoose.Schema({
+const LocationSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, trim: true, lowercase: true },
   description: { type: String, default: '', trim: true },
   isActive: { type: Boolean, default: true },
   user: { type: String, default: 'automatic', trim: true },
   pictures: { type: Array, default: [] },
   files: { type: Array, default: [] },
-  companyFullName: { type: String, unique: true, trim: true, lowercase: true },
-  connectInfo: {
-    tel: { type: String, trim: true, lowercase: true },
-    tel2: { type: String, trim: true, lowercase: true },
-    email: { type: String, trim: true, lowercase: true },
-    email2: { type: String, trim: true, lowercase: true },
-    url: { type: String, trim: true, lowercase: true },
-  },
+  status: { type: String, default: 'in use', trim: true, lowercase: true },
   address: {
     streetNumber: { type: String, trim: true, lowercase: true },
     street: { type: String, trim: true, lowercase: true },
@@ -28,4 +21,4 @@ const CompanySchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-module.exports = mongoose.models.Company || mongoose.model('Company', CompanySchema)
+module.exports = mongoose.models.Location || mongoose.model('Location', LocationSchema)
