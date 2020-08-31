@@ -4,7 +4,7 @@ import Company from '../../../models/Company';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const {
     query: { id },

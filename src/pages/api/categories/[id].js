@@ -4,7 +4,7 @@ import Category from '../../../models/Category';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const {
     query: { id },

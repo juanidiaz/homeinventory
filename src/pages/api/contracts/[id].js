@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Location from '../../../models/Location';
+import Contract from '../../../models/Contract';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const {
     query: { id },
@@ -14,13 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const location = await Location.findById(id);
+        const contract = await Contract.findById(id);
 
-        if (!location) {
+        if (!contract) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: location });
+        res.status(200).json({ success: true, data: contract });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'PUT':
       try {
-        const location = await Location.findByIdAndUpdate(id, req.body, {
+        const contract = await Contract.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
         });
 
-        if (!location) {
+        if (!contract) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: location });
+        res.status(200).json({ success: true, data: contract });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -47,13 +47,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       try {
-        const deletedLocation = await Location.deleteOne({ _id: id });
+        const deletedContract = await Contract.deleteOne({ _id: id });
 
-        if (!deletedLocation) {
+        if (!deletedContract) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: deletedLocation });
+        res.status(200).json({ success: true, data: deletedContract });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

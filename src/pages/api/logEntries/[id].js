@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Condition from '../../../models/Condition';
+import LogEntry from '../../../models/LogEntry';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const {
     query: { id },
@@ -14,13 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const condition = await Condition.findById(id);
+        const logEntry = await LogEntry.findById(id);
 
-        if (!condition) {
+        if (!logEntry) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: condition });
+        res.status(200).json({ success: true, data: logEntry });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'PUT':
       try {
-        const condition = await Condition.findByIdAndUpdate(id, req.body, {
+        const logEntry = await LogEntry.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
         });
 
-        if (!condition) {
+        if (!logEntry) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: condition });
+        res.status(200).json({ success: true, data: logEntry });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -47,13 +47,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       try {
-        const deletedCondition = await Condition.deleteOne({ _id: id });
+        const deletedLogEntry = await LogEntry.deleteOne({ _id: id });
 
-        if (!deletedCondition) {
+        if (!deletedLogEntry) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: deletedCondition });
+        res.status(200).json({ success: true, data: deletedLogEntry });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

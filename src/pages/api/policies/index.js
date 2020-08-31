@@ -4,7 +4,7 @@ import Policy from '../../../models/Policy';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const { method } = req;
 

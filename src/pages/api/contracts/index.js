@@ -1,18 +1,18 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Room from '../../../models/Room';
+import Contract from '../../../models/Contract';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const { method } = req;
 
   switch (method) {
     case 'GET':
       try {
-        const rooms = await Room.find({});
-        res.status(200).json({ success: true, data: rooms });
+        const contracts = await Contract.find({});
+        res.status(200).json({ success: true, data: contracts });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -22,8 +22,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'POST':
       try {
-        const room = await Room.create(req.body);
-        res.status(201).json({ success: true, data: room });
+        const contract = await Contract.create(req.body);
+        res.status(201).json({ success: true, data: contract });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

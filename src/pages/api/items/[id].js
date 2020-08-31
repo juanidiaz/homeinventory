@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import LogEntry from '../../../models/LogEntry';
+import Item from '../../../models/Item';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const {
     query: { id },
@@ -14,13 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const logEntry = await LogEntry.findById(id);
+        const item = await Item.findById(id);
 
-        if (!logEntry) {
+        if (!item) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: logEntry });
+        res.status(200).json({ success: true, data: item });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'PUT':
       try {
-        const logEntry = await LogEntry.findByIdAndUpdate(id, req.body, {
+        const item = await Item.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
         });
 
-        if (!logEntry) {
+        if (!item) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: logEntry });
+        res.status(200).json({ success: true, data: item });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -47,13 +47,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       try {
-        const deletedLogEntry = await LogEntry.deleteOne({ _id: id });
+        const deletedItem = await Item.deleteOne({ _id: id });
 
-        if (!deletedLogEntry) {
+        if (!deletedItem) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: deletedLogEntry });
+        res.status(200).json({ success: true, data: deletedItem });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

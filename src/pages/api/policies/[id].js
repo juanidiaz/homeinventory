@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Contract from '../../../models/Contract';
+import Policy from '../../../models/Policy';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const {
     query: { id },
@@ -14,13 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const contract = await Contract.findById(id);
+        const policy = await Policy.findById(id);
 
-        if (!contract) {
+        if (!policy) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: contract });
+        res.status(200).json({ success: true, data: policy });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'PUT':
       try {
-        const contract = await Contract.findByIdAndUpdate(id, req.body, {
+        const policy = await Policy.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
         });
 
-        if (!contract) {
+        if (!policy) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: contract });
+        res.status(200).json({ success: true, data: policy });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -47,13 +47,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       try {
-        const deletedContract = await Contract.deleteOne({ _id: id });
+        const deletedPolicy = await Policy.deleteOne({ _id: id });
 
-        if (!deletedContract) {
+        if (!deletedPolicy) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: deletedContract });
+        res.status(200).json({ success: true, data: deletedPolicy });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

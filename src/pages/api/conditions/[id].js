@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Contact from '../../../models/Contact';
+import Condition from '../../../models/Condition';
 
 dbConnect();
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req, res) => {
 
   const {
     query: { id },
@@ -14,13 +14,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case 'GET':
       try {
-        const contact = await Contact.findById(id);
+        const condition = await Condition.findById(id);
 
-        if (!contact) {
+        if (!condition) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: contact });
+        res.status(200).json({ success: true, data: condition });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'PUT':
       try {
-        const contact = await Contact.findByIdAndUpdate(id, req.body, {
+        const condition = await Condition.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
         });
 
-        if (!contact) {
+        if (!condition) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: contact });
+        res.status(200).json({ success: true, data: condition });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -47,13 +47,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     case 'DELETE':
       try {
-        const deletedContact = await Contact.deleteOne({ _id: id });
+        const deletedCondition = await Condition.deleteOne({ _id: id });
 
-        if (!deletedContact) {
+        if (!deletedCondition) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: deletedContact });
+        res.status(200).json({ success: true, data: deletedCondition });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
