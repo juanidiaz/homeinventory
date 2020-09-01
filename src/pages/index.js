@@ -1,15 +1,14 @@
 import Head from 'next/head'
 import styles from '../../styles/Home.module.css'
+// import React from 'react';
+import { Button } from '@material-ui/core';
 
 export default function Home() {
-  return (
+  return ( 
     <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
       <main className={styles.main}>
+        <Button color="secondary">Hello World</Button>
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
