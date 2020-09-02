@@ -19,8 +19,6 @@ export default function CategoriesList(props) {
 
   const { allCategories } = props;
 
-  console.log("allCategories", { lenght: allCategories.length, allCategories });
-
   return allCategories && allCategories.length > 0 ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">

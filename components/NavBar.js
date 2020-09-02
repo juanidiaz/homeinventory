@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Link from 'next/link'
 
 import MenuIcon from '@material-ui/icons/Menu';
+import { ButtonLink } from '../utils/common';
 
 const useStyles = makeStyles((theme) => ({
   rootAppBar: {
@@ -50,21 +51,9 @@ export default function NavBar() {
             {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
               Open Menu
           </Button> */}
-            <Button color="inherit">
-              <Link href="/rooms">
-                <a>Rooms</a>
-              </Link>
-            </Button>
-            <Button color="inherit">
-              <Link href="/categories">
-                <a>Categories</a>
-              </Link>
-            </Button>
-            <Button color="inherit">
-              <Link href="/">
-                <a>Home</a>
-              </Link>
-            </Button>
+            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/'} >HOME</Button>
+            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/categories'} >Categories</Button>
+            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/rooms'} >Rooms</Button>
           </Toolbar>
         </AppBar>
       </div>

@@ -1,14 +1,17 @@
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
+    padding: theme.spacing(1),
   },
+  test: {
+    backgroundColor: theme.palette.error.dark,
+    color: theme.palette.error.contrastText,
+  }
 }));
 
 export default function CategoriesInput(props) {
@@ -16,26 +19,49 @@ export default function CategoriesInput(props) {
   const classes = useStyles();
 
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <TextField
-          required
-          id="name-input"
-          label="Name"
-          variant="outlined"
-          onChange={handleChange("name")}
-        />
-        <TextField
-          required
-          id="description-input"
-          label="Description"
-          variant="outlined"
-          onChange={handleChange("description")}
-        />
-        <Button variant="contained" color="secondary" onClick={() => createNewCategory()}>Add category</Button>
-        <Button variant="contained" color="secondary" onClick={() => cancelCreateNewCategory()}>Cancel</Button>
+    <Paper>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            required
+            size="small"
+            id="name-input"
+            label="Name"
+            variant="outlined"
+            onChange={handleChange("name")}
+          />
+        </Grid>
 
-      </div>
-    </form>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            required
+            size="small"
+            id="description-input"
+            label="Description"
+            variant="outlined"
+            color="success"
+            onChange={handleChange("description")}
+          />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Button variant="contained" className={classes.test} onClick={() => createNewCategory()}>Add category</Button>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Button variant="contained" color="success" onClick={() => cancelCreateNewCategory()}>Cancel</Button>
+        </Grid>
+
+      </Grid>
+
+    </Paper>
   )
 }
