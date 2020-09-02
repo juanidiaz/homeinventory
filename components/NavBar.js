@@ -51,8 +51,13 @@ export default function NavBar() {
               Open Menu
           </Button> */}
             <Button color="inherit">
-              <Link href="/addItem">
-                <a>Add Item x</a>
+              <Link href="/rooms">
+                <a>Rooms</a>
+              </Link>
+            </Button>
+            <Button color="inherit">
+              <Link href="/categories">
+                <a>Categories</a>
               </Link>
             </Button>
             <Button color="inherit">
