@@ -13,7 +13,6 @@ export default async (req, res) => {
       
       try {
         const categories = await Category.find({});
-        console.log("WANT TO GET!!", categories)
         res.status(200).json({ success: true, data: categories });
 
       } catch (error) {
