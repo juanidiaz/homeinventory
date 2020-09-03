@@ -53,7 +53,7 @@ export default function roomsPage() {
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <h3>CATEGORIES</h3>
+          <h3>Rooms</h3>
         </Grid>
 
         <Grid item xs={6}>

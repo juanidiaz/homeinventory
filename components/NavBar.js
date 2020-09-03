@@ -49,8 +49,11 @@ export default function NavBar() {
               myInventory
           </Typography>
             <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/'} >HOME</Button>
+            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/items'} >Items</Button>
             <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/categories'} >Categories</Button>
             <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/rooms'} >Rooms</Button>
+            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/locations'} >Locations</Button>
+            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/conditions'} >Conditions</Button>
           </Toolbar>
         </AppBar>
       </div>
