@@ -47,7 +47,7 @@ export default function RoomsInput(props) {
             id="description-input"
             label="Description"
             variant="outlined"
-            color="success"
+            
             onChange={handleChange("description")}
           />
         </Grid>
@@ -57,7 +57,7 @@ export default function RoomsInput(props) {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Button variant="contained" color="success" onClick={() => cancelCreateNewRoom()}>Cancel</Button>
+          <Button variant="contained"  onClick={() => cancelCreateNewRoom()}>Cancel</Button>
         </Grid>
 
       </Grid>

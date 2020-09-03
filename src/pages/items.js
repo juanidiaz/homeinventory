@@ -1,5 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllItems, createNewItem } from '../../src/lib/apiItem';
+import { getAllLocations } from '../../src/lib/apiLocation';
+import { getAllRooms } from '../../src/lib/apiRoom';
+import { getAllCategories } from '../../src/lib/apiCategory';
+import { getAllConditions } from '../../src/lib/apiCondition';
+
 import Button from '@material-ui/core/Button';
 import ItemsInput from '../../components/input/ItemsInput';
 import ItemsList from '../../components/lists/ItemsList';
@@ -34,6 +39,21 @@ export default function itemsPage() {
     });
   };
 
+  const handleChangeSelect = name => event => {
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setNewItem({
+      ...newItem,
+      [name]: value
+    });
+
+  };
+
   const handleClickOnCreateNewItem = () => {
     console.log("TRYING", newItem);
 
@@ -49,6 +69,8 @@ export default function itemsPage() {
     setShowElements(true);
   };
 
+  console.log("  NEW ITEM", newItem)
+
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -61,7 +83,7 @@ export default function itemsPage() {
         </Grid>
 
         <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={() => setShowElements(false)}>Add new item</Button>
+          <Button variant="contained" color="primary" onClick={() => setShowElements(false)} hidden={!showElements}>Add new item</Button>
         </Grid>
 
         <Grid item xs={12}>
@@ -73,8 +95,10 @@ export default function itemsPage() {
             <ItemsInput
               allItems={allItemsState}
               handleChange={handleChange}
+              handleChangeSelect={handleChangeSelect}
               createNewItem={handleClickOnCreateNewItem}
               cancelCreateNewItem={handleClickOnCancelNewItem}
+              newItem={newItem}
             />
           }
         </Grid>

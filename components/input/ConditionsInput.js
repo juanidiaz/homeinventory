@@ -47,7 +47,7 @@ export default function ConditionsInput(props) {
             id="description-input"
             label="Description"
             variant="outlined"
-            color="success"
+            
             onChange={handleChange("description")}
           />
         </Grid>
@@ -57,7 +57,7 @@ export default function ConditionsInput(props) {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Button variant="contained" color="success" onClick={() => cancelCreateNewCondition()}>Cancel</Button>
+          <Button variant="contained"  onClick={() => cancelCreateNewCondition()}>Cancel</Button>
         </Grid>
 
       </Grid>
