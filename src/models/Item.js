@@ -14,6 +14,10 @@ const ItemSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room',
   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+  },
   condition: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Condition',

@@ -48,9 +48,6 @@ export default function NavBar() {
             <Typography variant="h6" className={classes.title}>
               myInventory
           </Typography>
-            {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-              Open Menu
-          </Button> */}
             <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/'} >HOME</Button>
             <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/categories'} >Categories</Button>
             <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/rooms'} >Rooms</Button>
