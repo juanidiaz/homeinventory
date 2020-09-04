@@ -1,6 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
 import Item from '../../../models/Item';
+import Room from '../../../models/Room';
+import Location from '../../../models/Location';
+import Category from '../../../models/Category';
+import Contract from '../../../models/Contract';
+import Company from '../../../models/Company';
 
 dbConnect();
 
@@ -14,7 +19,14 @@ export default async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        const item = await Item.findById(id);
+        const item = await Item.findById(id)
+          .populate('room')
+          .populate('location')
+          .populate('category')
+          .populate('condition')
+          .populate('purchaseInfo.company')
+          .populate('purchaseInfo.contract')
+          ;
 
         if (!item) {
           return res.status(400).json({ success: false });

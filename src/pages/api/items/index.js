@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
 import Item from '../../../models/Item';
+import Room from '../../../models/Room';
+import Location from '../../../models/Location';
+import Category from '../../../models/Category';
 
 dbConnect();
 
@@ -11,7 +14,15 @@ export default async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        const items = await Item.find({});
+        console.log("=========")
+        // const items = await Item.find({})
+        const items = await Item
+          .find({})
+          .populate('room')
+          .populate('location')
+          .populate('category')
+          ;
+
         res.status(200).json({ success: true, data: items });
 
       } catch (error) {
