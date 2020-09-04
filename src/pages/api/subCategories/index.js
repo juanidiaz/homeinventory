@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Category from '../../../models/Category';
 import SubCategory from '../../../models/SubCategory';
 
 dbConnect();
@@ -13,9 +12,8 @@ export default async (req, res) => {
     case 'GET':
       
       try {
-        const categories = await Category.find({}).populate('subCategories');
-        
-        res.status(200).json({ success: true, data: categories });
+        const subSubCategories = await SubCategory.find({});
+        res.status(200).json({ success: true, data: subSubCategories });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -25,8 +23,8 @@ export default async (req, res) => {
 
     case 'POST':
       try {
-        const category = await Category.create(req.body);
-        res.status(201).json({ success: true, data: category });
+        const subSubCategory = await SubCategory.create(req.body);
+        res.status(201).json({ success: true, data: subSubCategory });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });

@@ -27,7 +27,6 @@ export default function itemsPage() {
 
   const getItems = () => {
     getAllItems().then(allItems => {
-      console.log("ALL ROOMS", allItems)
       setAllItemsState(allItems);
     })
   }
@@ -55,7 +54,6 @@ export default function itemsPage() {
   };
 
   const handleClickOnCreateNewItem = () => {
-    console.log("TRYING", newItem);
 
     createNewItem(newItem).then(item => {
       console.log("ADDED!", item);
@@ -68,8 +66,6 @@ export default function itemsPage() {
     setNewItem({})
     setShowElements(true);
   };
-
-  console.log("  NEW ITEM", newItem)
 
   return (
     <div className={classes.root}>

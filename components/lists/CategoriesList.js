@@ -19,6 +19,8 @@ export default function CategoriesList(props) {
 
   const { allCategories } = props;
 
+  // console.log("allCategories", { allCategories, lenght: allCategories && allCategories.lenght > 0 ? allCategories[4] : "nada" });
+
   return allCategories && allCategories.length > 0 ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
@@ -27,24 +29,19 @@ export default function CategoriesList(props) {
             <TableCell>Name</TableCell>
             <TableCell align="right">Description</TableCell>
             <TableCell align="right">Subcategories</TableCell>
-            <TableCell align="right">Pictures</TableCell>
-            <TableCell align="right">Files</TableCell>
-            <TableCell align="right">Active</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {allCategories.map((category) => (
-            <TableRow key={category.name}>
-              <TableCell component="th" scope="row">
-                {category.name}
-              </TableCell>
-              <TableCell align="right">{category.description}</TableCell>
-              <TableCell align="right">{category.subCategories.lenght}</TableCell>
-              <TableCell align="right">{category.pictures.lenght}</TableCell>
-              <TableCell align="right">{category.files.lenght}</TableCell>
-              <TableCell align="right">{category.isActive}</TableCell>
-            </TableRow>
-          ))}
+          {allCategories.map(category => {
+            console.log("category", Object.keys(category.subCategories).length);
+            return (
+              <TableRow key={category.name}>
+                <TableCell component="th" scope="row">{category.name}</TableCell>
+                <TableCell align="right"             >{category.description}</TableCell>
+                <TableCell align="right"             >{Object.keys(category.subCategories).length}</TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>

@@ -22,7 +22,6 @@ export default function roomsPage() {
 
   const getRooms = () => {
     getAllRooms().then(allRooms => {
-      console.log("ALL ROOMS", allRooms)
       setAllRoomsState(allRooms);
     })
   }
@@ -35,10 +34,8 @@ export default function roomsPage() {
   };
 
   const handleClickOnCreateNewRoom = () => {
-    console.log("TRYING", newRoom);
 
     createNewRoom(newRoom).then(room => {
-      console.log("ADDED!", room);
       getRooms()
       setShowElements(true);
     })

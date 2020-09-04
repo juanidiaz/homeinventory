@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
-import Category from '../../../models/Category';
+import SubCategory from '../../../models/SubCategory';
 
 dbConnect();
 
@@ -14,13 +14,13 @@ export default async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        const category = await Category.findById(id).populate('subCategories');
+        const subCategory = await SubCategory.findById(id);
 
-        if (!category) {
+        if (!subCategory) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: category });
+        res.status(200).json({ success: true, data: subCategory });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -29,16 +29,16 @@ export default async (req, res) => {
 
     case 'PUT':
       try {
-        const category = await Category.findByIdAndUpdate(id, req.body, {
+        const subCategory = await SubCategory.findByIdAndUpdate(id, req.body, {
           new: true,
           runValidators: true
         });
 
-        if (!category) {
+        if (!subCategory) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: category });
+        res.status(200).json({ success: true, data: subCategory });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error });
@@ -47,9 +47,9 @@ export default async (req, res) => {
 
     case 'DELETE':
       try {
-        const deletedCategory = await Category.deleteOne({ _id: id });
+        const deletedSubCategory = await SubCategory.deleteOne({ _id: id });
 
-        if (!deletedCategory) {
+        if (!deletedSubCategory) {
           return res.status(400).json({ success: false });
         }
 

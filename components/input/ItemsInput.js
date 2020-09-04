@@ -1,6 +1,7 @@
 import { getAllLocations } from '../../src/lib/apiLocation';
 import { getAllRooms } from '../../src/lib/apiRoom';
-import { getAllCategories } from '../../src/lib/apiCategory';
+import { getAllCategories, getCategory } from '../../src/lib/apiCategory';
+import { getAllSubCategories } from '../../src/lib/apiSubCategory';
 import { getAllConditions } from '../../src/lib/apiCondition';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,6 +41,7 @@ export default function ItemsInput(props) {
   const [allConditions, setAllConditions] = React.useState([]);
   const [allLocations, setAllLocations] = React.useState([]);
   const [allRooms, setAllRooms] = React.useState([]);
+  const [subCategoriesState, setSubCategoriesState] = React.useState([]);
 
   React.useEffect(() => {
     getAllCategories().then(categories => setAllCategories(categories));
@@ -48,7 +50,15 @@ export default function ItemsInput(props) {
     getAllRooms().then(rooms => setAllRooms(rooms));
   }, []);
 
-  console.log("INPUT", { lenght: allCategories.length, allConditions, allLocations, allRooms })
+  React.useEffect(() => {
+    console.log("CHANGE", newItem.category)
+
+    if (newItem.category) {
+      getCategory(newItem.category).then(category => setSubCategoriesState(category.subCategories));
+    }
+  }, [newItem]);
+
+  console.log("INPUT", { subCategoriesState, allConditions, allLocations, allRooms })
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -150,6 +160,31 @@ export default function ItemsInput(props) {
               {allCategories.map(category => (
                 <MenuItem key={category._id} value={category._id}>{category.name}</MenuItem>
               ))}
+
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>Sub Category</InputLabel>
+            <Select
+              labelId="select-subCategory-label"
+              id="select-subCategory"
+              input={<Input />}
+              fullWidth
+              MenuProps={MenuProps}
+              value={subCategoriesState}
+              onChange={handleChange("subCategory")}
+            >
+              <MenuItem value="" disabled>Select a subCategory</MenuItem>
+              {subCategoriesState ? subCategoriesState.map(subCategory => {
+                console.log("THIS ONE", subCategory)
+
+                return (
+                  <MenuItem key={subCategory._id} value={subCategory._id}>{subCategory.name}</MenuItem>
+                )
+              }) : null}
 
             </Select>
           </FormControl>

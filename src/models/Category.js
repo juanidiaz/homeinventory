@@ -6,7 +6,11 @@ const CategorySchema = new mongoose.Schema({
   user: { type: String, default: 'automatic', trim: true },
   pictures: { type: Array, default: [] },
   files: { type: Array, default: [] },
-  subCategories: { type: Array, default: [] },
+  subCategories: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'SubCategory',
+  }],
+
 },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true }

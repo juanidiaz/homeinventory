@@ -22,7 +22,6 @@ export default function locationsPage() {
 
   const getLocations = () => {
     getAllLocations().then(allLocations => {
-      console.log("ALL ROOMS", allLocations)
       setAllLocationsState(allLocations);
     })
   }
@@ -35,7 +34,6 @@ export default function locationsPage() {
   };
 
   const handleClickOnCreateNewLocation = () => {
-    console.log("TRYING", newLocation);
 
     createNewLocation(newLocation).then(location => {
       console.log("ADDED!", location);

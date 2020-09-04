@@ -22,7 +22,6 @@ export default function conditionsPage() {
 
   const getConditions = () => {
     getAllConditions().then(allConditions => {
-      console.log("ALL ROOMS", allConditions)
       setAllConditionsState(allConditions);
     })
   }
@@ -35,7 +34,6 @@ export default function conditionsPage() {
   };
 
   const handleClickOnCreateNewCondition = () => {
-    console.log("TRYING", newCondition);
 
     createNewCondition(newCondition).then(condition => {
       console.log("ADDED!", condition);

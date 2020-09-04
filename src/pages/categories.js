@@ -15,15 +15,15 @@ export default function categoriesPage() {
   const classes = useStyles();
 
   const [showElements, setShowElements] = React.useState(true);
-  const [allCategoriesState, setAllCategoriesState] = React.useState([]);
+  const [allCategories, setAllCategories] = React.useState([]);
   const [newCategory, setNewCategory] = React.useState({});
 
   React.useEffect(() => getCategories(), []);
 
   const getCategories = () => {
-    getAllCategories().then(allCategories => {
-      setAllCategoriesState(allCategories);
-    })
+    getAllCategories().then(categories => {
+      setAllCategories(categories);
+    });
   }
 
   const handleChange = name => event => {
@@ -34,7 +34,6 @@ export default function categoriesPage() {
   };
 
   const handleClickOnCreateNewCategory = () => {
-    console.log("TRYING", newCategory);
 
     createNewCategory(newCategory).then(category => {
       console.log("ADDED!", category);
@@ -48,7 +47,7 @@ export default function categoriesPage() {
     setShowElements(true);
   };
 
-  return (
+  return allCategories ? (
     <div className={classes.root}>
       <Grid container spacing={1}>
         <Grid item xs={12}>
@@ -56,24 +55,26 @@ export default function categoriesPage() {
         </Grid>
 
         <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={() => setShowElements(true)}>Show all categories</Button>
-        </Grid>
-
-        <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={() => setShowElements(false)}>Add new category</Button>
+          {showElements ?
+            <Button variant="contained" color="primary" onClick={() => setShowElements(false)}>Add new category</Button>
+            :
+            null
+            // <Button variant="contained" color="primary" onClick={() => setShowElements(true)}>Show all categories</Button>
+          }
         </Grid>
 
         <Grid item xs={12}>
           {showElements ?
             <CategoriesList
-              allCategories={allCategoriesState}
+              allCategories={allCategories}
             />
             :
             <CategoriesInput
-              allCategories={allCategoriesState}
+              allCategories={allCategories}
               handleChange={handleChange}
               createNewCategory={handleClickOnCreateNewCategory}
               cancelCreateNewCategory={handleClickOnCancelNewCategory}
+              newCategory={newCategory}
             />
           }
         </Grid>
@@ -81,5 +82,7 @@ export default function categoriesPage() {
       </Grid>
 
     </div>
-  )
+  ) : (
+      <h1>LOADING...</h1>
+    );
 }
