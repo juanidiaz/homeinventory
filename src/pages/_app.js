@@ -6,6 +6,7 @@ import NavBar from '../../components/NavBar';
 import PropTypes from 'prop-types';
 import React from 'react';
 import theme from '../../utils/theme';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -40,5 +41,5 @@ export default function MyApp(props) {
 
 MyApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
-  pageProps: PropTypes.object.isRequired,
+  pageProps: PropTypes.object.isRequired
 };

@@ -1,20 +1,15 @@
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Link from 'next/link'
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import MenuIcon from '@material-ui/icons/Menu';
 import { ButtonLink } from '../utils/common';
+import Link from 'next/link';
+
 
 const useStyles = makeStyles((theme) => ({
   rootAppBar: {
     flexGrow: 1,
-    marginBottom: 63,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -40,35 +35,33 @@ export default function NavBar() {
   return (
     <>
       <div className={classes.rootAppBar}>
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              myInventory
-          </Typography>
-            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/'} >HOME</Button>
-            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/items'} >Items</Button>
-            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/categories'} >Categories</Button>
-            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/rooms'} >Rooms</Button>
-            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/locations'} >Locations</Button>
-            <Button className={classes.menuButton} color="secondary" variant="contained" component={ButtonLink} href={'/conditions'} >Conditions</Button>
-          </Toolbar>
-        </AppBar>
+        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" className="pl-2">
+          <Navbar.Brand href="/">myInventory</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="mr-auto">
+              <Link href="/items"><a className="nav-link">Items</a></Link>
+              <Link href="/categories"><a className="nav-link">Categories</a></Link>
+              <Link href="/rooms"><a className="nav-link">Rooms</a></Link>
+              <Link href="/locations"><a className="nav-link">Locations</a></Link>
+              <Link href="/conditions"><a className="nav-link">Conditions</a></Link>
+              {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            </NavDropdown> */}
+            </Nav>
+            {/* <Nav>
+            <Nav.Link href="#deets">Log in</Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              Dank memes
+            </Nav.Link>
+          </Nav> */}
+          </Navbar.Collapse>
+        </Navbar>
       </div>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-
     </>
   );
 }
