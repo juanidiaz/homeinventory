@@ -1,6 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllRooms, createNewRoom } from '../../src/lib/apiRoom';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import Button from 'react-bootstrap/Button';
 import RoomsInput from '../../components/input/RoomsInput';
 import RoomsList from '../../components/lists/RoomsList';
 import Grid from '@material-ui/core/Grid';
@@ -54,11 +55,11 @@ export default function roomsPage() {
         </Grid>
 
         <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={() => setShowElements(true)}>Show all rooms</Button>
+          <Button variant="dark" size="sm" onClick={() => setShowElements(true)}>Show all rooms</Button>
         </Grid>
 
         <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={() => setShowElements(false)}>Add new room</Button>
+          <Button variant="dark" size="sm" onClick={() => setShowElements(false)}>Add new room</Button>
         </Grid>
 
         <Grid item xs={12}>
