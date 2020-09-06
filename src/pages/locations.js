@@ -28,18 +28,30 @@ export default function locationsPage() {
     })
   }
 
-  const handleChange = name => event => {
-    setNewLocation({
-      ...newLocation,
-      [name]: event.target.value
-    });
+  const handleChange = path => name => event => {
+    if (path) {
+      setNewLocation({
+        ...newLocation,
+        [path]: {
+          ...newLocation[path],
+          [name]: event.target.value
+        }
+      });
+    } else {
+      setNewLocation({
+        ...newLocation,
+        [name]: event.target.value
+      });
+    }
+
   };
 
   const handleClickOnCreateNewLocation = () => {
 
     createNewLocation(newLocation).then(location => {
       console.log("ADDED!", location);
-      getLocations()
+      getLocations();
+      setNewLocation({})
       setShowElements(true);
     })
   };
@@ -48,6 +60,8 @@ export default function locationsPage() {
     setNewLocation({})
     setShowElements(true);
   };
+
+  console.log("=====================", newLocation);
 
   return (
     <div className={classes.root}>
@@ -77,6 +91,7 @@ export default function locationsPage() {
               handleChange={handleChange}
               createNewLocation={handleClickOnCreateNewLocation}
               cancelCreateNewLocation={handleClickOnCancelNewLocation}
+              newLocation={newLocation}
             />
           }
         </Grid>
