@@ -1,9 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllCategories, createNewCategory } from '../../src/lib/apiCategory';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import Button from 'react-bootstrap/Button';
 import CategoriesInput from '../../components/input/CategoriesInput';
 import CategoriesList from '../../components/lists/CategoriesList';
 import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,10 +58,11 @@ export default function categoriesPage() {
 
         <Grid item xs={6}>
           {showElements ?
-            <Button variant="contained" color="primary" onClick={() => setShowElements(false)}>Add new category</Button>
+            <Button variant="success" size="sm" onClick={() => setShowElements(false)}>
+              <AddIcon fontSize="small" />Add new category</Button>
             :
             null
-            // <Button variant="contained" color="primary" onClick={() => setShowElements(true)}>Show all categories</Button>
+            //<Button variant="dark" size="sm" onClick={() => setShowElements(true)}>Show all categories</Button>
           }
         </Grid>
 

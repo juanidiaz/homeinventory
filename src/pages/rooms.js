@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import RoomsInput from '../../components/input/RoomsInput';
 import RoomsList from '../../components/lists/RoomsList';
 import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,11 +57,14 @@ export default function roomsPage() {
         </Grid>
 
         <Grid item xs={6}>
-          <Button variant="dark" size="sm" onClick={() => setShowElements(true)}>Show all rooms</Button>
-        </Grid>
-
-        <Grid item xs={6}>
-          <Button variant="dark" size="sm" onClick={() => setShowElements(false)}>Add new room</Button>
+          {showElements ?
+            <Button variant="success" size="sm" onClick={() => setShowElements(false)}>
+              <AddIcon fontSize="small" />Add new room
+              </Button>
+            :
+            null
+            //<Button variant="dark" size="sm" onClick={() => setShowElements(true)}>Show all categories</Button>
+          }
         </Grid>
 
         <Grid item xs={12}>

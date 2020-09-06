@@ -7,48 +7,41 @@ const useStyles = makeStyles((theme) => ({
   rootAppBar: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
 }));
 
 export default function NavBar() {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(false);
-  console.log("expanded", expanded)
+
   return (
     <>
       <div className={classes.rootAppBar}>
-        <Navbar expanded={expanded} collapseOnSelect expand="md" bg="dark" variant="dark" className="pl-2">
+        <Navbar fixed='top' expanded={expanded} collapseOnSelect expand="md" bg="dark" variant="dark" className="pl-2 pr-2">
           <Navbar.Brand href="/">myInventory</Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : true)}/>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : true)} />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="mr-auto">
-              <Link href="/items"><a className="nav-link" onClick={() => setExpanded(expanded ? false : true)}>Items</a></Link>
-              <Link href="/categories"><a className="nav-link" onClick={() => setExpanded(expanded ? false : true)}>Categories</a></Link>
-              <Link href="/rooms"><a className="nav-link" onClick={() => setExpanded(expanded ? false : true)}>Rooms</a></Link>
-              <Link href="/locations"><a className="nav-link" onClick={() => setExpanded(expanded ? false : true)}>Locations</a></Link>
-              <Link href="/conditions"><a className="nav-link" onClick={() => setExpanded(expanded ? false : true)}>Conditions</a></Link>
-              {/* <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown> */}
+            <Nav className="mr-auto" onClick={() => setExpanded(false)}>
+              <Link href="/categories"><a className="nav-link">Categories</a></Link>
+              <Link href="/companies"><a className="nav-link">Companies</a></Link>
+              <Link href="/conditions"><a className="nav-link">Conditions</a></Link>
+              <Link href="/contacts"><a className="nav-link">Contacts</a></Link>
+              <Link href="/contracts"><a className="nav-link">Contracts</a></Link>
+              <Link href="/items"><a className="nav-link">Items</a></Link>
+              <Link href="/locations"><a className="nav-link">Locations</a></Link>
+              <Link href="/policies"><a className="nav-link">Policies</a></Link>
+              <Link href="/rooms"><a className="nav-link">Rooms</a></Link>
+              <Link href="/subCategories"><a className="nav-link">Subcategories</a></Link>
             </Nav>
-            {/* <Nav>
-            <Nav.Link href="#deets">Log in</Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Dank memes
-            </Nav.Link>
-          </Nav> */}
           </Navbar.Collapse>
         </Navbar>
+        <Navbar fixed='bottom' bg="dark" variant="dark" className="pl-2 pr-2">
+          <Navbar.Text>myInventory @ 2020</Navbar.Text>
+          <Nav>
+            <Navbar.Text>version 1.0</Navbar.Text>
+          </Nav>
+        </Navbar>
+
       </div>
     </>
   );

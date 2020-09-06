@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Head from 'next/head';
@@ -8,7 +8,16 @@ import React from 'react';
 import theme from '../../utils/theme';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+const useStyles = makeStyles((theme) => ({
+  rootContainer: {
+    paddingTop: 56,
+    paddingBottom: 52
+  },
+}));
+
 export default function MyApp(props) {
+  const classes = useStyles();
+
   const { Component, pageProps } = props;
 
   // React.useEffect(() => {
@@ -31,7 +40,7 @@ export default function MyApp(props) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <NavBar {...pageProps} />
-        <Container fixed>
+        <Container fixed className={classes.rootContainer}>
           <Component {...pageProps} />
         </Container>
       </ThemeProvider>

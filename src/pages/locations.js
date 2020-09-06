@@ -1,9 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllLocations, createNewLocation } from '../../src/lib/apiLocation';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
+import Button from 'react-bootstrap/Button';
 import LocationsInput from '../../components/input/LocationsInput';
 import LocationsList from '../../components/lists/LocationsList';
 import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,11 +57,13 @@ export default function locationsPage() {
         </Grid>
 
         <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={() => setShowElements(true)}>Show all locations</Button>
-        </Grid>
-
-        <Grid item xs={6}>
-          <Button variant="contained" color="primary" onClick={() => setShowElements(false)}>Add new location</Button>
+          {showElements ?
+            <Button variant="success" size="sm" onClick={() => setShowElements(false)}>
+              <AddIcon fontSize="small" />Add new location</Button>
+            :
+            null
+            //<Button variant="dark" size="sm" onClick={() => setShowElements(true)}>Show all categories</Button>
+          }
         </Grid>
 
         <Grid item xs={12}>
