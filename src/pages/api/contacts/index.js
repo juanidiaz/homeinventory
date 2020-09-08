@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '../../../../utils/dbConnect';
 import Contact from '../../../models/Contact';
+import { authenticated} from '../../../../utils/common'
 
 dbConnect();
 
-export default async (req, res) => {
+export default authenticated(async (req, res) => {
 
   const { method } = req;
 
@@ -32,8 +33,8 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(400).json({ success: false, message: 'Method not supported!' });
+      res.status(405).json({ success: false, message: 'Method not allowed!' });
 
       break;
   }
-}
+})

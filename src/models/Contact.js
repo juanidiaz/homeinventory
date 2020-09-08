@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongodbErrorHandler = require("mongoose-mongodb-errors");
 
 const ContactSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, trim: true, lowercase: true },
@@ -10,8 +11,10 @@ const ContactSchema = new mongoose.Schema({
   files: { type: Array, default: [] },
   type: { type: String, required: true, trim: true, lowercase: true },
   permissions: { type: Array, default: [] },
-  firstName: { type: String, required: true, trim: true },
-  lastName: { type: String, required: true, trim: true },
+  firstName: { type: String, trim: true },
+  lastName: { type: String, trim: true },
+  // password: { type: String, required: true, trim: true },
+  password: { type: String, required: true, trim: true, select: false },
   company: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Company',
@@ -35,5 +38,8 @@ const ContactSchema = new mongoose.Schema({
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true }
 );
+
+/* The MongoDBErrorHandler plugin gives us a better 'unique' error, rather than: "11000 duplicate key" */
+// ContactSchema.plugin(mongodbErrorHandler);
 
 module.exports = mongoose.models.Contact || mongoose.model('Contact', ContactSchema)

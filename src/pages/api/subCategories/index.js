@@ -33,7 +33,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(400).json({ success: false, message: 'Method not supported!' });
+      res.status(405).json({ success: false, message: 'Method not allowed!' });
 
       break;
   }
