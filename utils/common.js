@@ -15,6 +15,9 @@ ButtonLink.displayName = 'ButtonLink'
 
 export const authenticated = fn => async (req, res) => {
 
+  console.log("*******************\n", req.cookie)
+  console.log("*******************")
+
   verify(req.cookies.auth, process.env.JWT_SECRET, async function (err, decoded) {
     if (!err && decoded) {
       return await fn(req, res)
@@ -44,7 +47,6 @@ export async function getAuth(url, ctx) {
   }
 
   const json = await resp.json();
-  console.log("**************", json)
 
   return json
 }
