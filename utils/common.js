@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { verify } from 'jsonwebtoken';
 import fetch from 'isomorphic-unfetch';
 import Router from 'next/router';
+import absoluteUrl from 'next-absolute-url';
 
 export const ButtonLink = ({ className, href, hrefAs, children, prefetch }) => (
   <Link href={href} as={hrefAs}>
@@ -15,9 +16,6 @@ ButtonLink.displayName = 'ButtonLink'
 
 export const authenticated = fn => async (req, res) => {
 
-  console.log("*******************\n", req.cookie)
-  console.log("*******************")
-
   verify(req.cookies.auth, process.env.JWT_SECRET, async function (err, decoded) {
     if (!err && decoded) {
       return await fn(req, res)
@@ -30,9 +28,10 @@ export async function getAuth(url, ctx) {
   // console.log("***** CTX2 *****", {url, ctx})
   const { origin } = absoluteUrl(ctx.req)
   const fullUrl = origin + url;
-  console.log("***** fullUrl *****", fullUrl)
+  // console.log("***** fullUrl *****", fullUrl)
 
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
+  console.log("***** LOGIN INFO *****", { fullUrl, cookie })
 
   const resp = await fetch(fullUrl,
     {
@@ -55,20 +54,4 @@ export async function getAuth(url, ctx) {
   const json = await resp.json();
 
   return json
-}
-
-export function absoluteUrl(req, setLocalhost) {
-  let protocol = "https:";
-  let host = req
-    ? req.headers["x-forwarded-host"] || req.headers["host"]
-    : window.location.host;
-  if (host.indexOf("localhost") > -1) {
-    if (setLocalhost) host = setLocalhost;
-    protocol = "http:";
-  }
-  return {
-    protocol: protocol,
-    host: host,
-    origin: protocol + "//" + host,
-  };
-}
+};

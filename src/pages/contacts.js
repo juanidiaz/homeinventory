@@ -1,4 +1,4 @@
-import { getAuth, absoluteUrl } from '../../utils/common';
+import { getAuth } from '../../utils/common';
 
 export default function contactsPage(props) {
 
