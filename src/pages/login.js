@@ -8,8 +8,6 @@ export default function login() {
   const passRef = useRef(null);
 
   async function handleLogic() {
-    const fullURL = window.location.origin + '/api/login';
-    console.log("\n======== URL to FETCH ========", fullURL);
 
     const resp = await fetch(window.location.origin + '/api/login', {
       method: 'POST',

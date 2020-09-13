@@ -9,8 +9,6 @@ dbConnect();
 export default async (req, res) => {
 
   const { method } = req;
-  const { origin } = req;
-  // console.log("ORIGIN @ /api/login.js - req", req)
 
   switch (method) {
     case 'POST':
@@ -23,7 +21,6 @@ export default async (req, res) => {
         }
 
         compare(req.body.password, contact.password, function (err, result) {
-          console.log(" *** RESULT ***\n", result)
 
           if (!err && result) {
             const claims = { sub: contact.id, myContactName: contact.name };
@@ -45,7 +42,7 @@ export default async (req, res) => {
         });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: "YAIKES!" + error.message });
+        res.status(400).json({ success: false, message: error.message });
 
       }
       break;
