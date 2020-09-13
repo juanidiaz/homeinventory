@@ -27,8 +27,14 @@ export const authenticated = fn => async (req, res) => {
 }
 
 export async function getAuth(url, ctx) {
+  // console.log("***** CTX2 *****", {url, ctx})
+  const { origin } = absoluteUrl(ctx.req)
+  const fullUrl = origin + url;
+  console.log("***** fullUrl *****", fullUrl)
+
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
-  const resp = await fetch(url,
+
+  const resp = await fetch(fullUrl,
     {
       headers: {
         cookie
@@ -38,7 +44,7 @@ export async function getAuth(url, ctx) {
   if (resp.status === 401) {
     if (ctx.req) {
       ctx.res.writeHead(302, {
-        Location: 'http://localhost:3000/login'
+        Location: origin + '/login'
       });
       ctx.res.end();
     } else {
@@ -49,4 +55,20 @@ export async function getAuth(url, ctx) {
   const json = await resp.json();
 
   return json
+}
+
+export function absoluteUrl(req, setLocalhost) {
+  let protocol = "https:";
+  let host = req
+    ? req.headers["x-forwarded-host"] || req.headers["host"]
+    : window.location.host;
+  if (host.indexOf("localhost") > -1) {
+    if (setLocalhost) host = setLocalhost;
+    protocol = "http:";
+  }
+  return {
+    protocol: protocol,
+    host: host,
+    origin: protocol + "//" + host,
+  };
 }
