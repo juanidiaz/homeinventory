@@ -8,7 +8,9 @@ export default function login() {
   const passRef = useRef(null);
 
   async function handleLogic() {
-    console.log("\n======== WINDOW ========",window )
+    const fullURL = window.location.origin + '/api/login';
+    console.log("\n======== URL to FETCH ========", fullURL);
+
     const resp = await fetch(window.location.origin + '/api/login', {
       method: 'POST',
       headers: {
