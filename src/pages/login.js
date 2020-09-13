@@ -8,7 +8,8 @@ export default function login() {
   const passRef = useRef(null);
 
   async function handleLogic() {
-    const resp = await fetch('http://localhost:3000/api/login', {
+    console.log("\n======== WINDOW ========",window )
+    const resp = await fetch(window.location.origin + '/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
