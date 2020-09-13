@@ -10,7 +10,7 @@ export default async (req, res) => {
 
   const { method } = req;
   const { origin } = req;
-  console.log("ORIGIN @ /api/login.js", origin)
+  console.log("ORIGIN @ /api/login.js", req)
 
   switch (method) {
     case 'POST':
