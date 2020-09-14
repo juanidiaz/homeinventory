@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+const WINDOW_USER_SCRIPT_VARIABLE = "__USER__";
 
 export default function login() {
 
@@ -21,6 +22,12 @@ export default function login() {
     })
 
     const json = await resp.json();
+
+    if (typeof window !== "undefined") {
+      window[WINDOW_USER_SCRIPT_VARIABLE] = json.data || {};
+    }
+  
+
     setMessage(json)
 
     console.log("INFO", json);
@@ -29,8 +36,8 @@ export default function login() {
   return (
     <div>
       {JSON.stringify(message)}
-      <input type="text" placeholder="username" ref={nameRef} />
-      <input type="password" placeholder="password" ref={passRef} />
+      <input type="text" placeholder="username" ref={nameRef} defaultValue="nacho3"/>
+      <input type="password" placeholder="password" ref={passRef} defaultValue="password"/>
       <button onClick={handleLogic}>LOGIN</button>
     </div>
   )

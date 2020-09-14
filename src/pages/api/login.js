@@ -7,7 +7,6 @@ import cookie from 'cookie';
 dbConnect();
 
 export default async (req, res) => {
-
   const { method } = req;
 
   switch (method) {
@@ -15,6 +14,7 @@ export default async (req, res) => {
       try {
 
         const contact = await Contact.findOne({ name: req.body.name }).select('name password');
+        const fullContact = await Contact.findOne({ name: req.body.name });
 
         if (!contact) {
           return res.status(400).json({ success: false, message: "no contact!" });
@@ -33,7 +33,9 @@ export default async (req, res) => {
               maxAge: 3600,
               path: '/'
             }));
-            res.status(200).json({ success: true, data: "Welcome back!" });
+
+
+            res.status(200).json({ success: true, data: fullContact });
 
           } else {
 

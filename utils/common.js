@@ -25,13 +25,9 @@ export const authenticated = fn => async (req, res) => {
 }
 
 export async function getAuth(url, ctx) {
-  // console.log("***** CTX2 *****", {url, ctx})
-  const { origin } = absoluteUrl(ctx.req)
+  const { origin } = absoluteUrl(ctx.req);
   const fullUrl = origin + url;
-  // console.log("***** fullUrl *****", fullUrl)
-
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
-  console.log("***** LOGIN INFO *****", { fullUrl, cookie })
 
   const resp = await fetch(fullUrl,
     {
@@ -51,7 +47,7 @@ export async function getAuth(url, ctx) {
     }
   }
 
-  const json = await resp.json();
+  const { data } = await resp.json();
 
-  return json
+  return { data }
 };
