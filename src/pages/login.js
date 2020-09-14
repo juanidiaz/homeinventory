@@ -27,7 +27,6 @@ export default function login() {
       window[WINDOW_USER_SCRIPT_VARIABLE] = json.data || {};
     }
   
-
     setMessage(json)
 
     console.log("INFO", json);
@@ -35,7 +34,7 @@ export default function login() {
 
   return (
     <div>
-      {JSON.stringify(message)}
+      HERE >>> {JSON.stringify(message)}
       <input type="text" placeholder="username" ref={nameRef} defaultValue="nacho3"/>
       <input type="password" placeholder="password" ref={passRef} defaultValue="password"/>
       <button onClick={handleLogic}>LOGIN</button>

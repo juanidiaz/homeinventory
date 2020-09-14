@@ -26,14 +26,22 @@ export default async (req, res) => {
             const claims = { sub: contact.id, myContactName: contact.name };
             const jwt = sign(claims, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-            res.setHeader('Set-Cookie', cookie.serialize('auth', jwt, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV !== 'development',
-              sameSite: 'strict',
-              maxAge: 3600,
-              path: '/'
-            }));
-
+            res.setHeader('Set-Cookie', [
+              cookie.serialize('auth', jwt, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV !== 'development',
+                sameSite: 'strict',
+                maxAge: 3600,
+                path: '/'
+              }),
+              cookie.serialize('_id_', contact._id, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV !== 'development',
+                sameSite: 'strict',
+                maxAge: 3600,
+                path: '/'
+              })
+            ]);
 
             res.status(200).json({ success: true, data: fullContact });
 

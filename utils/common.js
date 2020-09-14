@@ -3,6 +3,7 @@ import { verify } from 'jsonwebtoken';
 import fetch from 'isomorphic-unfetch';
 import Router from 'next/router';
 import absoluteUrl from 'next-absolute-url';
+import { getContact } from '../src/lib/apiContact';
 
 export const ButtonLink = ({ className, href, hrefAs, children, prefetch }) => (
   <Link href={href} as={hrefAs}>
@@ -47,7 +48,26 @@ export async function getAuth(url, ctx) {
     }
   }
 
-  const { data } = await resp.json();
+  let user = {};
+  if (cookie) {
+    const cookies = convertCookieToObject(cookie)
+    console.log(" ==== COOKIEs ====", cookies)
 
-  return { data }
+    user = await getContact(cookies['_id_'])
+  }
+
+  return { user }
+};
+
+const convertCookieToObject = cookieString => {
+  const cookies = cookieString.split(';');
+  let newCookies = {}
+  cookies.forEach(currentCookie => {
+    newCookies = {
+      ...newCookies,
+      [currentCookie.split('=')[0].trim()]: currentCookie.split('=')[1].trim()
+    }
+  });
+
+  return newCookies;
 };

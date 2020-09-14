@@ -6,7 +6,8 @@ export const getAllContacts = async () => {
 };
 
 export const getContact = async id => {
-  const { data } = await axios.get(`/api/contacts/${id}`);
+  console.log("============================ GETTING CONTACT ============================")
+  const { data } = await axios.get(`/api/contacts/${id}`, { proxy: { host: '127.0.0.1', port: 80 } });
   return data.data;
 };
 
