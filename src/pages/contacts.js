@@ -11,10 +11,4 @@ export default function contactsPage(props) {
   )
 };
 
-contactsPage.getInitialProps = async (ctx) => {
-  const { user } = await getAuth('/api/contacts', ctx);
-
-  return { user }
-}
-
-// contactsPage.getInitialProps = getAuth('/api/contacts');
+contactsPage.getInitialProps = async (ctx) => getAuth(ctx);

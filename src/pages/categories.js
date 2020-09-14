@@ -1,3 +1,4 @@
+import { getAuth } from '../../utils/common';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllCategories, createNewCategory } from '../../src/lib/apiCategory';
 // import Button from '@material-ui/core/Button';
@@ -88,4 +89,6 @@ export default function categoriesPage() {
   ) : (
       <h1>LOADING...</h1>
     );
-}
+  };
+
+  categoriesPage.getInitialProps = async (ctx) => getAuth(ctx);

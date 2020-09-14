@@ -1,3 +1,4 @@
+import { getAuth } from '../../utils/common';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllConditions, createNewCondition } from '../../src/lib/apiCondition';
 // import Button from '@material-ui/core/Button';
@@ -85,4 +86,6 @@ export default function conditionsPage() {
 
     </div>
   )
-}
+};
+
+conditionsPage.getInitialProps = async (ctx) => getAuth(ctx);

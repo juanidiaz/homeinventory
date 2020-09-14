@@ -1,3 +1,4 @@
+import { getAuth } from '../../utils/common';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';

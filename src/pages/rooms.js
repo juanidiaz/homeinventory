@@ -1,3 +1,4 @@
+import { getAuth } from '../../utils/common';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllRooms, createNewRoom } from '../../src/lib/apiRoom';
 // import Button from '@material-ui/core/Button';
@@ -86,4 +87,6 @@ export default function roomsPage() {
 
     </div>
   )
-}
+};
+
+roomsPage.getInitialProps = async (ctx) => getAuth(ctx);

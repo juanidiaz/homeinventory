@@ -1,3 +1,4 @@
+import { getAuth } from '../../utils/common';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllItems, createNewItem } from '../../src/lib/apiItem';
 import { getAllLocations } from '../../src/lib/apiLocation';
@@ -107,4 +108,6 @@ export default function itemsPage() {
 
     </div>
   )
-}
+};
+
+itemsPage.getInitialProps = async (ctx) => getAuth(ctx);

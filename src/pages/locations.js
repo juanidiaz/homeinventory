@@ -1,3 +1,4 @@
+import { getAuth } from '../../utils/common';
 import { makeStyles } from '@material-ui/core/styles';
 import { getAllLocations, createNewLocation } from '../../src/lib/apiLocation';
 // import Button from '@material-ui/core/Button';
@@ -100,4 +101,6 @@ export default function locationsPage() {
 
     </div>
   )
-}
+};
+
+locationsPage.getInitialProps = async (ctx) => getAuth(ctx);

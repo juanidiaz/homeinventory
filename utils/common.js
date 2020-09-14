@@ -25,9 +25,9 @@ export const authenticated = fn => async (req, res) => {
   });
 }
 
-export async function getAuth(url, ctx) {
+export async function getAuth(ctx) {
   const { origin } = absoluteUrl(ctx.req);
-  const fullUrl = origin + url;
+  const fullUrl = origin + '/api/contacts';
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
 
   const resp = await fetch(fullUrl,
