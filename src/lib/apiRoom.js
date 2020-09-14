@@ -2,7 +2,6 @@ import axios from "axios";
 
 export const getAllRooms = async () => {
   const { data } = await axios.get(`/api/rooms`);
-  console.log("ALL ROOMS", data)
   return data.data;
 };
 

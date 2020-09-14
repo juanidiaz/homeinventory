@@ -51,12 +51,34 @@ export async function getAuth(ctx) {
   let user = {};
   if (cookie) {
     const cookies = convertCookieToObject(cookie)
-    console.log(" ==== COOKIEs ====", cookies)
-
     user = await getContact(ctx, cookies['_id_'])
+    return { user }
   }
 
   return { user }
+};
+
+export async function getUserFromCookie(ctx) {
+  const { origin } = absoluteUrl(ctx.req);
+  const fullUrl = origin + '/api/contacts';
+  const cookie = ctx.req ? ctx.req.headers.cookie : "";
+
+  const resp = await fetch(fullUrl,
+    {
+      headers: {
+        cookie
+      }
+    });
+
+  if (resp.status === 200) {
+    if (cookie) {
+      const cookies = convertCookieToObject(cookie)
+      const user = await getContact(ctx, cookies['_id_'])
+      return { user }
+    }
+  }
+
+  return { user: null }
 };
 
 const convertCookieToObject = cookieString => {

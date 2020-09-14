@@ -47,7 +47,7 @@ export default async (req, res) => {
 
           } else {
 
-            res.status(200).json({ success: false, data: "SOMETHIGN WENT WRONG" });
+            res.status(200).json({ success: false, data: "SOMETHING WENT WRONG" });
           }
         });
 

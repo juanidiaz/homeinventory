@@ -50,7 +50,6 @@ export default function locationsPage() {
   const handleClickOnCreateNewLocation = () => {
 
     createNewLocation(newLocation).then(location => {
-      console.log("ADDED!", location);
       getLocations();
       setNewLocation({})
       setShowElements(true);
@@ -61,8 +60,6 @@ export default function locationsPage() {
     setNewLocation({})
     setShowElements(true);
   };
-
-  console.log("=====================", newLocation);
 
   return (
     <div className={classes.root}>

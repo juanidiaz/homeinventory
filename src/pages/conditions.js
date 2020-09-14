@@ -39,7 +39,6 @@ export default function conditionsPage() {
   const handleClickOnCreateNewCondition = () => {
 
     createNewCondition(newCondition).then(condition => {
-      console.log("ADDED!", condition);
       getConditions()
       setShowElements(true);
     })

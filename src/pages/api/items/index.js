@@ -13,8 +13,6 @@ export default async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        console.log("=========")
-        // const items = await Item.find({})
         const items = await Item
           .find({})
           .populate('room')

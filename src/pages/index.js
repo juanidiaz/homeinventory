@@ -1,6 +1,16 @@
 import styles from '../../styles/Home.module.css'
+import { getUserFromCookie } from '../../utils/common';
 
-export default function Home() {
+const WINDOW_USER_SCRIPT_VARIABLE = "__USER__";
+
+export default function Home(props) {
+
+  const { user } = props;
+
+  if (user && typeof window !== "undefined") {
+    window[WINDOW_USER_SCRIPT_VARIABLE] = user || {};
+  }
+
   return (
     <div className={styles.container}>
 
@@ -21,4 +31,6 @@ export default function Home() {
       </footer>
     </div>
   )
-}
+};
+
+Home.getInitialProps = async (ctx) => getUserFromCookie(ctx);

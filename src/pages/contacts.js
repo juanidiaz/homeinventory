@@ -3,7 +3,6 @@ import { getAuth } from '../../utils/common';
 export default function contactsPage(props) {
 
   const { user } = props
-  console.log("********************", props);
 
   return (
     // <div>Hello {JSON.stringify(json)}</div>

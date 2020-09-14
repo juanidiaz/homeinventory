@@ -59,7 +59,6 @@ export default function itemsPage() {
   const handleClickOnCreateNewItem = () => {
 
     createNewItem(newItem).then(item => {
-      console.log("ADDED!", item);
       getItems()
       setShowElements(true);
     })

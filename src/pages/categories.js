@@ -39,7 +39,6 @@ export default function categoriesPage() {
   const handleClickOnCreateNewCategory = () => {
 
     createNewCategory(newCategory).then(category => {
-      console.log("ADDED!", category);
       getCategories()
       setShowElements(true);
     })
