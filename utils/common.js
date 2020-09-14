@@ -53,7 +53,7 @@ export async function getAuth(url, ctx) {
     const cookies = convertCookieToObject(cookie)
     console.log(" ==== COOKIEs ====", cookies)
 
-    user = await getContact(cookies['_id_'])
+    user = await getContact(ctx, cookies['_id_'])
   }
 
   return { user }

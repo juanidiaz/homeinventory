@@ -1,13 +1,14 @@
 import axios from "axios";
+import absoluteUrl from 'next-absolute-url';
 
 export const getAllContacts = async () => {
   const { data } = await axios.get(`/api/contacts`);
   return data.data;
 };
 
-export const getContact = async id => {
-  console.log("============================ GETTING CONTACT ============================")
-  const { data } = await axios.get(`/api/contacts/${id}`);
+export const getContact = async (ctx, id) => {
+  const { origin } = absoluteUrl(ctx.req);
+  const { data } = await axios.get(origin + `/api/contacts/${id}`);
   return data.data;
 };
 
