@@ -55,7 +55,7 @@ export async function getAuth(ctx) {
     return { user }
   }
 
-  return { user }
+  return { user, ctx }
 };
 
 export async function getUserFromCookie(ctx) {

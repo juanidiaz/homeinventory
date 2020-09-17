@@ -121,7 +121,7 @@ export default function NavBar(props) {
                 </Nav>
               </Navbar.Collapse>
               <Nav className="mr-auto">
-                <Link href="#"><a className="nav-link">{user.name}</a></Link>
+                <Link href="/userProfile"><a className="nav-link">{user.name}</a></Link>
               </Nav>
             </>
             :

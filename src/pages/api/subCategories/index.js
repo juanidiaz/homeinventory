@@ -15,7 +15,7 @@ export default async (req, res) => {
         res.status(200).json({ success: true, data: subSubCategories });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
 
       }
       break;
@@ -26,7 +26,7 @@ export default async (req, res) => {
         res.status(201).json({ success: true, data: subSubCategory });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
 
       }
       break;

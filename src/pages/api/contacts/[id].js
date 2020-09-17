@@ -13,7 +13,7 @@ export default async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        const contact = await Contact.findById(id);
+        const contact = await Contact.findById(id).select('-password');
 
         if (!contact) {
           return res.status(400).json({ success: false });
@@ -22,7 +22,7 @@ export default async (req, res) => {
         res.status(200).json({ success: true, data: contact });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
       }
       break;
 
@@ -40,7 +40,7 @@ export default async (req, res) => {
         res.status(200).json({ success: true, data: contact });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
       }
       break;
 
@@ -55,7 +55,7 @@ export default async (req, res) => {
         res.status(200).json({ success: true, data: deletedContact });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
       }
       break;
 

@@ -22,7 +22,6 @@ export default async (req, res) => {
           newUserInfo.password = hash;
           const contact = await Contact.create(newUserInfo);
           res.status(201).json({ success: true, data: contact });
-
         });
 
       } catch (error) {

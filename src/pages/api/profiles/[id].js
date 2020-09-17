@@ -1,5 +1,6 @@
 import dbConnect from '../../../../utils/dbConnect';
-import Category from '../../../models/Category';
+import Contact from '../../../models/Contact';
+import { hash } from 'bcrypt';
 
 dbConnect();
 
@@ -13,13 +14,13 @@ export default async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        const category = await Category.findById(id).populate('subCategories');
+        const contact = await Contact.findById(id);
 
-        if (!category) {
-          return res.status(400).json({ success: false });
+        if (!contact) {
+          return res.status(404).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: category });
+        res.status(200).json({ success: true, data: contact });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error.message });
@@ -28,16 +29,18 @@ export default async (req, res) => {
 
     case 'PUT':
       try {
-        const category = await Category.findByIdAndUpdate(id, req.body, {
-          new: true,
-          runValidators: true
+        const newUserInfo = { ...req.body };
+
+        hash(req.body.password, 10, async function (err, hash) {
+          newUserInfo.password = hash;
+          await Contact.findByIdAndUpdate(id, newUserInfo, {
+            new: true,
+            runValidators: true
+          }, function (err, model) {
+            res.status(201).json({ success: true, data: model });
+          });
         });
 
-        if (!category) {
-          return res.status(400).json({ success: false });
-        }
-
-        res.status(200).json({ success: true, data: category });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error.message });
@@ -46,13 +49,13 @@ export default async (req, res) => {
 
     case 'DELETE':
       try {
-        const deletedCategory = await Category.deleteOne({ _id: id });
+        const deletedContact = await Contact.deleteOne({ _id: id });
 
-        if (!deletedCategory) {
+        if (!deletedContact) {
           return res.status(400).json({ success: false });
         }
 
-        res.status(200).json({ success: true, data: {} });
+        res.status(200).json({ success: true, data: deletedContact });
 
       } catch (error) {
         res.status(400).json({ success: false, message: error.message });

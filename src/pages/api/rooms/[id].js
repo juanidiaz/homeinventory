@@ -22,7 +22,7 @@ export default async (req, res) => {
         res.status(200).json({ success: true, data: room });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
       }
       break;
 
@@ -40,7 +40,7 @@ export default async (req, res) => {
         res.status(200).json({ success: true, data: room });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
       }
       break;
 
@@ -55,7 +55,7 @@ export default async (req, res) => {
         res.status(200).json({ success: true, data: deletedRoom });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
       }
       break;
 

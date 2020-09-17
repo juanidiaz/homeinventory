@@ -13,8 +13,8 @@ const ContactSchema = new mongoose.Schema({
   permissions: { type: Array, default: [] },
   firstName: { type: String, trim: true },
   lastName: { type: String, trim: true },
-  // password: { type: String, required: true, trim: true },
-  password: { type: String, required: true, trim: true, select: false },
+  password: { type: String, required: true, trim: true },
+  // password: { type: String, required: true, trim: true, select: false },
   company: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Company',

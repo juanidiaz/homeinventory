@@ -44,7 +44,6 @@ export default function locationsPage() {
         [name]: event.target.value
       });
     }
-
   };
 
   const handleClickOnCreateNewLocation = () => {

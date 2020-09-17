@@ -11,11 +11,11 @@ export default authenticated(async (req, res) => {
   switch (method) {
     case 'GET':
       try {
-        const contacts = await Contact.find({});
+        const contacts = await Contact.find().select('-password');
         res.status(200).json({ success: true, data: contacts });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
 
       }
       break;
@@ -26,7 +26,7 @@ export default authenticated(async (req, res) => {
         res.status(201).json({ success: true, data: contact });
 
       } catch (error) {
-        res.status(400).json({ success: false, message: error });
+        res.status(400).json({ success: false, message: error.message });
 
       }
       break;
