@@ -1,6 +1,6 @@
 import { getAuth } from '../../utils/common';
 import { makeStyles } from '@material-ui/core/styles';
-import { getUserProfile, updateUserProfile } from '../../src/lib/apiContact';
+import { getUserProfile, updateUserProfile } from '../../src/lib/apiProfile';
 import Button from 'react-bootstrap/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';

@@ -10,9 +10,11 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "aws-sdk": "^2.755.0",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
     "bootstrap": "^5.0.0-alpha1",
+    "busboy": "^0.3.1",
     "cookie": "^0.4.1",
     "dotenv": "^8.2.0",
     "isomorphic-unfetch": "^3.0.0",

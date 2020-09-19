@@ -26,16 +26,3 @@ export const deleteContact = async id => {
   const { data } = await axios.delete(`/api/contacts/${id}`);
   return data.data;
 };
-
-// HAndles USER PROFILE calls
-export const getUserProfile = async id => {
-  const { data } = await axios.get(origin + `/api/profiles/${id}`);
-  return data.data;
-};
-
-export const updateUserProfile = async userProfile => {
-  console.log(" ======= NEW INFO", userProfile)
-  const { data } = await axios.put(`/api/profiles/${userProfile._id}`, userProfile);
-  return data.data;
-};
-
