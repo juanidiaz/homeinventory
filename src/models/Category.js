@@ -10,7 +10,6 @@ const CategorySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'SubCategory',
   }],
-
 },
   /* gives us "createdAt" and "updatedAt" fields automatically */
   { timestamps: true }
