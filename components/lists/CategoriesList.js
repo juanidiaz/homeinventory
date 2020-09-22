@@ -8,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import EditIcon from '@material-ui/icons/Edit';
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
 export default function CategoriesList(props) {
   const classes = useStyles();
 
-  const { allCategories } = props;
+  const { allCategories, editCategory } = props;
 
   // console.log("allCategories", { allCategories, lenght: allCategories && allCategories.lenght > 0 ? allCategories[4] : "nada" });
 
@@ -29,16 +31,20 @@ export default function CategoriesList(props) {
             <TableCell>Name</TableCell>
             <TableCell align="right">Description</TableCell>
             <TableCell align="right">Subcategories</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {allCategories.map(category => {
             // console.log("category", Object.keys(category.subCategories).length);
             return (
-              <TableRow key={category.name}>
+              <TableRow key={category._id}>
                 <TableCell component="th" scope="row">{category.name}</TableCell>
                 <TableCell align="right"             >{category.description}</TableCell>
                 <TableCell align="right"             >{Object.keys(category.subCategories).length}</TableCell>
+                <TableCell align="right"             >
+                  <EditIcon fontSize="small" onClick={() => editCategory(category)}/>
+                </TableCell>
               </TableRow>
             )
           })}

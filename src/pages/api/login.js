@@ -31,14 +31,14 @@ export default async (req, res) => {
                 httpOnly: true,
                 secure: process.env.NODE_ENV !== 'development',
                 sameSite: 'strict',
-                maxAge: 3600,
+                maxAge: process.env.JWT_MAXAGE,
                 path: '/'
               }),
               cookie.serialize('_id_', contact._id, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV !== 'development',
                 sameSite: 'strict',
-                maxAge: 3600,
+                maxAge: process.env.JWT_MAXAGE,
                 path: '/'
               })
             ]);

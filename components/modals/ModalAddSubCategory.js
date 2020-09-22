@@ -15,17 +15,7 @@ const useStyles = makeStyles(theme => ({
 const ModalAddSubCategory = props => {
   const classes = useStyles();
   const elementType = 'subcategory';
-  const { open, handleClose, handleChange, createNewSubCategory, cancelCreateNewSubCategory, newSubCategory } = props;
-
-  const [allSubCategories, setAllSubCategories] = React.useState([]);
-
-  React.useEffect(() => getSubCategories(), []);
-
-  const getSubCategories = () => {
-    getAllSubCategories().then(subCategories => {
-      setAllSubCategories(subCategories);
-    });
-  }
+  const { open, allSubCategories, handleClose, handleChange, createNewSubCategory, cancelCreateNewSubCategory, newSubCategory } = props;
 
   return (
 

@@ -1,9 +1,10 @@
 import { getAuth } from '../../utils/common';
 import { makeStyles } from '@material-ui/core/styles';
-import { getAllCategories, createNewCategory } from '../../src/lib/apiCategory';
+import { getAllCategories, createNewCategory, updateCategory } from '../../src/lib/apiCategory';
 import { getAllSubCategories, createNewSubCategory } from '../../src/lib/apiSubCategory';
 import Button from 'react-bootstrap/Button';
 import CategoriesList from '../../components/lists/CategoriesList';
+import SubCategoriesList from '../../components/lists/SubCategoriesList';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
 import ModalAddCategory from '../../components/modals/ModalAddCategory';
@@ -24,12 +25,17 @@ export default function categoriesPage(props) {
   const { user } = props;
 
   const [allCategories, setAllCategories] = React.useState([]);
+  const [allSubCategories, setAllSubCategories] = React.useState([]);
   const [newCategory, setNewCategory] = React.useState({});
   const [newSubCategory, setNewSubCategory] = React.useState({});
   const [openModalCategory, setOpenModalCategory] = React.useState(false);
   const [openModalSubCategory, setOpenModalSubCategory] = React.useState(false);
+  const [editMode, setEditMode] = React.useState(false);
 
-  React.useEffect(() => getCategories(), []);
+  React.useEffect(() => {
+    getCategories();
+    getSubCategories();
+  }, []);
 
   const getCategories = () => {
     getAllCategories().then(categories => {
@@ -37,12 +43,20 @@ export default function categoriesPage(props) {
     });
   }
 
+  const getSubCategories = () => {
+    getAllSubCategories().then(categories => {
+      setAllSubCategories(categories);
+    });
+  }
+
   const handleCloseModal = () => {
     setOpenModalCategory(false);
+    setEditMode(false);
   };
 
   const handleCloseModalSubCategory = () => {
     setOpenModalSubCategory(false);
+    setEditMode(false);
   };
 
   const handleChange = name => event => {
@@ -61,24 +75,44 @@ export default function categoriesPage(props) {
   };
 
   const handleClickOnCreateNewCategory = () => {
-    createNewCategory(newCategory).then(category => {
-      setOpenModalCategory(false);
-    })
+    console.log("SAVING", { editMode, newCategory })
+    if (editMode) {
+      updateCategory(newCategory).then(() => {
+        setOpenModalCategory(false);
+        setEditMode(false);
+        getCategories();
+        getSubCategories();
+      })
+    } else {
+      createNewCategory(newCategory).then(() => {
+        setOpenModalCategory(false);
+        setEditMode(false);
+        getCategories();
+        getSubCategories();
+      })
+    }
   };
 
   const handleClickOnCreateNewSubCategory = () => {
-    newSubCategory
     createNewSubCategory(newSubCategory).then(subCategory => {
       setOpenModalSubCategory(false);
+      setEditMode(false);
     })
   };
 
   const handleClickOnCancelNewCategory = () => {
     setNewCategory({})
+    setEditMode(false);
   };
 
   const handleClickOnCancelNewSubCategory = () => {
     setNewSubCategory({})
+  };
+
+  const handleClickEditCategory = category => {
+    setNewCategory(category)
+    setEditMode(true)
+    setOpenModalCategory(true);
   };
 
   return allCategories ? (
@@ -89,15 +123,18 @@ export default function categoriesPage(props) {
         handleClose={handleCloseModal}
         handleChange={handleChange}
         allCategories={allCategories}
+        allSubCategories={allSubCategories}
         createNewCategory={handleClickOnCreateNewCategory}
         cancelCreateNewCategory={handleClickOnCancelNewCategory}
         newCategory={newCategory}
+        editMode={editMode}
       />
 
       <ModalAddSubCategory
         open={openModalSubCategory}
         handleClose={handleCloseModalSubCategory}
         handleChange={handleChangeSubCategory}
+        allSubCategories={allSubCategories}
         createNewSubCategory={handleClickOnCreateNewSubCategory}
         cancelCreateNewSubCategory={handleClickOnCancelNewSubCategory}
         newSubCategory={newSubCategory}
@@ -116,6 +153,13 @@ export default function categoriesPage(props) {
           </Button>
         </Grid>
 
+        <Grid item xs={12}>
+          <CategoriesList
+            allCategories={allCategories}
+            editCategory={handleClickEditCategory}
+          />
+        </Grid>
+
         <Grid item xs={6} md={3}>
           <Button variant="warning" className={classes.fillAvailable}
             size="sm" onClick={() => setOpenModalSubCategory(true)}
@@ -125,8 +169,8 @@ export default function categoriesPage(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <CategoriesList
-            allCategories={allCategories}
+          <SubCategoriesList
+            allSubCategories={allSubCategories}
           />
         </Grid>
 
