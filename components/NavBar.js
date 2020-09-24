@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import Link from 'next/link';
+import ModalLogin from '../components/modals/ModalLogin';
 
 const useStyles = makeStyles((theme) => ({
   rootAppBar: {
@@ -14,9 +15,17 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar(props) {
   const classes = useStyles();
 
+  const { user } = props;
+
+  const WINDOW_USER_SCRIPT_VARIABLE = "__USER__";
+
+  if (user && typeof window !== "undefined") {
+    window[WINDOW_USER_SCRIPT_VARIABLE] = user || {};
+  }
+
   const [expanded, setExpanded] = React.useState(false);
   const [menuExpanded, setMenuExpanded] = React.useState(false);
-  const { user } = props;
+  const [openModalLogin, setOpenModalLogin] = React.useState(false);
 
   const toggleMenuExpanded = () => {
     if (expanded) {
@@ -25,10 +34,20 @@ export default function NavBar(props) {
     }
     const currentState = menuExpanded;
     setMenuExpanded(!currentState);
-  }
+  };
+
+  const handleCloseModalLogin = () => {
+    setOpenModalLogin(false);
+  };
 
   return (
     <>
+
+      <ModalLogin
+        open={openModalLogin}
+        handleClose={handleCloseModalLogin}
+      />
+
       <div className={classes.rootAppBar}>
         <Navbar fixed='top' expanded={expanded} collapseOnSelect expand="md" bg="dark" variant="dark" className="pl-2 pr-2">
           <Navbar.Brand href="/">myInventory</Navbar.Brand>
@@ -126,12 +145,26 @@ export default function NavBar(props) {
             </>
             :
             <>
-              <Navbar.Collapse className="justify-content-end">
-                <Nav className="justify-content-end">
-                  <Link href="/login"><a className="nav-link">Log in</a></Link>
-                </Nav>
-              </Navbar.Collapse>
 
+              <Navbar.Collapse className="justify-content-end">
+                <Nav>
+                  {/* <Navbar.Text onClick={() => setOpenModalLogin(true)}>Click to Login</Navbar.Text> */}
+                  <a className="nav-link" onClick={() => {
+                    console.log("CLICK")
+                    setOpenModalLogin(true)
+                  }}>
+                    Log in z
+                      </a>
+                </Nav>
+                {/* <Nav className="justify-content-end">
+                  <a className="nav-link" onClick={() => {
+                    console.log("CLICK")
+                    setOpenModalLogin(true)
+                  }}>
+                    Log in z
+                      </a>
+                </Nav> */}
+              </Navbar.Collapse>
             </>
           }
 

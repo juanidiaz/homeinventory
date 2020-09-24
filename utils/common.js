@@ -58,7 +58,17 @@ export async function getAuth(ctx) {
   return { user, ctx }
 };
 
+export const getSessionFromServer = req => {
+  if (req.user) {
+    return { user: req.user };
+  }
+  // No sessions currently open
+  return {};
+};
+
 export async function getUserFromCookie(ctx) {
+  console.log(" ++++++++ getUserFromCookie", ctx.req.user);
+
   const { origin } = absoluteUrl(ctx.req);
   const fullUrl = origin + '/api/contacts';
   const cookie = ctx.req ? ctx.req.headers.cookie : "";

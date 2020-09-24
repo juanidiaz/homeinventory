@@ -1,4 +1,5 @@
 import { getAuth } from '../../utils/common';
+import App from 'next/app';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MyApp(props) {
   const classes = useStyles();
 
-  const { Component, pageProps } = props;
+  const { Component, pageProps, user } = props;
 
   // React.useEffect(() => {
   //   // Remove the server-side injected CSS.

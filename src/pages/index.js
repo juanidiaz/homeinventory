@@ -1,15 +1,9 @@
 import styles from '../../styles/Home.module.css'
-import { getUserFromCookie } from '../../utils/common';
-
-const WINDOW_USER_SCRIPT_VARIABLE = "__USER__";
+import { getUserFromCookie, getAuth, getSessionFromServer } from '../../utils/common';
 
 export default function Home(props) {
 
   const { user } = props;
-
-  if (user && typeof window !== "undefined") {
-    window[WINDOW_USER_SCRIPT_VARIABLE] = user || {};
-  }
 
   return (
     <div className={styles.container}>

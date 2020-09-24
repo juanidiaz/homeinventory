@@ -77,7 +77,7 @@ const ModalAddCategory = props => {
                 labelId="multiselect-subCategories-label"
                 id="multiselect-subCategories"
                 multiple
-                value={newCategory.subCategories}
+                value={newCategory.subCategories || []}
                 onChange={handleChange('subCategories')}
                 input={<Input />}
                 MenuProps={MenuProps}

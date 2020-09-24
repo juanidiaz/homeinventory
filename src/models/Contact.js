@@ -27,9 +27,9 @@ const ContactSchema = new mongoose.Schema({
     url: { type: String, trim: true, lowercase: true },
   },
   address: {
-    streetNumber: { type: String, trim: true, lowercase: true },
-    street: { type: String, trim: true, lowercase: true },
-    street2: { type: String, trim: true, lowercase: true },
+    streetNumber: { type: String, trim: true },
+    street: { type: String, trim: true },
+    street2: { type: String, trim: true },
     city: { type: String, trim: true, lowercase: true },
     province: { type: String, trim: true, lowercase: true },
     country: { type: String, trim: true, lowercase: true }

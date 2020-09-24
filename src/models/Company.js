@@ -7,7 +7,7 @@ const CompanySchema = new mongoose.Schema({
   user: { type: String, default: 'automatic', trim: true },
   pictures: { type: Array, default: [] },
   files: { type: Array, default: [] },
-  companyFullName: { type: String, unique: true, trim: true, lowercase: true },
+  companyFullName: { type: String, unique: true, trim: true },
   connectInfo: {
     tel: { type: String, trim: true, lowercase: true },
     tel2: { type: String, trim: true, lowercase: true },
@@ -16,12 +16,12 @@ const CompanySchema = new mongoose.Schema({
     url: { type: String, trim: true, lowercase: true },
   },
   address: {
-    streetNumber: { type: String, trim: true, lowercase: true },
-    street: { type: String, trim: true, lowercase: true },
-    street2: { type: String, trim: true, lowercase: true },
-    city: { type: String, trim: true, lowercase: true },
-    province: { type: String, trim: true, lowercase: true },
-    country: { type: String, trim: true, lowercase: true }
+    streetNumber: { type: String, trim: true },
+    street: { type: String, trim: true },
+    street2: { type: String, trim: true },
+    city: { type: String, trim: true },
+    province: { type: String, trim: true },
+    country: { type: String, trim: true }
   },
 },
   /* gives us "createdAt" and "updatedAt" fields automatically */
