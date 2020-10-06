@@ -1,12 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const CompanySchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  description: { type: String, default: '', trim: true },
+  description: { type: String, default: "", trim: true },
   isActive: { type: Boolean, default: true },
-  user: { type: String, default: 'automatic', trim: true },
-  pictures: { type: Array, default: [] },
-  files: { type: Array, default: [] },
+  user: { type: String, default: "automatic", trim: true },
+  icon: { type: String },
+  pictures: [{ type: String }],
+  files: [{ type: String }],
   companyFullName: { type: String, unique: true, trim: true },
   connectInfo: {
     tel: { type: String, trim: true, lowercase: true },
@@ -28,4 +29,4 @@ const CompanySchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-module.exports = mongoose.models.Company || mongoose.model('Company', CompanySchema)
+module.exports = mongoose.models.Company || mongoose.model("Company", CompanySchema)

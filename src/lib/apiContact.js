@@ -1,5 +1,5 @@
 import axios from "axios";
-import absoluteUrl from 'next-absolute-url';
+import absoluteUrl from "next-absolute-url";
 
 export const getAllContacts = async () => {
   const { data } = await axios.get(`/api/contacts`);

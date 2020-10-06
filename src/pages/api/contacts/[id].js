@@ -1,5 +1,5 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Contact from '../../../models/Contact';
+import dbConnect from "../../../../utils/dbConnect";
+import Contact from "../../../models/Contact";
 
 dbConnect();
 
@@ -11,9 +11,9 @@ export default async (req, res) => {
   } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
-        const contact = await Contact.findById(id).select('-password');
+        const contact = await Contact.findById(id).select("-password");
 
         if (!contact) {
           return res.status(400).json({ success: false });
@@ -26,7 +26,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'PUT':
+    case "PUT":
       try {
         const contact = await Contact.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -44,7 +44,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'DELETE':
+    case "DELETE":
       try {
         const deletedContact = await Contact.deleteOne({ _id: id });
 
@@ -60,7 +60,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
       break;
   }
 }

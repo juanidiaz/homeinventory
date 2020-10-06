@@ -1,12 +1,12 @@
-import { getAuth } from '../../utils/common';
-import { makeStyles } from '@material-ui/core/styles';
-import { getAllRooms, createNewRoom } from '../../src/lib/apiRoom';
-// import Button from '@material-ui/core/Button';
-import Button from 'react-bootstrap/Button';
-import RoomsInput from '../../components/input/RoomsInput';
-import RoomsList from '../../components/lists/RoomsList';
-import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
+import { getAuth } from "../../utils/common";
+import { makeStyles } from "@material-ui/core/styles";
+import { getAllRooms, createNewRoom } from "../../src/lib/apiRoom";
+// import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap/Button";
+import RoomsInput from "../../components/input/RoomsInput";
+import RoomsList from "../../components/lists/RoomsList";
+import Grid from "@material-ui/core/Grid";
+import AddIcon from "@material-ui/icons/Add";
 
 
 const useStyles = makeStyles((theme) => ({

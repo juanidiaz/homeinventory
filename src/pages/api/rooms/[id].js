@@ -1,5 +1,5 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Room from '../../../models/Room';
+import dbConnect from "../../../../utils/dbConnect";
+import Room from "../../../models/Room";
 
 dbConnect();
 
@@ -11,7 +11,7 @@ export default async (req, res) => {
   } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const room = await Room.findById(id);
 
@@ -26,7 +26,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'PUT':
+    case "PUT":
       try {
         const room = await Room.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -44,7 +44,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'DELETE':
+    case "DELETE":
       try {
         const deletedRoom = await Room.deleteOne({ _id: id });
 
@@ -60,7 +60,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
       break;
   }
 }

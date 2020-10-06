@@ -1,5 +1,5 @@
-import styles from '../../styles/Home.module.css'
-import { getUserFromCookie, getAuth, getSessionFromServer } from '../../utils/common';
+import styles from "../../styles/Home.module.css"
+import { getUserFromCookie, getAuth, getSessionFromServer } from "../../utils/common";
 
 export default function Home(props) {
 
@@ -20,7 +20,7 @@ export default function Home(props) {
       </main>
 
       <footer className={styles.footer}>
-        Powered by{' '}
+        Powered by{" "}
         <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
       </footer>
     </div>

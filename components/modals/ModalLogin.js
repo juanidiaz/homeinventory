@@ -1,15 +1,15 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Form, Button, Modal, Alert } from 'react-bootstrap';
-import { loginUser } from '../../src/lib/apiAuth';
-import Router from 'next/router';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Form, Button, Modal, Alert } from "react-bootstrap";
+import { loginUser } from "../../src/lib/apiAuth";
+import Router from "next/router";
 
 const useStyles = makeStyles(theme => ({
   fillAvailable: {
-    width: '-webkit-fill-available'
+    width: "-webkit-fill-available"
   },
   alertBox: {
-    padding: '5px 16px',
-    marginTop: '.5rem!important'
+    padding: "5px 16px",
+    marginTop: ".5rem!important"
   }
 }));
 
@@ -20,7 +20,7 @@ const ModalLogin = props => {
 
   const [loginInfo, setLoginInfo] = React.useState({});
   const [showAlert, setShowAlert] = React.useState(false);
-  const [alertMessage, setAlertMessage] = React.useState('');
+  const [alertMessage, setAlertMessage] = React.useState("");
 
   const handleChange = name => value => {
     setLoginInfo({
@@ -30,11 +30,7 @@ const ModalLogin = props => {
   };
 
   async function handleClickLogin(e) {
-
     const { success, data, message } = await loginUser(loginInfo);
-
-    console.log("LOGIN!", { success, data, loginInfo })
-
     setShowAlert(!success);
 
     if (!success) {
@@ -95,10 +91,6 @@ const ModalLogin = props => {
 
     </Modal>
   )
-};
-
-ModalLogin.defaultProps = {
-  addMode: true
 };
 
 export default ModalLogin;

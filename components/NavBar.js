@@ -1,10 +1,10 @@
-import { makeStyles } from '@material-ui/core/styles';
-import ReactDOM, { render } from 'react-dom';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Nav from 'react-bootstrap/Nav';
-import Link from 'next/link';
-import ModalLogin from '../components/modals/ModalLogin';
+import { makeStyles } from "@material-ui/core/styles";
+import ReactDOM, { render } from "react-dom";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Nav from "react-bootstrap/Nav";
+import Link from "next/link";
+import ModalLogin from "../components/modals/ModalLogin";
 
 const useStyles = makeStyles((theme) => ({
   rootAppBar: {
@@ -49,7 +49,7 @@ export default function NavBar(props) {
       />
 
       <div className={classes.rootAppBar}>
-        <Navbar fixed='top' expanded={expanded} collapseOnSelect expand="md" bg="dark" variant="dark" className="pl-2 pr-2">
+        <Navbar fixed="top" expanded={expanded} collapseOnSelect expand="md" bg="dark" variant="dark" className="pl-2 pr-2">
           <Navbar.Brand href="/">myInventory</Navbar.Brand>
 
           {user ?
@@ -74,66 +74,55 @@ export default function NavBar(props) {
                     <Link href="/categories">
                       <NavDropdown.Item href="/categories">
                         Categories
-                  </NavDropdown.Item>
-                    </Link>
-
-
-                    <Link href="/subCategories">
-                      <NavDropdown.Item href="/subCategories">
-                        Subcategories
-                  </NavDropdown.Item>
-                    </Link>
-
-                    <NavDropdown.Divider />
-
-                    <Link href="/companies">
-                      <NavDropdown.Item href="/companies">
-                        Companies
-                  </NavDropdown.Item>
+                      </NavDropdown.Item>
                     </Link>
 
                     <Link href="/conditions">
                       <NavDropdown.Item href="/conditions">
                         Conditions
-                  </NavDropdown.Item>
+                      </NavDropdown.Item>
                     </Link>
 
-                    <Link href="/contacts">
-                      <NavDropdown.Item href="/contacts">
-                        Contacts
-                  </NavDropdown.Item>
-                    </Link>
-
-                    <Link href="/contracts">
-                      <NavDropdown.Item href="/contracts">
-                        Contracts
-                  </NavDropdown.Item>
-                    </Link>
-
-                    <Link href="/info">
-                      <NavDropdown.Item href="/info">
-                        Info
-                  </NavDropdown.Item>
-                    </Link>
+                    <NavDropdown.Divider />
 
                     <Link href="/locations">
                       <NavDropdown.Item href="/locations">
                         Locations
-                  </NavDropdown.Item>
+                      </NavDropdown.Item>
                     </Link>
 
                     <Link href="/rooms">
                       <NavDropdown.Item href="/rooms">
                         Rooms
-                  </NavDropdown.Item>
+                      </NavDropdown.Item>
                     </Link>
 
                     <NavDropdown.Divider />
 
+                    <Link href="/contacts">
+                      <NavDropdown.Item href="/contacts">
+                        Contacts
+                      </NavDropdown.Item>
+                    </Link>
+
+                    <Link href="/companies">
+                      <NavDropdown.Item href="/companies">
+                        Companies
+                      </NavDropdown.Item>
+                    </Link>
+
+                    <NavDropdown.Divider />
+
+                    <Link href="/contracts">
+                      <NavDropdown.Item href="/contracts">
+                        Contracts
+                      </NavDropdown.Item>
+                    </Link>
+
                     <Link href="/policies">
                       <NavDropdown.Item href="/policies">
                         Policies
-                  </NavDropdown.Item>
+                      </NavDropdown.Item>
                     </Link>
 
                   </NavDropdown>
@@ -148,31 +137,17 @@ export default function NavBar(props) {
 
               <Navbar.Collapse className="justify-content-end">
                 <Nav>
-                  {/* <Navbar.Text onClick={() => setOpenModalLogin(true)}>Click to Login</Navbar.Text> */}
-                  <a className="nav-link" onClick={() => {
-                    console.log("CLICK")
-                    setOpenModalLogin(true)
-                  }}>
-                    Log in z
+                  <a className="nav-link" onClick={() => { setOpenModalLogin(true) }}>
+                    Log in
                       </a>
                 </Nav>
-                {/* <Nav className="justify-content-end">
-                  <a className="nav-link" onClick={() => {
-                    console.log("CLICK")
-                    setOpenModalLogin(true)
-                  }}>
-                    Log in z
-                      </a>
-                </Nav> */}
               </Navbar.Collapse>
             </>
           }
-
         </Navbar>
 
-
         {/* FOOTER */}
-        <Navbar fixed='bottom' bg="dark" variant="dark" className="pl-2 pr-2 justify-content-between">
+        <Navbar fixed="bottom" bg="dark" variant="dark" className="pl-2 pr-2 justify-content-between">
           <Navbar.Text>myInventory @ 2020</Navbar.Text>
 
           <Navbar.Text>version 1.0</Navbar.Text>

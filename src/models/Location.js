@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const LocationSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  description: { type: String, default: '', trim: true },
+  description: { type: String, default: "", trim: true },
   isActive: { type: Boolean, default: true },
-  user: { type: String, default: 'automatic', trim: true },
+  user: { type: String, default: "automatic", trim: true },
   pictures: { type: Array, default: [] },
   files: { type: Array, default: [] },
-  status: { type: String, default: 'in use', trim: true, lowercase: true },
+  status: { type: String, default: "in use", trim: true, lowercase: true },
   address: {
     streetNumber: { type: String, trim: true },
     street: { type: String, trim: true },
@@ -21,4 +21,4 @@ const LocationSchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-module.exports = mongoose.models.Location || mongoose.model('Location', LocationSchema)
+module.exports = mongoose.models.Location || mongoose.model("Location", LocationSchema)

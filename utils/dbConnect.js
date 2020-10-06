@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 /* Loads all variables from .env file to "process.env" */
 require("dotenv").config();

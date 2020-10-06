@@ -1,7 +1,7 @@
-import { getAuth } from '../../utils/common';
-import { useForm } from 'react-hook-form';
+import { getAuth } from "../../utils/common";
+import { useForm } from "react-hook-form";
 import useFetch from "react-fetch-hook";
-import { createNewFile } from '../lib/apiFiles';
+import { createNewFile } from "../lib/apiFiles";
 
 export default function contactsPage(props) {
 
@@ -40,11 +40,11 @@ export default function contactsPage(props) {
 
     // evt.preventDefault();
     // //making a post request with the fetch API
-    // fetch('/api/files', {
-    //   method: 'POST',
+    // fetch("/api/files", {
+    //   method: "POST",
     //   headers: {
-    //     'Accept': 'application/json',
-    //     'Content-Type': 'application/json'
+    //     "Accept": "application/json",
+    //     "Content-Type": "application/json"
     //   },
     //   body: JSON.stringify({
     //     firstName: this.state.firstName
@@ -60,7 +60,7 @@ export default function contactsPage(props) {
 
     console.log("\n\n<<<<<<<<<<<<<<<<<<<<<<<\n", event.target)
     // this.fileUpload(this.state.file).then((response) => {
-    //   console.log('rD', response.data)
+    //   console.log("rD", response.data)
     // })
   }
 

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef } from "react";
 
 export default function login() {
 
@@ -8,10 +8,10 @@ export default function login() {
   const passRef = useRef(null);
 
   async function handleLogic() {
-    const resp = await fetch('http://localhost:3000/api/signup', {
-      method: 'POST',
+    const resp = await fetch("http://localhost:3000/api/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         name: nameRef.current.value,

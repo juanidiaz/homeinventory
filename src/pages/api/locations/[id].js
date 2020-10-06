@@ -1,5 +1,5 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Location from '../../../models/Location';
+import dbConnect from "../../../../utils/dbConnect";
+import Location from "../../../models/Location";
 
 dbConnect();
 
@@ -11,7 +11,7 @@ export default async (req, res) => {
   } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const location = await Location.findById(id);
 
@@ -26,7 +26,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'PUT':
+    case "PUT":
       try {
         const location = await Location.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -44,7 +44,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'DELETE':
+    case "DELETE":
       try {
         const deletedLocation = await Location.deleteOne({ _id: id });
 
@@ -60,7 +60,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
       break;
   }
 }

@@ -1,12 +1,12 @@
-import { getAuth } from '../../utils/common';
-import { makeStyles } from '@material-ui/core/styles';
-import { getAllConditions, createNewCondition } from '../../src/lib/apiCondition';
-// import Button from '@material-ui/core/Button';
-import Button from 'react-bootstrap/Button';
-import ConditionsInput from '../../components/input/ConditionsInput';
-import ConditionsList from '../../components/lists/ConditionsList';
-import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
+import { getAuth } from "../../utils/common";
+import { makeStyles } from "@material-ui/core/styles";
+import { getAllConditions, createNewCondition } from "../../src/lib/apiCondition";
+// import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap/Button";
+import ConditionsInput from "../../components/input/ConditionsInput";
+import ConditionsList from "../../components/lists/ConditionsList";
+import Grid from "@material-ui/core/Grid";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,5 +1,5 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Company from '../../../models/Company';
+import dbConnect from "../../../../utils/dbConnect";
+import Company from "../../../models/Company";
 
 dbConnect();
 
@@ -8,7 +8,7 @@ export default async (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const companies = await Company.find({});
         res.status(200).json({ success: true, data: companies });
@@ -19,7 +19,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'POST':
+    case "POST":
       try {
         const company = await Company.create(req.body);
         res.status(201).json({ success: true, data: company });
@@ -31,7 +31,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
 
       break;
   }

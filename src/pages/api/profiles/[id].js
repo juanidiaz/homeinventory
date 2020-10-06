@@ -1,6 +1,6 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Contact from '../../../models/Contact';
-import { hash } from 'bcrypt';
+import dbConnect from "../../../../utils/dbConnect";
+import Contact from "../../../models/Contact";
+import { hash } from "bcrypt";
 
 dbConnect();
 
@@ -12,7 +12,7 @@ export default async (req, res) => {
   } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const contact = await Contact.findById(id);
 
@@ -27,7 +27,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'PUT':
+    case "PUT":
       try {
         const newUserInfo = { ...req.body };
 
@@ -47,7 +47,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'DELETE':
+    case "DELETE":
       try {
         const deletedContact = await Contact.deleteOne({ _id: id });
 
@@ -63,7 +63,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
       break;
   }
 }

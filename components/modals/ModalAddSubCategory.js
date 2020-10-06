@@ -1,21 +1,11 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { getAllSubCategories } from '../../src/lib/apiSubCategory';
-import { Grid } from '@material-ui/core';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import TextField from '@material-ui/core/TextField';
-import { FormControl, InputLabel, Select, MenuItem, Input } from '@material-ui/core';
-
-const useStyles = makeStyles(theme => ({
-  fillAvailable: {
-    width: '-webkit-fill-available'
-  }
-}));
+import { Grid } from "@material-ui/core";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import TextField from "@material-ui/core/TextField";
 
 const ModalAddSubCategory = props => {
-  const classes = useStyles();
-  const elementType = 'subcategory';
-  const { open, allSubCategories, handleClose, handleChange, createNewSubCategory, cancelCreateNewSubCategory, newSubCategory } = props;
+  const elementType = "subcategory";
+  const { open, handleClose, handleChange, createNewSubCategory } = props;
 
   return (
 
@@ -73,7 +63,7 @@ const ModalAddSubCategory = props => {
 };
 
 ModalAddSubCategory.defaultProps = {
-  addMode: true
+  editMode: true
 };
 
 export default ModalAddSubCategory;

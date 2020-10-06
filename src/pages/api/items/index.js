@@ -1,8 +1,8 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Item from '../../../models/Item';
-import Room from '../../../models/Room';
-import Location from '../../../models/Location';
-import Category from '../../../models/Category';
+import dbConnect from "../../../../utils/dbConnect";
+import Item from "../../../models/Item";
+import Room from "../../../models/Room";
+import Location from "../../../models/Location";
+import Category from "../../../models/Category";
 
 dbConnect();
 
@@ -11,13 +11,13 @@ export default async (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const items = await Item
           .find({})
-          .populate('room')
-          .populate('location')
-          .populate('category')
+          .populate("room")
+          .populate("location")
+          .populate("category")
           ;
 
         res.status(200).json({ success: true, data: items });
@@ -28,7 +28,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'POST':
+    case "POST":
       try {
         const item = await Item.create(req.body);
         res.status(201).json({ success: true, data: item });
@@ -40,7 +40,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
 
       break;
   }

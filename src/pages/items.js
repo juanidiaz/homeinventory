@@ -1,17 +1,17 @@
-import { getAuth } from '../../utils/common';
-import { makeStyles } from '@material-ui/core/styles';
-import { getAllItems, createNewItem } from '../../src/lib/apiItem';
-import { getAllLocations } from '../../src/lib/apiLocation';
-import { getAllRooms } from '../../src/lib/apiRoom';
-import { getAllCategories } from '../../src/lib/apiCategory';
-import { getAllConditions } from '../../src/lib/apiCondition';
+import { getAuth } from "../../utils/common";
+import { makeStyles } from "@material-ui/core/styles";
+import { getAllItems, createNewItem } from "../../src/lib/apiItem";
+import { getAllLocations } from "../../src/lib/apiLocation";
+import { getAllRooms } from "../../src/lib/apiRoom";
+import { getAllCategories } from "../../src/lib/apiCategory";
+import { getAllConditions } from "../../src/lib/apiCondition";
 
-// import Button from '@material-ui/core/Button';
-import Button from 'react-bootstrap/Button';
-import ItemsInput from '../../components/input/ItemsInput';
-import ItemsList from '../../components/lists/ItemsList';
-import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
+// import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap/Button";
+import ItemsInput from "../../components/input/ItemsInput";
+import ItemsList from "../../components/lists/ItemsList";
+import Grid from "@material-ui/core/Grid";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {

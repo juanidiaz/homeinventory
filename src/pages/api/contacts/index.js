@@ -1,6 +1,6 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Contact from '../../../models/Contact';
-import { authenticated} from '../../../../utils/common'
+import dbConnect from "../../../../utils/dbConnect";
+import Contact from "../../../models/Contact";
+import { authenticated} from "../../../../utils/common"
 
 dbConnect();
 
@@ -9,9 +9,9 @@ export default authenticated(async (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
-        const contacts = await Contact.find().select('-password');
+        const contacts = await Contact.find().select("-password");
         res.status(200).json({ success: true, data: contacts });
 
       } catch (error) {
@@ -20,7 +20,7 @@ export default authenticated(async (req, res) => {
       }
       break;
 
-    case 'POST':
+    case "POST":
       try {
         const contact = await Contact.create(req.body);
         res.status(201).json({ success: true, data: contact });
@@ -32,7 +32,7 @@ export default authenticated(async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
 
       break;
   }

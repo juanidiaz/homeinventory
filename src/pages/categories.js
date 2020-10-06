@@ -1,21 +1,21 @@
-import { getAuth } from '../../utils/common';
-import { makeStyles } from '@material-ui/core/styles';
-import { getAllCategories, createNewCategory, updateCategory } from '../../src/lib/apiCategory';
-import { getAllSubCategories, createNewSubCategory } from '../../src/lib/apiSubCategory';
-import Button from 'react-bootstrap/Button';
-import CategoriesList from '../../components/lists/CategoriesList';
-import SubCategoriesList from '../../components/lists/SubCategoriesList';
-import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
-import ModalAddCategory from '../../components/modals/ModalAddCategory';
-import ModalAddSubCategory from '../../components/modals/ModalAddSubCategory';
+import { getAuth } from "../../utils/common";
+import { makeStyles } from "@material-ui/core/styles";
+import { getAllCategories, createNewCategory, updateCategory } from "../../src/lib/apiCategory";
+import { getAllSubCategories, createNewSubCategory } from "../../src/lib/apiSubCategory";
+import Button from "react-bootstrap/Button";
+import CategoriesList from "../../components/lists/CategoriesList";
+import SubCategoriesList from "../../components/lists/SubCategoriesList";
+import Grid from "@material-ui/core/Grid";
+import AddIcon from "@material-ui/icons/Add";
+import ModalAddCategory from "../../components/modals/ModalAddCategory";
+import ModalAddSubCategory from "../../components/modals/ModalAddSubCategory";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   fillAvailable: {
-    width: '-webkit-fill-available'
+    width: "-webkit-fill-available"
   }
 }));
 
@@ -138,6 +138,7 @@ export default function categoriesPage(props) {
         createNewSubCategory={handleClickOnCreateNewSubCategory}
         cancelCreateNewSubCategory={handleClickOnCancelNewSubCategory}
         newSubCategory={newSubCategory}
+        editMode={editMode}
       />
 
       <Grid container spacing={1}>

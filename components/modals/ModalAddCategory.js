@@ -1,20 +1,20 @@
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { getAllSubCategories } from '../../src/lib/apiSubCategory';
-import { Grid } from '@material-ui/core';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import TextField from '@material-ui/core/TextField';
-import { FormControl, InputLabel, Select, MenuItem, Input } from '@material-ui/core';
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { getAllSubCategories } from "../../src/lib/apiSubCategory";
+import { Grid } from "@material-ui/core";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import TextField from "@material-ui/core/TextField";
+import { FormControl, InputLabel, Select, MenuItem, Input } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   fillAvailable: {
-    width: '-webkit-fill-available'
+    width: "-webkit-fill-available"
   }
 }));
 
 const ModalAddCategory = props => {
   const classes = useStyles();
-  const elementType = 'category';
+  const elementType = "category";
   const { handleClose, open, allCategories, allSubCategories, handleChange, 
     editMode, createNewCategory, cancelCreateNewCategory, newCategory } = props;
 
@@ -78,7 +78,7 @@ const ModalAddCategory = props => {
                 id="multiselect-subCategories"
                 multiple
                 value={newCategory.subCategories || []}
-                onChange={handleChange('subCategories')}
+                onChange={handleChange("subCategories")}
                 input={<Input />}
                 MenuProps={MenuProps}
               >
@@ -120,7 +120,7 @@ const ModalAddCategory = props => {
           Cancel
       </Button>
         <Button variant="primary" onClick={createNewCategory}>
-          {editMode ? 'Save changes' : `Add ${elementType}`}
+          {editMode ? "Save changes" : `Add ${elementType}`}
         </Button>
       </Modal.Footer>
 
@@ -129,7 +129,7 @@ const ModalAddCategory = props => {
 };
 
 ModalAddCategory.defaultProps = {
-  addMode: true
+  editMode: true
 };
 
 export default ModalAddCategory;

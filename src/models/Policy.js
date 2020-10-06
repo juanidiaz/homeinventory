@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const PolicySchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  description: { type: String, default: '', trim: true },
+  description: { type: String, default: "", trim: true },
   isActive: { type: Boolean, default: true },
-  user: { type: String, default: 'automatic', trim: true },
+  user: { type: String, default: "automatic", trim: true },
   pictures: { type: Array, default: [] },
   files: { type: Array, default: [] },
   company: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Company',
+    ref: "Company",
   },
   contact: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Contact'
+    ref: "Contact"
   },
   policyNumber: { type: String, required: true, trim: true },
   type: { type: String, required: true, trim: true, lowercase: true },
@@ -29,4 +29,4 @@ const PolicySchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-module.exports = mongoose.models.Policy || mongoose.model('Policy', PolicySchema)
+module.exports = mongoose.models.Policy || mongoose.model("Policy", PolicySchema)

@@ -1,5 +1,5 @@
 import axios from "axios";
-import absoluteUrl from 'next-absolute-url';
+import absoluteUrl from "next-absolute-url";
 
 export const getUserProfile = async id => {
   const { data } = await axios.get(origin + `/api/profiles/${id}`);

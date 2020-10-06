@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import { verify } from 'jsonwebtoken';
-import fetch from 'isomorphic-unfetch';
-import Router from 'next/router';
-import absoluteUrl from 'next-absolute-url';
-import { getContact } from '../src/lib/apiContact';
+import Link from "next/link";
+import { verify } from "jsonwebtoken";
+import fetch from "isomorphic-unfetch";
+import Router from "next/router";
+import absoluteUrl from "next-absolute-url";
+import { getContact } from "../src/lib/apiContact";
 
 export const ButtonLink = ({ className, href, hrefAs, children, prefetch }) => (
   <Link href={href} as={hrefAs}>
@@ -13,7 +13,7 @@ export const ButtonLink = ({ className, href, hrefAs, children, prefetch }) => (
   </Link>
 )
 
-ButtonLink.displayName = 'ButtonLink'
+ButtonLink.displayName = "ButtonLink"
 
 export const authenticated = fn => async (req, res) => {
 
@@ -27,7 +27,7 @@ export const authenticated = fn => async (req, res) => {
 
 export async function getAuth(ctx) {
   const { origin } = absoluteUrl(ctx.req);
-  const fullUrl = origin + '/api/contacts';
+  const fullUrl = origin + "/api/contacts";
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
 
   const resp = await fetch(fullUrl,
@@ -40,18 +40,18 @@ export async function getAuth(ctx) {
   if (resp.status === 401) {
     if (ctx.req) {
       ctx.res.writeHead(302, {
-        Location: origin + '/login'
+        Location: origin + "/login"
       });
       ctx.res.end();
     } else {
-      Router.replace('/login');
+      Router.replace("/login");
     }
   }
 
   let user = {};
   if (cookie) {
     const cookies = convertCookieToObject(cookie)
-    user = await getContact(ctx, cookies['_id_'])
+    user = await getContact(ctx, cookies["_id_"])
     return { user }
   }
 
@@ -67,10 +67,9 @@ export const getSessionFromServer = req => {
 };
 
 export async function getUserFromCookie(ctx) {
-  console.log(" ++++++++ getUserFromCookie", ctx.req.user);
 
   const { origin } = absoluteUrl(ctx.req);
-  const fullUrl = origin + '/api/contacts';
+  const fullUrl = origin + "/api/contacts";
   const cookie = ctx.req ? ctx.req.headers.cookie : "";
 
   const resp = await fetch(fullUrl,
@@ -80,10 +79,18 @@ export async function getUserFromCookie(ctx) {
       }
     });
 
+  console.log(" ++++++++ getUserFromCookie", {
+    reqUser: ctx.req.user,
+    fullUrl,
+    cookie,
+    origin,
+    status: resp.status
+  });
+
   if (resp.status === 200) {
     if (cookie) {
       const cookies = convertCookieToObject(cookie)
-      const user = await getContact(ctx, cookies['_id_'])
+      const user = await getContact(ctx, cookies["_id_"])
       return { user }
     }
   }
@@ -92,12 +99,12 @@ export async function getUserFromCookie(ctx) {
 };
 
 const convertCookieToObject = cookieString => {
-  const cookies = cookieString.split(';');
+  const cookies = cookieString.split(";");
   let newCookies = {}
   cookies.forEach(currentCookie => {
     newCookies = {
       ...newCookies,
-      [currentCookie.split('=')[0].trim()]: currentCookie.split('=')[1].trim()
+      [currentCookie.split("=")[0].trim()]: currentCookie.split("=")[1].trim()
     }
   });
 

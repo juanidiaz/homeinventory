@@ -3,14 +3,14 @@ import axios from "axios";
 export const createNewFile = async fileData => {
 
   const formData = new FormData();
-  formData.append('file', fileData.fileUpload[0]);
+  formData.append("file", fileData.fileUpload[0]);
   const config = {
     headers: {
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     }
   };
 
-  const { data } = await axios.post('/api/files', formData, config);
+  const { data } = await axios.post("/api/files", formData, config);
 
   // const hasFiles = true
   // const formDataWithFiles = hasFiles ? new FormData() : undefined;
@@ -24,8 +24,8 @@ export const createNewFile = async fileData => {
   // }
 
   // const { data } = await axios({
-  //   method: 'POST',
-  //   url: '/api/files',
+  //   method: "POST",
+  //   url: "/api/files",
   //   data: hasFiles ? formDataWithFiles : modifiedFields,
   //   headers: {
   //     ...axios.defaults.headers,

@@ -1,6 +1,6 @@
-import { Form, Button } from 'react-bootstrap';
-import fetch from 'isomorphic-unfetch';
-import Router from 'next/router';
+import { Form, Button } from "react-bootstrap";
+import fetch from "isomorphic-unfetch";
+import Router from "next/router";
 
 const WINDOW_USER_SCRIPT_VARIABLE = "__USER__";
 
@@ -18,10 +18,10 @@ export default function login() {
   async function handleClickLogin(e) {
     e.preventDefault()
 
-    const resp = await fetch(window.location.origin + '/api/login', {
-      method: 'POST',
+    const resp = await fetch(window.location.origin + "/api/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(loginInfo)
     })
@@ -35,11 +35,11 @@ export default function login() {
 
       if (typeof ctx !== "undefined" && ctx.req) {
         ctx.res.writeHead(200, {
-          Location: origin + '/'
+          Location: origin + "/"
         });
         ctx.res.end();
       } else {
-        Router.replace('/');
+        Router.replace("/");
       }
     }
   };
@@ -58,7 +58,7 @@ export default function login() {
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email" onChange={handleChange("email")} />
             <Form.Text className="text-muted">
-              We'll never share your email with anyone else.
+              We"ll never share your email with anyone else.
             </Form.Text>
           </Form.Group>
  */}

@@ -1,10 +1,10 @@
-import dbConnect from '../../../../utils/dbConnect';
-import Item from '../../../models/Item';
-import Room from '../../../models/Room';
-import Location from '../../../models/Location';
-import Category from '../../../models/Category';
-import Contract from '../../../models/Contract';
-import Company from '../../../models/Company';
+import dbConnect from "../../../../utils/dbConnect";
+import Item from "../../../models/Item";
+import Room from "../../../models/Room";
+import Location from "../../../models/Location";
+import Category from "../../../models/Category";
+import Contract from "../../../models/Contract";
+import Company from "../../../models/Company";
 
 dbConnect();
 
@@ -16,15 +16,15 @@ export default async (req, res) => {
   } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const item = await Item.findById(id)
-          .populate('room')
-          .populate('location')
-          .populate('category')
-          .populate('condition')
-          .populate('purchaseInfo.company')
-          .populate('purchaseInfo.contract')
+          .populate("room")
+          .populate("location")
+          .populate("category")
+          .populate("condition")
+          .populate("purchaseInfo.company")
+          .populate("purchaseInfo.contract")
           ;
 
         if (!item) {
@@ -38,7 +38,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'PUT':
+    case "PUT":
       try {
         const item = await Item.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -56,7 +56,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'DELETE':
+    case "DELETE":
       try {
         const deletedItem = await Item.deleteOne({ _id: id });
 
@@ -72,7 +72,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
       break;
   }
 }

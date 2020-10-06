@@ -1,12 +1,12 @@
-import { getAuth } from '../../utils/common';
-import { makeStyles } from '@material-ui/core/styles';
-import { getAllLocations, createNewLocation } from '../../src/lib/apiLocation';
-// import Button from '@material-ui/core/Button';
-import Button from 'react-bootstrap/Button';
-import LocationsInput from '../../components/input/LocationsInput';
-import LocationsList from '../../components/lists/LocationsList';
-import Grid from '@material-ui/core/Grid';
-import AddIcon from '@material-ui/icons/Add';
+import { getAuth } from "../../utils/common";
+import { makeStyles } from "@material-ui/core/styles";
+import { getAllLocations, createNewLocation } from "../../src/lib/apiLocation";
+// import Button from "@material-ui/core/Button";
+import Button from "react-bootstrap/Button";
+import LocationsInput from "../../components/input/LocationsInput";
+import LocationsList from "../../components/lists/LocationsList";
+import Grid from "@material-ui/core/Grid";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
   root: {

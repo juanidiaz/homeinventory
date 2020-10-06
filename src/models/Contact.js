@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const mongodbErrorHandler = require("mongoose-mongodb-errors");
 
 const ContactSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  description: { type: String, default: '', trim: true },
+  description: { type: String, default: "", trim: true },
   isActive: { type: Boolean, default: true },
-  user: { type: String, default: 'automatic', trim: true },
+  user: { type: String, default: "automatic", trim: true },
   pictures: { type: Array, default: [] },
-  thumbnail: { type: String, default: 'thumbnail.png' },
+  thumbnail: { type: String, default: "thumbnail.png" },
   files: { type: Array, default: [] },
   type: { type: String, required: true, trim: true, lowercase: true },
   permissions: { type: Array, default: [] },
@@ -17,7 +17,7 @@ const ContactSchema = new mongoose.Schema({
   // password: { type: String, required: true, trim: true, select: false },
   company: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Company',
+    ref: "Company",
   },
   connectInfo: {
     tel: { type: String, trim: true, lowercase: true },
@@ -39,7 +39,7 @@ const ContactSchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-/* The MongoDBErrorHandler plugin gives us a better 'unique' error, rather than: "11000 duplicate key" */
+/* The MongoDBErrorHandler plugin gives us a better "unique" error, rather than: "11000 duplicate key" */
 // ContactSchema.plugin(mongodbErrorHandler);
 
-module.exports = mongoose.models.Contact || mongoose.model('Contact', ContactSchema)
+module.exports = mongoose.models.Contact || mongoose.model("Contact", ContactSchema)

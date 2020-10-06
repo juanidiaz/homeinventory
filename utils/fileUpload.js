@@ -14,10 +14,10 @@
 // const s3 = new aws.S3();
 
 // const fileFilter = (req, file, cb) => {
-//   if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+//   if (file.mimetype === "image/jpeg" || file.mimetype === "image/png") {
 //       cb(null, true)
 //   } else {
-//       cb(new Error('Invalid Mime Type, only JPEG and PNG'), false);
+//       cb(new Error("Invalid Mime Type, only JPEG and PNG"), false);
 //   }
 // };
 
@@ -26,9 +26,9 @@
 //   storage: multerS3({
 //     s3,
 //     bucket: process.env.AWSfilesBucket,
-//     acl: 'public-read',
+//     acl: "public-read",
 //     metadata: function (req, file, cb) {
-//       cb(null, {fieldName: 'TESTING_META_DATA!'});
+//       cb(null, {fieldName: "TESTING_META_DATA!"});
 //     },
 //     key: function (req, file, cb) {
 //       cb(null, Date.now().toString())

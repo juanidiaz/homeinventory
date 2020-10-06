@@ -1,5 +1,5 @@
-import dbConnect from '../../../../utils/dbConnect';
-import LogEntry from '../../../models/LogEntry';
+import dbConnect from "../../../../utils/dbConnect";
+import LogEntry from "../../../models/LogEntry";
 
 dbConnect();
 
@@ -11,7 +11,7 @@ export default async (req, res) => {
   } = req;
 
   switch (method) {
-    case 'GET':
+    case "GET":
       try {
         const logEntry = await LogEntry.findById(id);
 
@@ -26,7 +26,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'PUT':
+    case "PUT":
       try {
         const logEntry = await LogEntry.findByIdAndUpdate(id, req.body, {
           new: true,
@@ -44,7 +44,7 @@ export default async (req, res) => {
       }
       break;
 
-    case 'DELETE':
+    case "DELETE":
       try {
         const deletedLogEntry = await LogEntry.deleteOne({ _id: id });
 
@@ -60,7 +60,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
       break;
   }
 }

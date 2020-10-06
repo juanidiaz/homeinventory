@@ -1,14 +1,14 @@
-import { getAuth } from '../../utils/common';
-import App from 'next/app';
-import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Head from 'next/head';
-import NavBar from '../../components/NavBar';
-import PropTypes from 'prop-types';
-import React from 'react';
-import theme from '../../utils/theme';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { getAuth } from "../../utils/common";
+import App from "next/app";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Head from "next/head";
+import NavBar from "../../components/NavBar";
+import PropTypes from "prop-types";
+import React from "react";
+import theme from "../../utils/theme";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const useStyles = makeStyles((theme) => ({
   rootContainer: {
@@ -24,7 +24,7 @@ export default function MyApp(props) {
 
   // React.useEffect(() => {
   //   // Remove the server-side injected CSS.
-  //   const jssStyles = document.querySelector('#jss-server-side');
+  //   const jssStyles = document.querySelector("#jss-server-side");
   //   if (jssStyles) {
   //     jssStyles.parentElement.removeChild(jssStyles);
   //   }

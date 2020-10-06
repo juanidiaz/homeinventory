@@ -1,19 +1,19 @@
-import { getAllLocations } from '../../src/lib/apiLocation';
-import { getAllRooms } from '../../src/lib/apiRoom';
-import { getAllCategories, getCategory } from '../../src/lib/apiCategory';
-import { getAllSubCategories } from '../../src/lib/apiSubCategory';
-import { getAllConditions } from '../../src/lib/apiCondition';
+import { getAllLocations } from "../../src/lib/apiLocation";
+import { getAllRooms } from "../../src/lib/apiRoom";
+import { getAllCategories, getCategory } from "../../src/lib/apiCategory";
+import { getAllSubCategories } from "../../src/lib/apiSubCategory";
+import { getAllConditions } from "../../src/lib/apiCondition";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Input from '@material-ui/core/Input';
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import InputLabel from "@material-ui/core/InputLabel";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Input from "@material-ui/core/Input";
 
 const useStyles = makeStyles((theme) => ({
   root: {

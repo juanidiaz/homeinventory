@@ -1,6 +1,6 @@
-import dbConnect from '../../../utils/dbConnect';
-import Contact from '../../models/Contact';
-import { hash } from 'bcrypt';
+import dbConnect from "../../../utils/dbConnect";
+import Contact from "../../models/Contact";
+import { hash } from "bcrypt";
 
 dbConnect();
 
@@ -9,7 +9,7 @@ export default async (req, res) => {
   const { method } = req;
 
   switch (method) {
-    case 'POST':
+    case "POST":
       try {
         const newUserInfo = {
           ...req.body,
@@ -31,7 +31,7 @@ export default async (req, res) => {
       break;
 
     default:
-      res.status(405).json({ success: false, message: 'Method not allowed!' });
+      res.status(405).json({ success: false, message: "Method not allowed!" });
 
       break;
   }

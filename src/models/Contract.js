@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const ContractSchema = new mongoose.Schema({
   name: { type: String, required: true, unique: true, trim: true, lowercase: true },
-  description: { type: String, default: '', trim: true },
+  description: { type: String, default: "", trim: true },
   isActive: { type: Boolean, default: true },
-  user: { type: String, default: 'automatic', trim: true },
+  user: { type: String, default: "automatic", trim: true },
   pictures: { type: Array, default: [] },
   files: { type: Array, default: [] },
   company: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Company',
+    ref: "Company",
   },
   contact: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Contact'
+    ref: "Contact"
   },
   contractNumber: { type: String, required: true, trim: true },
   type: { type: String, required: true, trim: true, lowercase: true },
@@ -28,4 +28,4 @@ const ContractSchema = new mongoose.Schema({
   { timestamps: true }
 );
 
-module.exports = mongoose.models.Contract || mongoose.model('Contract', ContractSchema)
+module.exports = mongoose.models.Contract || mongoose.model("Contract", ContractSchema)
