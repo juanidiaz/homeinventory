@@ -21,7 +21,7 @@ export default async function dbConnect() {
     const connectionString = "mongodb+srv://" + process.env.MONGO_USERNAME + ":" + process.env.MONGO_PASSWORD + "@" + process.env.MONGO_URL + "/" + process.env.MONGO_DB + "?retryWrites=true&w=majority"
 
     console.log("--- SOURCE FROM --- ", process.env.SOURCE);
-    
+
     console.log("VARIABLES", {
       MONGO_DB: process.env.MONGO_DB,
       MONGO_USERNAME: process.env.MONGO_USERNAME,
