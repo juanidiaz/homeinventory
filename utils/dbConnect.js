@@ -19,6 +19,9 @@ export default async function dbConnect() {
     };
 
     const connectionString = "mongodb+srv://" + process.env.MONGO_USERNAME + ":" + process.env.MONGO_PASSWORD + "@" + process.env.MONGO_URL + "/" + process.env.MONGO_DB + "?retryWrites=true&w=majority"
+
+    console.log("--- ATTEMPING DB CONNECTION TO: ", connectionString);
+
     const db = await mongoose.connect(connectionString, mongooseOptions);
 
     connection.isConnected = db.connections[0].readyState;
