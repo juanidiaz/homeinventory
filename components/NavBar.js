@@ -134,6 +134,13 @@ export default function NavBar(props) {
             </>
             :
             <>
+              <Navbar.Collapse>
+                <Nav>
+                  <a className="nav-link" onClick={() => { setOpenModalLogin(true) }}>
+                    Log in 2
+                      </a>
+                </Nav>
+              </Navbar.Collapse>
 
               <Navbar.Collapse className="justify-content-end">
                 <Nav>
