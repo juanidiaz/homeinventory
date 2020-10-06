@@ -150,7 +150,7 @@ export default function NavBar(props) {
         <Navbar fixed="bottom" bg="dark" variant="dark" className="pl-2 pr-2 justify-content-between">
           <Navbar.Text>myInventory @ 2020</Navbar.Text>
 
-          <Navbar.Text>version 1.0</Navbar.Text>
+          <Navbar.Text>version 1.1</Navbar.Text>
 
           {user ?
             <Navbar.Text>Logged as: {user.name}</Navbar.Text>
