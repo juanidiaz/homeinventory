@@ -15,7 +15,7 @@ export default async (req, res) => {
           ...req.body,
           name: req.body.name,
           type: "user",
-          connectInfo: req.body.connectInfo
+          contactInfo: req.body.contactInfo
         };
 
         hash(req.body.password, 10, async function (err, hash) {

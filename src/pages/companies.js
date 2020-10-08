@@ -42,15 +42,14 @@ export default function companiesPage(props) {
     });
   };
 
-  const handleClickOnCreateNewCompany = () => {
-    console.log("SAVING", { editMode, newCompany })
+  const handleClickOnCreateNewCompany = company => {
     if (editMode) {
-      updateCompany(newCompany).then(() => {
+      updateCompany(company).then(() => {
         handleCloseModal();
         getCompanies();
       })
     } else {
-      createNewCompany(newCompany).then(() => {
+      createNewCompany(company).then(() => {
         handleCloseModal();
         getCompanies();
       })

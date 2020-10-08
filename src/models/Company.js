@@ -8,8 +8,8 @@ const CompanySchema = new mongoose.Schema({
   icon: { type: String },
   pictures: [{ type: String }],
   files: [{ type: String }],
-  companyFullName: { type: String, unique: true, trim: true },
-  connectInfo: {
+  companyFullName: { type: String, trim: true },
+  contactInfo: {
     tel: { type: String, trim: true, lowercase: true },
     tel2: { type: String, trim: true, lowercase: true },
     email: { type: String, trim: true, lowercase: true },

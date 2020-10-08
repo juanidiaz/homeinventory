@@ -19,7 +19,7 @@ const ContactSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Company",
   },
-  connectInfo: {
+  contactInfo: {
     tel: { type: String, trim: true, lowercase: true },
     tel2: { type: String, trim: true, lowercase: true },
     email: { type: String, trim: true, lowercase: true },

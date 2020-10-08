@@ -1,11 +1,20 @@
-import { Grid, TextField, MenuItem, FormGroup } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { Grid, MenuItem, FormGroup, TextField, Paper } from "@material-ui/core";
 import FormikCheckbox from "../formik/formikCheckbox";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { ErrorMessage, Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 
+const useStyles = makeStyles((theme) => ({
+paperRoot:{
+  padding: 10,
+  background: "whitesmoke !important"
+}
+}));
+
 const ModalAddCompany = props => {
+  const classes = useStyles();
 
   const { open, handleClose, handleChange, allCompanies, editMode,
     createNewCompany, cancelCreateNewCompany, company } = props;
@@ -28,13 +37,13 @@ const ModalAddCompany = props => {
     })
 
     return countryNameArray;
-  }
+  };
 
-  const getProvinceList = country => {
+  const getProvinceList = countryCode => {
 
     const provinceNameArray = [];
 
-    switch (country.value) {
+    switch (countryCode) {
       case "CA":
         let canada = require("canada");
         let provinces = canada.provinces
@@ -59,20 +68,16 @@ const ModalAddCompany = props => {
     }
 
     return provinceNameArray;
-  }
-
-  getProvinceList({ value: "CA", name: "CANADA" });
-
-  console.log("=====", company.country)
+  };
 
   const initialValues = {
     name: "",
     description: "",
-    isActive: "",
+    isActive: true,
     user: "automatic",
     icon: "companyIcon.png",
     companyFullName: "",
-    connectInfo: {
+    contactInfo: {
       tel: "",
       tel2: "",
       email: "",
@@ -85,14 +90,13 @@ const ModalAddCompany = props => {
       street2: "",
       city: "",
       province: "",
-      country: "CA",
+      country: "",
     }
-  }
-
+  };
 
   const NewCompanySchema = Yup.object().shape({
     name: Yup.string().required().min(5),
-    connectInfo: Yup.object().shape(
+    contactInfo: Yup.object().shape(
       {
         tel: Yup.string().matches(/^\d{10,}$/, "Telephone need to be at least 10 numbers long"),
         tel2: Yup.string().matches(/^\d{10,}$/, "Telephone need to be at least 10 numbers long"),
@@ -125,17 +129,7 @@ const ModalAddCompany = props => {
         validationSchema={NewCompanySchema}
 
         initialValues={initialValues} onSubmit={(values, formikHelpers) => {
-
-          console.log(" = SUBMIT =");
-
-          return new Promise(res => {
-            setTimeout(() => {
-              console.log(values);
-              console.log(formikHelpers);
-              console.log("---------");
-              res();
-            }, 5000);
-          })
+          createNewCompany(values);
         }}>
 
         {({ values, errors, isSubmitting, isValidating }) => (
@@ -146,20 +140,28 @@ const ModalAddCompany = props => {
               <Grid
                 container
                 direction="row"
-                justify="center"
+                justify="flex-start"
                 alignItems="center"
                 spacing={2}
               >
 
-                <Grid item xs={12} md={12}>
-                  <pre>{JSON.stringify(errors, null, 2)}</pre>
-                </Grid>
+                {/* <Grid item xs={12} md={12}>
+                  <pre>{JSON.stringify(values, null, 2)}</pre>
+                </Grid> */}
 
-                <Grid item xs={12} md={12}>
+                {/* <Grid item xs={12} md={12}>
+                  <pre>{JSON.stringify(errors, null, 2)}</pre>
+                </Grid> */}
+
+                <Grid item xs={12} md={6}>
                   <FormGroup>
                     <Field name="name" as={TextField} placeholder="Name" label="Name" fullWidth />
                     <ErrorMessage name="name" />
                   </FormGroup>
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                  <FormikCheckbox name="isActive" label="Active company" color="primary" />
                 </Grid>
 
                 <Grid item xs={12} md={12}>
@@ -167,10 +169,6 @@ const ModalAddCompany = props => {
                     <Field name="description" placeholder="Description" as={TextField} multiline rows={2} rowsMax={5} fullWidth />
                     <ErrorMessage name="description" />
                   </FormGroup>
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <FormikCheckbox name="isActive" label="Active element" color="primary" />
                 </Grid>
 
                 {/* <Field name="icon" placeholder="" fullWidth/> */}
@@ -182,120 +180,133 @@ const ModalAddCompany = props => {
                     <Field name="companyFullName" as={TextField} label="Full Name" fullWidth />
                     <ErrorMessage name="companyFullName" />
                   </FormGroup>
-
                 </Grid>
 
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="connectInfo.tel" as={TextField} label="Telephone" fullWidth />
-                    <ErrorMessage name="connectInfo.tel" />
-                  </FormGroup>
+                <Grid item xs={12} md={12}> {/* Contact info */}
+                <Paper className={classes.paperRoot}>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="flex-start"
+                      alignItems="center"
+                      spacing={2}
+                    >
 
+                      <Grid item xs={12} md={6}>
+                        <FormGroup>
+                          <Field name="contactInfo.tel" as={TextField} label="Telephone" fullWidth />
+                          <ErrorMessage name="contactInfo.tel" />
+                        </FormGroup>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <FormGroup>
+                          <Field name="contactInfo.tel2" as={TextField} label="Telephone 2" fullWidth disabled={!values.contactInfo.tel} />
+                          <ErrorMessage name="contactInfo.tel2" />
+                        </FormGroup>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <FormGroup>
+                          <Field name="contactInfo.email" as={TextField} label="Email" type="email" fullWidth />
+                          <ErrorMessage name="contactInfo.email" />
+                        </FormGroup>
+                      </Grid>
+
+                      <Grid item xs={12} md={6}>
+                        <FormGroup>
+                          <Field name="contactInfo.email2" as={TextField} label="Email 2" type="email" fullWidth disabled={!values.contactInfo.email} />
+                          <ErrorMessage name="contactInfo.email2" />
+                        </FormGroup>
+                      </Grid>
+
+                      <Grid item xs={12} md={12}>
+                        <FormGroup>
+                          <Field name="contactInfo.url" as={TextField} label="URL" fullWidth />
+                          <ErrorMessage name="contactInfo.url" />
+                        </FormGroup>
+                      </Grid>
+
+                    </Grid>
+                  </Paper>
                 </Grid>
 
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="connectInfo.tel2" as={TextField} label="Telephone 2" fullWidth />
-                    <ErrorMessage name="connectInfo.tel2" />
-                  </FormGroup>
+                <Grid item xs={12} md={12}> {/* Address info */}
+                  <Paper className={classes.paperRoot}>
+                    <Grid
+                      container
+                      direction="row"
+                      justify="center"
+                      alignItems="center"
+                      spacing={2}
+                    >
 
-                </Grid>
+                      <Grid item xs={12} md={2}>
+                        <FormGroup>
+                          <Field name="address.streetNumber" as={TextField} label="Number" fullWidth />
+                          <ErrorMessage name="address.streetNumber" />
+                        </FormGroup>
+                      </Grid>
 
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="connectInfo.email" as={TextField} label="Email" type="email" fullWidth />
-                    <ErrorMessage name="connectInfo.email" />
-                  </FormGroup>
+                      <Grid item xs={12} md={6}>
+                        <FormGroup>
+                          <Field name="address.street" as={TextField} label="Street" fullWidth />
+                          <ErrorMessage name="address.street" />
+                        </FormGroup>
+                      </Grid>
 
-                </Grid>
+                      <Grid item xs={12} md={8}>
+                        <FormGroup>
+                          <Field name="address.street2" as={TextField} label="Street2" fullWidth disabled={!values.address.street} />
+                          <ErrorMessage name="address.street2" />
+                        </FormGroup>
+                      </Grid>
 
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="connectInfo.email2" as={TextField} label="Email 2" type="email" fullWidth />
-                    <ErrorMessage name="connectInfo.email2" />
-                  </FormGroup>
+                      <Grid item xs={12} md={8}>
+                        <FormGroup>
+                          <Field name="address.city" as={TextField} label="City" fullWidth />
+                          <ErrorMessage name="address.city" />
+                        </FormGroup>
+                      </Grid>
 
-                </Grid>
+                      <Grid item xs={12} md={5}>
+                        <FormGroup>
+                          <Field name="address.country" as={TextField} label="Country" as={TextField} select fullWidth>
+                            {getCountryList().map(country =>
+                              <MenuItem key={country.value} value={country.value} disabled={!country.value || country.value === "--"}>{country.name}</MenuItem>)}
+                          </Field>
+                          <ErrorMessage name="address.country" />
+                        </FormGroup>
+                      </Grid>
 
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="connectInfo.url" as={TextField} label="URL" fullWidth />
-                    <ErrorMessage name="connectInfo.url" />
-                  </FormGroup>
+                      <Grid item xs={12} md={3}>
+                        <FormGroup>
+                          {values.address.country === "CA" ?
+                            <Field name="address.province" as={TextField} label="Province" as={TextField} select fullWidth>
+                              {getProvinceList(values.address.country).map(province =>
+                                <MenuItem key={province.value} value={province.value} disabled={!province.value || province.value === "--"}>{province.name}</MenuItem>)}
+                            </Field>
+                            :
+                            <Field name="address.province" as={TextField} label="Province" fullWidth />
+                          }
+                          <ErrorMessage name="address.province" />
+                        </FormGroup>
+                      </Grid>
 
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="address.streetNumber" as={TextField} label="Street Number" fullWidth />
-                    <ErrorMessage name="address.streetNumber" />
-                  </FormGroup>
-
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="address.street" as={TextField} label="Street" fullWidth />
-                    <ErrorMessage name="address.street" />
-                  </FormGroup>
-
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="address.street2" as={TextField} label="Street2" fullWidth />
-                    <ErrorMessage name="address.street2" />
-                  </FormGroup>
-
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="address.country" as={TextField} label="Country" as={TextField} select fullWidth>
-                      {getCountryList().map(country =>
-                        <MenuItem key={country.value} value={country.value} disabled={!country.value || country.value === "--"}>{country.name}</MenuItem>)}
-                    </Field>
-                    <ErrorMessage name="address.country" />
-                  </FormGroup>
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="address.province" as={TextField} label="Province" fullWidth />
-                    <ErrorMessage name="address.province" />
-                  </FormGroup>
-
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <FormGroup>
-                    <Field name="address.city" as={TextField} label="City" fullWidth />
-                    <ErrorMessage name="address.city" />
-                  </FormGroup>
-
-                </Grid>
-
-                <Grid item xs={12} md={12}>
-                  <pre>{JSON.stringify(values, null, 2)}</pre>
+                    </Grid>
+                  </Paper>
                 </Grid>
 
               </Grid>
             </Modal.Body>
 
             <Modal.Footer>
-              <Button type="submit"
-                disabled={isSubmitting || isValidating}
-              >
-                Submit here!
-              </Button>
-
               <Button variant="secondary"
                 onClick={handleClose}
               >
                 Cancel
               </Button>
-              <Button variant="primary"
-                onClick={createNewCompany}
+              <Button variant="primary" type="submit"
               >
                 {editMode ? "Update company" : "Add company"}
               </Button>
