@@ -2,10 +2,12 @@
   "name": "homeinventory",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "seed": "node -r esm utils/seed.js"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -19,6 +21,7 @@
     "cookie": "^0.4.1",
     "country-list": "^2.2.0",
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "formidable": "^1.2.2",
     "formik": "^2.1.7",
     "isomorphic-unfetch": "^3.0.0",
@@ -36,5 +39,8 @@
     "react-fetch-hook": "^1.8.3",
     "react-hook-form": "^6.8.3",
     "yup": "^0.29.3"
+  },
+  "devDependencies": {
+    "faker": "^5.1.0"
   }
 }
