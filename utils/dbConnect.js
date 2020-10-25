@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const connection = {};
 
-export default async function dbConnect() {
+export async function dbConnect() {
   if (connection.isConnected) {
     return;
   }
@@ -47,4 +47,8 @@ export default async function dbConnect() {
     console.log("Error connecting to DB", error);
   }
 
-}
+};
+
+export async function dbDisconnect() {
+  mongoose.connection.close();
+};

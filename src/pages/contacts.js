@@ -30,7 +30,7 @@ export default function contactsPage(props) {
   //     );
   // };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("SELECTED FILES\n", data);
     // http://localhost:3000/api/files
 
@@ -88,7 +88,7 @@ export default function contactsPage(props) {
         <form
           // onSubmit={event => onFormSubmit(event)}
           onSubmit={handleSubmit(onSubmit)}
-          encType="multipart/form-data"
+          // encType="multipart/form-data"
           // encType="multipart/form-data"
         >
           <input ref={register} type="file" name="fileUpload" multiple/>

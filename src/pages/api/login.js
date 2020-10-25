@@ -1,4 +1,4 @@
-import dbConnect from "../../../utils/dbConnect";
+import { dbConnect } from "../../../utils/dbConnect";
 import Contact from "../../models/Contact";
 import { compare } from "bcrypt";
 import { sign } from "jsonwebtoken";

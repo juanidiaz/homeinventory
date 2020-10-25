@@ -1,7 +1,7 @@
 import faker from "faker";
 import SubCategory from "../src/models/SubCategory";
 import Category from "../src/models/Category";
-import dbConnect from "./dbConnect";
+import { dbConnect } from "./dbConnect";
 import _ from "lodash";
 
 dbConnect();

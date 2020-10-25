@@ -1,4 +1,4 @@
-import dbConnect from "../../../utils/dbConnect";
+import { dbConnect } from "../../../utils/dbConnect";
 // import upload from "../../../utils/fileUpload"
 import AWS from "aws-sdk";
 import Busboy from "busboy";
