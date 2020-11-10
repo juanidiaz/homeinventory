@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+import EditIcon from "@material-ui/icons/Edit";
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
 export default function ConditionsList(props) {
   const classes = useStyles();
 
-  const { allConditions } = props;
+  const { allConditions, editCondition } = props;
 
   return allConditions && allConditions.length > 0 ? (
     <TableContainer component={Paper}>
@@ -26,6 +28,7 @@ export default function ConditionsList(props) {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right">Description</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -35,12 +38,15 @@ export default function ConditionsList(props) {
                 {condition.name}
               </TableCell>
               <TableCell align="right">{condition.description}</TableCell>
+              <TableCell align="right">
+                <EditIcon fontSize="small" onClick={() => editCondition(condition)} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... CONDITIONS LIST</h1>
     );
 }

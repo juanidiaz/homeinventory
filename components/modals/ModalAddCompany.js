@@ -7,10 +7,10 @@ import { ErrorMessage, Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 
 const useStyles = makeStyles((theme) => ({
-paperRoot:{
-  padding: 10,
-  background: "whitesmoke !important"
-}
+  paperRoot: {
+    padding: 10,
+    background: "whitesmoke !important"
+  }
 }));
 
 const ModalAddCompany = props => {
@@ -70,29 +70,33 @@ const ModalAddCompany = props => {
     return provinceNameArray;
   };
 
-  const initialValues = {
-    name: "",
-    description: "",
-    isActive: true,
-    user: "automatic",
-    icon: "companyIcon.png",
-    companyFullName: "",
-    contactInfo: {
-      tel: "",
-      tel2: "",
-      email: "",
-      email2: "",
-      url: "",
-    },
-    address: {
-      streetNumber: "",
-      street: "",
-      street2: "",
-      city: "",
-      province: "",
-      country: "",
-    }
-  };
+  let initialValues = {}
+  
+  company ?
+    initialValues = company :
+    initialValues = {
+      name: "",
+      description: "",
+      isActive: true,
+      user: "automatic",
+      icon: "companyIcon.png",
+      companyFullName: "",
+      contactInfo: {
+        tel: "",
+        tel2: "",
+        email: "",
+        email2: "",
+        url: "",
+      },
+      address: {
+        streetNumber: "",
+        street: "",
+        street2: "",
+        city: "",
+        province: "",
+        country: "",
+      }
+    };
 
   const NewCompanySchema = Yup.object().shape({
     name: Yup.string().required().min(5),
@@ -183,7 +187,7 @@ const ModalAddCompany = props => {
                 </Grid>
 
                 <Grid item xs={12} md={12}> {/* Contact info */}
-                <Paper className={classes.paperRoot}>
+                  <Paper className={classes.paperRoot}>
                     <Grid
                       container
                       direction="row"

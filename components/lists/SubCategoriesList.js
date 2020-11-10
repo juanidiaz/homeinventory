@@ -44,6 +44,6 @@ export default function SubCategoriesList(props) {
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... SUBCATEGORIES LIST</h1>
     );
 }

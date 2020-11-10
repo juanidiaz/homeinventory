@@ -41,6 +41,6 @@ export default function ItemsList(props) {
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... ITEMS LIST</h1>
     );
 }

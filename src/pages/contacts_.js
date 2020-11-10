@@ -2,11 +2,11 @@ import { getAuth } from "../../utils/common";
 import { useForm } from "react-hook-form";
 import useFetch from "react-fetch-hook";
 import { createNewFile } from "../lib/apiFiles";
-import LocalUpload from "../../components/LocalUpload"
+import FileUpload from "../../components/FileUpload";
 
 export default function contactsPage(props) {
 
-  const { user } = props
+  // const { user } = props
   const { register, handleSubmit } = useForm();
 
   // const Component = () => {
@@ -31,7 +31,7 @@ export default function contactsPage(props) {
   //     );
   // };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("SELECTED FILES\n", data);
     // http://localhost:3000/api/files
 
@@ -68,22 +68,9 @@ export default function contactsPage(props) {
   return (
     <div>
 
-      <div style={{ backgroundColor: "beige" }}>
-        <LocalUpload />
-      </div>
+      <FileUpload />
 
-      <div style={{ backgroundColor: "gainsboro" }}>
-        <form action="/api/multiparty" encType="multipart/form-data" method="post">
-          <input type="text" name="title" />
-          <br />
-          <input type="file" name="upload" multiple />
-          <br />
-          <input type="submit" value="Upload" />
-        </form>
-      </div>
-
-      <br />
-      <br />
+      <hr></hr>
 
       <div>
         <h3>Upload test</h3>
@@ -107,7 +94,7 @@ export default function contactsPage(props) {
         <form
           // onSubmit={event => onFormSubmit(event)}
           onSubmit={handleSubmit(onSubmit)}
-          encType="multipart/form-data"
+        // encType="multipart/form-data"
         // encType="multipart/form-data"
         >
           <input ref={register} type="file" name="fileUpload" multiple />
@@ -125,4 +112,4 @@ export default function contactsPage(props) {
   )
 };
 
-contactsPage.getInitialProps = async (ctx) => getAuth(ctx);
+// contactsPage.getInitialProps = async (ctx) => getAuth(ctx);

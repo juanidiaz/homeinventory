@@ -202,6 +202,6 @@ export default function ItemsInput(props) {
 
     </Paper>
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... ITEMS INPUT</h1>
     );
 }

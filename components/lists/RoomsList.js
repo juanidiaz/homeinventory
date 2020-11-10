@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+import EditIcon from "@material-ui/icons/Edit";
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
 export default function RoomsList(props) {
   const classes = useStyles();
 
-  const { allRooms } = props;
+  const { allRooms, editRoom } = props;
 
   return allRooms && allRooms.length > 0 ? (
     <TableContainer component={Paper}>
@@ -27,6 +29,7 @@ export default function RoomsList(props) {
             <TableCell>Name</TableCell>
             <TableCell align="right">Description</TableCell>
             <TableCell align="right">Location</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -37,12 +40,15 @@ export default function RoomsList(props) {
               </TableCell>
               <TableCell align="right">{room.description}</TableCell>
               <TableCell align="right">{room.location}</TableCell>
+              <TableCell align="right">
+                <EditIcon fontSize="small" onClick={() => editRoom(room)} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... ROOMS LIST</h1>
     );
 }

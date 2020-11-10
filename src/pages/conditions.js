@@ -1,12 +1,13 @@
 import { getAuth } from "../../utils/common";
 import { makeStyles } from "@material-ui/core/styles";
-import { getAllConditions, createNewCondition } from "../../src/lib/apiCondition";
+import { getAllConditions, createNewCondition, updateCondition } from "../../src/lib/apiCondition";
 // import Button from "@material-ui/core/Button";
 import Button from "react-bootstrap/Button";
 import ConditionsInput from "../../components/input/ConditionsInput";
 import ConditionsList from "../../components/lists/ConditionsList";
 import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
+import ModalAddCondition from "../../components/modals/ModalAddCondition";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,17 +18,23 @@ const useStyles = makeStyles((theme) => ({
 export default function conditionsPage() {
   const classes = useStyles();
 
-  const [showElements, setShowElements] = React.useState(true);
-  const [allConditionsState, setAllConditionsState] = React.useState([]);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [allConditions, setAllConditions] = React.useState([]);
   const [newCondition, setNewCondition] = React.useState({});
+  const [editMode, setEditMode] = React.useState(false);
 
   React.useEffect(() => getConditions(), []);
 
   const getConditions = () => {
     getAllConditions().then(allConditions => {
-      setAllConditionsState(allConditions);
+      setAllConditions(allConditions);
     })
-  }
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setEditMode(false);
+  };
 
   const handleChange = name => event => {
     setNewCondition({
@@ -37,54 +44,71 @@ export default function conditionsPage() {
   };
 
   const handleClickOnCreateNewCondition = () => {
-
-    createNewCondition(newCondition).then(condition => {
-      getConditions()
-      setShowElements(true);
-    })
+    if (editMode) {
+      updateCondition(newCondition).then(() => {
+        setOpenModal(false);
+        setEditMode(false);
+        getConditions();
+      })
+    } else {
+      createNewCondition(newCondition).then(() => {
+        setOpenModal(false);
+        setEditMode(false);
+        getConditions();
+      })
+    }
   };
 
   const handleClickOnCancelNewCondition = () => {
     setNewCondition({})
-    setShowElements(true);
+    openModal(true);
   };
 
-  return (
+  const handleClickEditCondition = condition => {
+    setNewCondition(condition)
+    setEditMode(true)
+    setOpenModal(true);
+  };
+
+  return allConditions ? (
     <div className={classes.root}>
+
+      <ModalAddCondition
+        open={openModal}
+        handleClose={handleCloseModal}
+        handleChange={handleChange}
+        allConditions={allConditions}
+        createNewCondition={handleClickOnCreateNewCondition}
+        cancelCreateNewCondition={handleClickOnCancelNewCondition}
+        newCondition={newCondition}
+        editMode={editMode}
+      />
+
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <h3>Conditions</h3>
         </Grid>
 
         <Grid item xs={6}>
-          {showElements ?
-            <Button variant="success" size="sm" onClick={() => setShowElements(false)}>
-              <AddIcon fontSize="small" />Add new condition</Button>
-            :
-            null
-            //<Button variant="dark" size="sm" onClick={() => setShowElements(true)}>Show all categories</Button>
-          }
+          <Button variant="success" className={classes.fillAvailable}
+            size="sm" onClick={() => setOpenModal(true)}
+          >
+            <AddIcon fontSize="small" />Add new condition</Button>
         </Grid>
 
         <Grid item xs={12}>
-          {showElements ?
-            <ConditionsList
-              allConditions={allConditionsState}
-            />
-            :
-            <ConditionsInput
-              allConditions={allConditionsState}
-              handleChange={handleChange}
-              createNewCondition={handleClickOnCreateNewCondition}
-              cancelCreateNewCondition={handleClickOnCancelNewCondition}
-            />
-          }
+          <ConditionsList
+            allConditions={allConditions}
+            editCondition={handleClickEditCondition}
+          />
         </Grid>
 
       </Grid>
 
     </div>
-  )
+  ) : (
+      <h1>LOADING... CONDITIONS</h1>
+    );
 };
 
 conditionsPage.getInitialProps = async (ctx) => getAuth(ctx);

@@ -1,6 +1,7 @@
 import { getAuth } from "../../utils/common";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAllCompanies, createNewCompany, updateCompany } from "../../src/lib/apiCompany";
+import CompaniesList from "../../components/lists/CompaniesList";
 import Button from "react-bootstrap/Button";
 import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
@@ -61,10 +62,10 @@ export default function companiesPage(props) {
     handleCloseModal();
   };
 
-  const handleClickEditCompany = category => {
-    setNewCompany(category)
+  const handleClickEditCompany = company => {
+    setNewCompany(company)
     setEditMode(true)
-    setOpenModalCompany(true);
+    setOpenModal(true);
   };
 
   console.log("== newCompany ==", newCompany)
@@ -98,13 +99,18 @@ export default function companiesPage(props) {
           </Button>
         </Grid>
 
-
+        <Grid item xs={12}>
+          <CompaniesList
+            allCompanies={allCompanies}
+            editCompany={handleClickEditCompany}
+          />
+        </Grid>
 
       </Grid>
     </div>
 
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... COMPANIES</h1>
     );
 };
 

@@ -8,6 +8,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
+import EditIcon from "@material-ui/icons/Edit";
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
 export default function LocationsList(props) {
   const classes = useStyles();
 
-  const { allLocations } = props;
+  const { allLocations, editLocation } = props;
 
   return allLocations && allLocations.length > 0 ? (
     <TableContainer component={Paper}>
@@ -26,6 +28,7 @@ export default function LocationsList(props) {
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right">Description</TableCell>
+            <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -35,12 +38,15 @@ export default function LocationsList(props) {
                 {location.name}
               </TableCell>
               <TableCell align="right">{location.description}</TableCell>
+              <TableCell align="right">
+                <EditIcon fontSize="small" onClick={() => editLocation(location)} />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... LOCATIONS LIST</h1>
     );
 }

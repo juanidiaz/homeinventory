@@ -179,7 +179,7 @@ export default function categoriesPage(props) {
 
     </div>
   ) : (
-      <h1>LOADING...</h1>
+      <h1>LOADING... CATEGORIES</h1>
     );
 };
 

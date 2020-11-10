@@ -1,12 +1,13 @@
 import { getAuth } from "../../utils/common";
 import { makeStyles } from "@material-ui/core/styles";
-import { getAllLocations, createNewLocation } from "../../src/lib/apiLocation";
+import { getAllLocations, createNewLocation, updateLocation } from "../../src/lib/apiLocation";
 // import Button from "@material-ui/core/Button";
 import Button from "react-bootstrap/Button";
 import LocationsInput from "../../components/input/LocationsInput";
 import LocationsList from "../../components/lists/LocationsList";
 import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
+import ModalAddLocation from "../../components/modals/ModalAddLocation";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,86 +18,97 @@ const useStyles = makeStyles((theme) => ({
 export default function locationsPage() {
   const classes = useStyles();
 
-  const [showElements, setShowElements] = React.useState(true);
-  const [allLocationsState, setAllLocationsState] = React.useState([]);
+  const [openModal, setOpenModal] = React.useState(false);
+  const [allLocations, setAllLocations] = React.useState([]);
   const [newLocation, setNewLocation] = React.useState({});
+  const [editMode, setEditMode] = React.useState(false);
 
   React.useEffect(() => getLocations(), []);
 
   const getLocations = () => {
     getAllLocations().then(allLocations => {
-      setAllLocationsState(allLocations);
+      setAllLocations(allLocations);
     })
-  }
+  };
 
-  const handleChange = path => name => event => {
-    if (path) {
-      setNewLocation({
-        ...newLocation,
-        [path]: {
-          ...newLocation[path],
-          [name]: event.target.value
-        }
-      });
-    } else {
-      setNewLocation({
-        ...newLocation,
-        [name]: event.target.value
-      });
-    }
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setEditMode(false);
+  };
+
+  const handleChange = name => event => {
+    setNewLocation({
+      ...newLocation,
+      [name]: event.target.value
+    });
   };
 
   const handleClickOnCreateNewLocation = () => {
-
-    createNewLocation(newLocation).then(location => {
-      getLocations();
-      setNewLocation({})
-      setShowElements(true);
-    })
+    if (editMode) {
+      updateLocation(newLocation).then(() => {
+        setOpenModal(false);
+        setEditMode(false);
+        getLocations();
+      })
+    } else {
+      createNewLocation(newLocation).then(() => {
+        setOpenModal(false);
+        setEditMode(false);
+        getLocations();
+      })
+    }
   };
 
   const handleClickOnCancelNewLocation = () => {
     setNewLocation({})
-    setShowElements(true);
+    openModal(true);
   };
 
-  return (
+  const handleClickEditLocation = location => {
+    setNewLocation(location)
+    setEditMode(true)
+    setOpenModal(true);
+  };
+
+  return allLocations ? (
     <div className={classes.root}>
+
+      <ModalAddLocation
+        open={openModal}
+        handleClose={handleCloseModal}
+        handleChange={handleChange}
+        allLocations={allLocations}
+        createNewLocation={handleClickOnCreateNewLocation}
+        cancelCreateNewLocation={handleClickOnCancelNewLocation}
+        newLocation={newLocation}
+        editMode={editMode}
+      />
+
       <Grid container spacing={1}>
         <Grid item xs={12}>
           <h3>Locations</h3>
         </Grid>
 
         <Grid item xs={6}>
-          {showElements ?
-            <Button variant="success" size="sm" onClick={() => setShowElements(false)}>
-              <AddIcon fontSize="small" />Add new location</Button>
-            :
-            null
-            //<Button variant="dark" size="sm" onClick={() => setShowElements(true)}>Show all categories</Button>
-          }
+          <Button variant="success" className={classes.fillAvailable}
+            size="sm" onClick={() => setOpenModal(true)}
+          >
+            <AddIcon fontSize="small" />Add new location</Button>
         </Grid>
 
         <Grid item xs={12}>
-          {showElements ?
-            <LocationsList
-              allLocations={allLocationsState}
-            />
-            :
-            <LocationsInput
-              allLocations={allLocationsState}
-              handleChange={handleChange}
-              createNewLocation={handleClickOnCreateNewLocation}
-              cancelCreateNewLocation={handleClickOnCancelNewLocation}
-              newLocation={newLocation}
-            />
-          }
+          <LocationsList
+            allLocations={allLocations}
+            editLocation={handleClickEditLocation}
+          />
         </Grid>
 
       </Grid>
 
     </div>
-  )
+  ) : (
+      <h1>LOADING... CONDITIONS</h1>
+    );
 };
 
 locationsPage.getInitialProps = async (ctx) => getAuth(ctx);

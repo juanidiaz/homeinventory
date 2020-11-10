@@ -12,8 +12,8 @@ export default async (req, res) => {
     case "GET":
       
       try {
-        // const categories = await Category.find({}).populate("subCategories");
-        const categories = await Category.find({});
+        const categories = await Category.find({}).populate("subCategories");
+        // const categories = await Category.find({});
         
         res.status(200).json({ success: true, data: categories });
 

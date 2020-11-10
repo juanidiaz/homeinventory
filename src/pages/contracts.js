@@ -4,7 +4,7 @@ export default function contractsPage(props) {
 
   console.log("== contractsPage ==", props)
 
-  return <h1>LOADING...</h1>
+  return <h1>LOADING... CONTRACTS</h1>
     
 };
 

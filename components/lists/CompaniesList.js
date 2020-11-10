@@ -16,34 +16,32 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CategoriesList(props) {
+export default function CompaniesList(props) {
   const classes = useStyles();
 
-  const { allCategories, editCategory } = props;
+  const { allCompanies, editCompany } = props;
 
-  // console.log("allCategories", { allCategories, lenght: allCategories && allCategories.lenght > 0 ? allCategories[4] : "nada" });
+  // console.log("allCompanies", { allCompanies, lenght: allCompanies && allCompanies.lenght > 0 ? allCompanies[4] : "nada" });
 
-  return allCategories && allCategories.length > 0 ? (
+  return allCompanies && allCompanies.length > 0 ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
             <TableCell align="right">Description</TableCell>
-            <TableCell align="right">Subcategories</TableCell>
             <TableCell align="right">Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {allCategories.map(category => {
-            // console.log("category", Object.keys(category.subCategories).length);
+          {allCompanies.map(company => {
+            // console.log("company", Object.keys(company.subCompanies).length);
             return (
-              <TableRow key={category._id}>
-                <TableCell component="th" scope="row">{category.name}</TableCell>
-                <TableCell align="right"             >{category.description}</TableCell>
-                <TableCell align="right"             >{Object.keys(category.subCategories).length}</TableCell>
+              <TableRow key={company._id}>
+                <TableCell component="th" scope="row">{company.name}</TableCell>
+                <TableCell align="right"             >{company.description}</TableCell>
                 <TableCell align="right"             >
-                  <EditIcon fontSize="small" onClick={() => editCategory(category)}/>
+                  <EditIcon fontSize="small" onClick={() => editCompany(company)}/>
                 </TableCell>
               </TableRow>
             )
@@ -52,6 +50,6 @@ export default function CategoriesList(props) {
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING... CATEGORIES LIST</h1>
+      <h1>LOADING... COMPANIES LIST</h1>
     );
 }
