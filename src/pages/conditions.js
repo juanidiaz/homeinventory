@@ -1,7 +1,6 @@
 import { getAuth } from "../../utils/common";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAllConditions, createNewCondition, updateCondition } from "../../src/lib/apiCondition";
-// import Button from "@material-ui/core/Button";
 import Button from "react-bootstrap/Button";
 import ConditionsInput from "../../components/input/ConditionsInput";
 import ConditionsList from "../../components/lists/ConditionsList";

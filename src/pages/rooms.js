@@ -1,7 +1,6 @@
 import { getAuth } from "../../utils/common";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAllRooms, createNewRoom, updateRoom } from "../../src/lib/apiRoom";
-// import Button from "@material-ui/core/Button";
 import Button from "react-bootstrap/Button";
 import RoomsInput from "../../components/input/RoomsInput";
 import RoomsList from "../../components/lists/RoomsList";

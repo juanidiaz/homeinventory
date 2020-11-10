@@ -16,12 +16,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ItemsList(props) {
+export default function ContactsList(props) {
   const classes = useStyles();
 
-  const { allItems, editItem } = props;
+  const { allContacts, editContact } = props;
 
-  return allItems && allItems.length > 0 ? (
+  return allContacts && allContacts.length > 0 ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -32,14 +32,14 @@ export default function ItemsList(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allItems.map((item) => (
-            <TableRow key={item.name}>
+          {allContacts.map((contact) => (
+            <TableRow key={contact.name}>
               <TableCell component="th" scope="row">
-                {item.name}
+                {contact.name}
               </TableCell>
-              <TableCell align="right">{item.description}</TableCell>
+              <TableCell align="right">{contact.description}</TableCell>
               <TableCell align="right">
-                <EditIcon fontSize="small" onClick={() => editItem(item)} />
+                <EditIcon fontSize="small" onClick={() => editContact(contact)} />
               </TableCell>
             </TableRow>
           ))}
