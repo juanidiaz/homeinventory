@@ -46,6 +46,13 @@ export default function roomsPage() {
     setEditMode(false);
   };
 
+  const handleChangeCheckbox = event => {
+    setNewRoom({
+      ...newRoom,
+      [event.target.name]: event.target.checked
+    });
+  };
+
   const handleChange = name => event => {
     setNewRoom({
       ...newRoom,
@@ -92,6 +99,7 @@ export default function roomsPage() {
         open={openModal}
         handleClose={handleCloseModal}
         handleChange={handleChange}
+        handleChangeCheckbox={handleChangeCheckbox}
         allRooms={allRooms}
         allLocations={allLocations}
         createNewRoom={handleClickOnCreateNewRoom}
@@ -113,7 +121,7 @@ export default function roomsPage() {
           </Button>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} className={"mb-3"}>
           <RoomsList
             allRooms={allRooms}
             editRoom={handleClickEditRoom}

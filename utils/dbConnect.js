@@ -37,7 +37,7 @@ export async function dbConnect() {
     //   AWSfiles_BucketName : process.env.AWSfiles_BucketName
     // });
 
-    console.log("--- ATTEMPING DB CONNECTION TO: ", connectionString);
+    // console.log("--- ATTEMPING DB CONNECTION TO: ", connectionString);
 
     const db = await mongoose.connect(connectionString, mongooseOptions);
 

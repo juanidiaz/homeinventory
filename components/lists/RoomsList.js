@@ -34,8 +34,8 @@ export default function RoomsList(props) {
         </TableHead>
         <TableBody>
           {allRooms.map((room) => {
-            if (!room.isActive) return;
-            console.log("++++++++++++++", room)
+            // if (!room.isActive) return;
+
             return (
               <TableRow key={room.name}>
                 <TableCell component="th" scope="row">

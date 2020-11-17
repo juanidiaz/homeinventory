@@ -33,7 +33,7 @@ export default function LocationsList(props) {
         </TableHead>
         <TableBody>
           {allLocations.map((location) => {
-            if (!location.isActive) return;
+            // if (!location.isActive) return;
 
             return (
               <TableRow key={location.name}>

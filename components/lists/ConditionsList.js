@@ -33,7 +33,7 @@ export default function ConditionsList(props) {
         </TableHead>
         <TableBody>
           {allConditions.map(condition => {
-            if (!condition.isActive) return;
+            // if (!condition.isActive) return;
 
             return (
               <TableRow key={condition.name}>

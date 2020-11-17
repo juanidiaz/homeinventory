@@ -79,13 +79,13 @@ export async function getUserFromCookie(ctx) {
       }
     });
 
-  console.log(" ++++++++ getUserFromCookie", {
-    reqUser: ctx.req.user,
-    fullUrl,
-    cookie,
-    origin,
-    status: resp.status
-  });
+  // console.log(" ++++++++ getUserFromCookie", {
+  //   reqUser: ctx.req.user,
+  //   fullUrl,
+  //   cookie,
+  //   origin,
+  //   status: resp.status
+  // });
 
   if (resp.status === 200) {
     if (cookie) {

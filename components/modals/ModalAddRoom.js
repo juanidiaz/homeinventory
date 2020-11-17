@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@material-ui/core/TextField";
 import { FormControl, InputLabel, Select, MenuItem, Input } from "@material-ui/core";
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(theme => ({
   fillAvailable: {
@@ -14,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 const ModalAddRoom = props => {
   const classes = useStyles();
 
-  const { open, handleClose, allRooms, handleChange, editMode,
+  const { open, handleClose, allRooms, handleChange, handleChangeCheckbox, editMode,
     createNewRoom, cancelCreateNewRoom, newRoom, allLocations } = props;
 
   return (
@@ -32,16 +34,24 @@ const ModalAddRoom = props => {
           alignItems="center"
           spacing={2}
         >
-          <Grid item xs={12} md={12}>
+          <Grid item xs={6} md={6}>
             <TextField
               fullWidth
               required
               size="small"
               id="name-input"
               label="Name"
-              // variant="outlined"
               value={newRoom.name}
               onChange={handleChange("name")}
+            />
+          </Grid>
+
+          <Grid item xs={6} md={6}>
+            <FormControlLabel
+              control={
+                <Checkbox checked={newRoom.isActive} onChange={handleChangeCheckbox} name="isActive" />
+              }
+              label="Active"
             />
           </Grid>
 
@@ -68,9 +78,13 @@ const ModalAddRoom = props => {
                 input={<Input />}
               >
                 <MenuItem value="" disabled>Select location</MenuItem>
-                {allLocations.map(location => (
-                  <MenuItem key={location._id} value={location._id}>{location.name}</MenuItem>
-                ))}
+                {allLocations.map(location => {
+                  if (!location.isActive) return;
+
+                  return (
+                    <MenuItem key={location._id} value={location._id}>{location.name}</MenuItem>
+                  )
+                })}
               </Select>
             </FormControl>
 
@@ -105,7 +119,7 @@ const ModalAddRoom = props => {
           Cancel
       </Button>
         <Button variant="primary" onClick={createNewRoom}>
-          Add room
+          {editMode ? "Save changes" : "Add room"}
         </Button>
       </Modal.Footer>
 

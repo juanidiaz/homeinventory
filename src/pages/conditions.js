@@ -36,6 +36,13 @@ export default function conditionsPage(props) {
     setEditMode(false);
   };
 
+  const handleChangeCheckbox = event => {
+    setNewCondition({
+      ...newCondition,
+      [event.target.name]: event.target.checked
+    });
+  };
+
   const handleChange = name => event => {
     setNewCondition({
       ...newCondition,
@@ -77,6 +84,7 @@ export default function conditionsPage(props) {
         open={openModal}
         handleClose={handleCloseModal}
         handleChange={handleChange}
+        handleChangeCheckbox={handleChangeCheckbox}
         allConditions={allConditions}
         createNewCondition={handleClickOnCreateNewCondition}
         cancelCreateNewCondition={handleClickOnCancelNewCondition}

@@ -35,6 +35,14 @@ export default function locationsPage() {
     setEditMode(false);
   };
 
+  const handleChangeCheckbox = event => {
+    setNewLocation({
+      ...newLocation,
+      [event.target.name]: event.target.checked
+    });
+  };
+
+
   const handleChange = name => event => {
     setNewLocation({
       ...newLocation,
@@ -92,6 +100,7 @@ export default function locationsPage() {
         handleClose={handleCloseModal}
         handleChange={handleChange}
         handleChangeAddress={handleChangeAddress}
+        handleChangeCheckbox={handleChangeCheckbox}
         allLocations={allLocations}
         createNewLocation={handleClickOnCreateNewLocation}
         cancelCreateNewLocation={handleClickOnCancelNewLocation}
