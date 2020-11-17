@@ -16,12 +16,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ConditionsList(props) {
+export default function PoliciesList(props) {
   const classes = useStyles();
 
-  const { allConditions, editCondition } = props;
+  const { allPolicies, editPolicy } = props;
 
-  return allConditions && allConditions.length > 0 ? (
+  // console.log("allPolicies", { allPolicies, lenght: allPolicies && allPolicies.lenght > 0 ? allPolicies[4] : "nada" });
+
+  return allPolicies && allPolicies.length > 0 ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -32,17 +34,14 @@ export default function ConditionsList(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allConditions.map(condition => {
-            if (!condition.isActive) return;
-
+          {allPolicies.map(policy => {
+            // console.log("policy", Object.keys(policy.subPolicies).length);
             return (
-              <TableRow key={condition.name}>
-                <TableCell component="th" scope="row">
-                  {condition.name}
-                </TableCell>
-                <TableCell align="right">{condition.description}</TableCell>
-                <TableCell align="right">
-                  <EditIcon fontSize="small" onClick={() => editCondition(condition)} />
+              <TableRow key={policy._id}>
+                <TableCell component="th" scope="row">{policy.name}</TableCell>
+                <TableCell align="right"             >{policy.description}</TableCell>
+                <TableCell align="right"             >
+                  <EditIcon fontSize="small" onClick={() => editPolicy(policy)}/>
                 </TableCell>
               </TableRow>
             )
@@ -51,6 +50,6 @@ export default function ConditionsList(props) {
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING... CONDITIONS LIST</h1>
+      <h1>LOADING... COMPANIES LIST</h1>
     );
 }

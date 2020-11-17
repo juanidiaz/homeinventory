@@ -14,10 +14,10 @@ const PolicySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Contact"
   },
-  policyNumber: { type: String, required: true, trim: true },
-  type: { type: String, required: true, trim: true, lowercase: true },
+  policyNumber: { type: String, trim: true },
+  type: { type: String, trim: true, lowercase: true },
   subType: { type: String, trim: true, lowercase: true },
-  inCaseOfEmergency: { type: String, required: true, trim: true },
+  inCaseOfEmergency: { type: String, trim: true },
   dateStart: { type: Date },
   dateEnd: { type: Date },
   dateRenewal: { type: Date },

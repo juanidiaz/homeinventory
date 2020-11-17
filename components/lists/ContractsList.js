@@ -16,12 +16,14 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ConditionsList(props) {
+export default function ContractsList(props) {
   const classes = useStyles();
 
-  const { allConditions, editCondition } = props;
+  const { allContracts, editContract } = props;
 
-  return allConditions && allConditions.length > 0 ? (
+  // console.log("allContracts", { allContracts, lenght: allContracts && allContracts.lenght > 0 ? allContracts[4] : "nada" });
+
+  return allContracts && allContracts.length > 0 ? (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -32,17 +34,14 @@ export default function ConditionsList(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allConditions.map(condition => {
-            if (!condition.isActive) return;
-
+          {allContracts.map(contract => {
+            // console.log("contract", Object.keys(contract.subContracts).length);
             return (
-              <TableRow key={condition.name}>
-                <TableCell component="th" scope="row">
-                  {condition.name}
-                </TableCell>
-                <TableCell align="right">{condition.description}</TableCell>
-                <TableCell align="right">
-                  <EditIcon fontSize="small" onClick={() => editCondition(condition)} />
+              <TableRow key={contract._id}>
+                <TableCell component="th" scope="row">{contract.name}</TableCell>
+                <TableCell align="right"             >{contract.description}</TableCell>
+                <TableCell align="right"             >
+                  <EditIcon fontSize="small" onClick={() => editContract(contract)}/>
                 </TableCell>
               </TableRow>
             )
@@ -51,6 +50,6 @@ export default function ConditionsList(props) {
       </Table>
     </TableContainer>
   ) : (
-      <h1>LOADING... CONDITIONS LIST</h1>
+      <h1>LOADING... COMPANIES LIST</h1>
     );
 }

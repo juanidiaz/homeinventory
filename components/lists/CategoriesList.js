@@ -36,7 +36,8 @@ export default function CategoriesList(props) {
         </TableHead>
         <TableBody>
           {allCategories.map(category => {
-            // console.log("category", Object.keys(category.subCategories).length);
+            if (!category.isActive) return;
+            
             return (
               <TableRow key={category._id}>
                 <TableCell component="th" scope="row">{category.name}</TableCell>

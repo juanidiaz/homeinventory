@@ -14,9 +14,9 @@ const ContractSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Contact"
   },
-  contractNumber: { type: String, required: true, trim: true },
-  type: { type: String, required: true, trim: true, lowercase: true },
-  inCaseOfEmergency: { type: String, required: true, trim: true },
+  contractNumber: { type: String, trim: true },
+  type: { type: String, trim: true, lowercase: true },
+  inCaseOfEmergency: { type: String, trim: true },
   dateStart: { type: Date },
   dateEnd: { type: Date },
   dateRenewal: { type: Date },

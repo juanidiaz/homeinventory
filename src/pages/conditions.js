@@ -1,9 +1,8 @@
 import { getAuth } from "../../utils/common";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAllConditions, createNewCondition, updateCondition } from "../../src/lib/apiCondition";
-import Button from "react-bootstrap/Button";
-import ConditionsInput from "../../components/input/ConditionsInput";
 import ConditionsList from "../../components/lists/ConditionsList";
+import Button from "react-bootstrap/Button";
 import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 import ModalAddCondition from "../../components/modals/ModalAddCondition";
@@ -14,8 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function conditionsPage() {
+export default function conditionsPage(props) {
   const classes = useStyles();
+
+  const { user } = props;
 
   const [openModal, setOpenModal] = React.useState(false);
   const [allConditions, setAllConditions] = React.useState([]);

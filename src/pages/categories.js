@@ -75,7 +75,6 @@ export default function categoriesPage(props) {
   };
 
   const handleClickOnCreateNewCategory = () => {
-    console.log("SAVING", { editMode, newCategory })
     if (editMode) {
       updateCategory(newCategory).then(() => {
         setOpenModalCategory(false);

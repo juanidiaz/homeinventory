@@ -32,7 +32,8 @@ export default function SubCategoriesList(props) {
         </TableHead>
         <TableBody>
           {allSubCategories.map(subCategory => {
-            // console.log("subCategory", Object.keys(subCategory.subCategories).length);
+            if (!subCategory.isActive) return;
+
             return (
               <TableRow key={subCategory._id}>
                 <TableCell component="th" scope="row">{subCategory.name}</TableCell>
