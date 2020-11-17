@@ -1,6 +1,7 @@
 import { getAuth } from "../../utils/common";
 import { makeStyles } from "@material-ui/core/styles";
 import { getAllRooms, createNewRoom, updateRoom } from "../../src/lib/apiRoom";
+import { getAllLocations } from "../../src/lib/apiLocation";
 import Button from "react-bootstrap/Button";
 import RoomsInput from "../../components/input/RoomsInput";
 import RoomsList from "../../components/lists/RoomsList";
@@ -19,16 +20,26 @@ export default function roomsPage() {
 
   const [openModal, setOpenModal] = React.useState(false);
   const [allRooms, setAllRooms] = React.useState([]);
+  const [allLocations, setAllLocations] = React.useState([]);
   const [newRoom, setNewRoom] = React.useState({});
   const [editMode, setEditMode] = React.useState(false);
 
-  React.useEffect(() => getRooms(), []);
+  React.useEffect(() => {
+    getRooms();
+    getLocations();
+  }, []);
 
   const getRooms = () => {
-    getAllRooms().then(allRooms => {
-      setAllRooms(allRooms);
+    getAllRooms().then(allRoomsDB => {
+      setAllRooms(allRoomsDB);
     })
-  }
+  };
+
+  const getLocations = () => {
+    getAllLocations().then(allLocationsDB => {
+      setAllLocations(allLocationsDB);
+    })
+  };
 
   const handleCloseModal = () => {
     setOpenModal(false);
@@ -40,6 +51,11 @@ export default function roomsPage() {
       ...newRoom,
       [name]: event.target.value
     });
+  };
+
+  const handleClickToAddRoom = () => {
+    setNewRoom({})
+    setOpenModal(true);
   };
 
   const handleClickOnCreateNewRoom = () => {
@@ -77,6 +93,7 @@ export default function roomsPage() {
         handleClose={handleCloseModal}
         handleChange={handleChange}
         allRooms={allRooms}
+        allLocations={allLocations}
         createNewRoom={handleClickOnCreateNewRoom}
         cancelCreateNewRoom={handleClickOnCancelNewRoom}
         newRoom={newRoom}
@@ -90,7 +107,7 @@ export default function roomsPage() {
 
         <Grid item xs={6} md={3}>
           <Button variant="success" className={classes.fillAvailable}
-            size="sm" onClick={() => setOpenModal(true)}
+            size="sm" onClick={() => handleClickToAddRoom()}
           >
             <AddIcon fontSize="small" /> New room
           </Button>

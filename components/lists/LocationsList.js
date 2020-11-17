@@ -32,17 +32,21 @@ export default function LocationsList(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allLocations.map((location) => (
-            <TableRow key={location.name}>
-              <TableCell component="th" scope="row">
-                {location.name}
-              </TableCell>
-              <TableCell align="right">{location.description}</TableCell>
-              <TableCell align="right">
-                <EditIcon fontSize="small" onClick={() => editLocation(location)} />
-              </TableCell>
-            </TableRow>
-          ))}
+          {allLocations.map((location) => {
+            if (!location.isActive) return;
+
+            return (
+              <TableRow key={location.name}>
+                <TableCell component="th" scope="row">
+                  {location.name}
+                </TableCell>
+                <TableCell align="right">{location.description}</TableCell>
+                <TableCell align="right">
+                  <EditIcon fontSize="small" onClick={() => editLocation(location)} />
+                </TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>

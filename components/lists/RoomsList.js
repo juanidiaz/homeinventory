@@ -33,18 +33,22 @@ export default function RoomsList(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {allRooms.map((room) => (
-            <TableRow key={room.name}>
-              <TableCell component="th" scope="row">
-                {room.name}
-              </TableCell>
-              <TableCell align="right">{room.description}</TableCell>
-              <TableCell align="right">{room.location}</TableCell>
-              <TableCell align="right">
-                <EditIcon fontSize="small" onClick={() => editRoom(room)} />
-              </TableCell>
-            </TableRow>
-          ))}
+          {allRooms.map((room) => {
+            if (!room.isActive) return;
+            console.log("++++++++++++++", room)
+            return (
+              <TableRow key={room.name}>
+                <TableCell component="th" scope="row">
+                  {room.name}
+                </TableCell>
+                <TableCell align="right">{room.description}</TableCell>
+                <TableCell align="right">{room.location ? room.location.name : <i style={{color: 'red'}}>Enter location</i>}</TableCell>
+                <TableCell align="right">
+                  <EditIcon fontSize="small" onClick={() => editRoom(room)} />
+                </TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>

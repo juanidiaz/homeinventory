@@ -1,5 +1,4 @@
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { getAllSubCategories } from "../../src/lib/apiSubCategory";
 import { Grid } from "@material-ui/core";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -15,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 const ModalAddCategory = props => {
   const classes = useStyles();
   const elementType = "category";
-  const { handleClose, open, allCategories, allSubCategories, handleChange, 
+  const { handleClose, open, allCategories, allSubCategories, handleChange,
     editMode, createNewCategory, cancelCreateNewCategory, newCategory } = props;
 
   const ITEM_HEIGHT = 48;
@@ -51,7 +50,6 @@ const ModalAddCategory = props => {
               size="small"
               id="name-input"
               label="Name"
-              // variant="outlined"
               value={newCategory.name}
               onChange={handleChange("name")}
             />
@@ -63,7 +61,6 @@ const ModalAddCategory = props => {
               size="small"
               id="description-input"
               label="Description"
-              // variant="outlined"
               value={newCategory.description}
               onChange={handleChange("description")}
             />

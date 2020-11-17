@@ -1,16 +1,26 @@
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@material-ui/core/TextField";
 
+const useStyles = makeStyles(theme => ({
+  fillAvailable: {
+    width: "-webkit-fill-available"
+  }
+}));
+
 const ModalAddLocation = props => {
-  const { open, handleClose, allLocations, handleChange, editMode, createNewLocation, cancelCreateNewLocation, newLocation } = props;
+  const classes = useStyles();
+
+  const { open, handleClose, allLocations, handleChange, handleChangeAddress,
+    editMode, createNewLocation, cancelCreateNewLocation, newLocation } = props;
 
   return (
 
     <Modal show={open} onHide={handleClose}>
       <Modal.Header closeButton>
-      <Modal.Title>{editMode ? `Modifying ${newLocation.name}` : `Add a location`}</Modal.Title>
+        <Modal.Title>{editMode ? `Modifying ${newLocation.name}` : `Add a location`}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -28,8 +38,7 @@ const ModalAddLocation = props => {
               size="small"
               id="name-input"
               label="Name"
-              // variant="outlined"
-              value={newLocation.name}
+              value={newLocation.name ? newLocation.name : ""}
               onChange={handleChange("name")}
             />
           </Grid>
@@ -40,10 +49,100 @@ const ModalAddLocation = props => {
               size="small"
               id="description-input"
               label="Description"
-              value={newLocation.description}
+              value={newLocation.description ? newLocation.description : ""}
               onChange={handleChange("description")}
             />
           </Grid>
+
+          <Grid item xs={4} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              id="streetNumber-input"
+              label="Street Number"
+              value={newLocation.address ? newLocation.address.streetNumber : ""}
+              onChange={handleChangeAddress("streetNumber")}
+            />
+          </Grid>
+
+          <Grid item xs={4} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              id="street-input"
+              label="Street"
+              value={newLocation.address ? newLocation.address.street : ""}
+              onChange={handleChangeAddress("street")}
+            />
+          </Grid>
+
+          <Grid item xs={4} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              id="street2-input"
+              label="Street2"
+              value={newLocation.address ? newLocation.address.street2 : ""}
+              onChange={handleChangeAddress("street2")}
+            />
+          </Grid>
+
+          <Grid item xs={4} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              id="city-input"
+              label="City"
+              value={newLocation.address ? newLocation.address.city : ""}
+              onChange={handleChangeAddress("city")}
+            />
+          </Grid>
+
+          <Grid item xs={4} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              id="province-input"
+              label="Province"
+              value={newLocation.address ? newLocation.address.province : ""}
+              onChange={handleChangeAddress("province")}
+            />
+          </Grid>
+
+          <Grid item xs={4} md={4}>
+            <TextField
+              fullWidth
+              size="small"
+              id="country-input"
+              label="Country"
+              value={newLocation.address ? newLocation.address.country : ""}
+              onChange={handleChangeAddress("country")}
+            />
+          </Grid>
+
+
+
+          <Grid item xs={6}>
+            <Button variant="secondary"
+              className={classes.fillAvailable}
+              onClick={handleClose}
+              disabled
+            >
+              Add picture
+            </Button>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Button variant="secondary"
+              className={classes.fillAvailable}
+              onClick={handleClose}
+              disabled
+            >
+              Add file
+            </Button>
+          </Grid>
+
+
 
         </Grid>
 

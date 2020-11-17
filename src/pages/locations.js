@@ -42,6 +42,21 @@ export default function locationsPage() {
     });
   };
 
+  const handleChangeAddress = name => event => {
+    setNewLocation({
+      ...newLocation,
+      address: {
+        ...newLocation.address,
+        [name]: event.target.value
+      }
+    });
+  };
+
+  const handleClickToAddLocation = () => {
+    setNewLocation({})
+    setOpenModal(true);
+  };
+
   const handleClickOnCreateNewLocation = () => {
     if (editMode) {
       updateLocation(newLocation).then(() => {
@@ -60,7 +75,7 @@ export default function locationsPage() {
 
   const handleClickOnCancelNewLocation = () => {
     setNewLocation({})
-    openModal(true);
+    setOpenModal(true);
   };
 
   const handleClickEditLocation = location => {
@@ -76,6 +91,7 @@ export default function locationsPage() {
         open={openModal}
         handleClose={handleCloseModal}
         handleChange={handleChange}
+        handleChangeAddress={handleChangeAddress}
         allLocations={allLocations}
         createNewLocation={handleClickOnCreateNewLocation}
         cancelCreateNewLocation={handleClickOnCancelNewLocation}
@@ -90,7 +106,7 @@ export default function locationsPage() {
 
         <Grid item xs={6}>
           <Button variant="success" className={classes.fillAvailable}
-            size="sm" onClick={() => setOpenModal(true)}
+            size="sm" onClick={() => handleClickToAddLocation()}
           >
             <AddIcon fontSize="small" />Add new location</Button>
         </Grid>

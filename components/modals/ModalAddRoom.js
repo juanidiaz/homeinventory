@@ -1,16 +1,27 @@
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@material-ui/core/TextField";
+import { FormControl, InputLabel, Select, MenuItem, Input } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  fillAvailable: {
+    width: "-webkit-fill-available"
+  }
+}));
 
 const ModalAddRoom = props => {
-  const { open, handleClose, allRooms, handleChange, editMode, createNewRoom, cancelCreateNewRoom, newRoom } = props;
+  const classes = useStyles();
+
+  const { open, handleClose, allRooms, handleChange, editMode,
+    createNewRoom, cancelCreateNewRoom, newRoom, allLocations } = props;
 
   return (
 
     <Modal show={open} onHide={handleClose}>
       <Modal.Header closeButton>
-      <Modal.Title>{editMode ? `Modifying ${newRoom.name}` : `Add a room`}</Modal.Title>
+        <Modal.Title>{editMode ? `Modifying ${newRoom.name}` : `Add a room`}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -43,6 +54,46 @@ const ModalAddRoom = props => {
               value={newRoom.description}
               onChange={handleChange("description")}
             />
+          </Grid>
+
+          <Grid item xs={12} md={12}>
+
+            <FormControl className={classes.fillAvailable}>
+              <InputLabel id="select-location-label">Location</InputLabel>
+              <Select
+                labelId="select-location-label"
+                id="select-location"
+                value={newRoom.location || []}
+                onChange={handleChange("location")}
+                input={<Input />}
+              >
+                <MenuItem value="" disabled>Select location</MenuItem>
+                {allLocations.map(location => (
+                  <MenuItem key={location._id} value={location._id}>{location.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+          </Grid>
+
+          <Grid item xs={6}>
+            <Button variant="secondary"
+              className={classes.fillAvailable}
+              onClick={handleClose}
+              disabled
+            >
+              Add picture
+            </Button>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Button variant="secondary"
+              className={classes.fillAvailable}
+              onClick={handleClose}
+              disabled
+            >
+              Add file
+            </Button>
           </Grid>
 
         </Grid>
