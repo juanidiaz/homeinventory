@@ -151,7 +151,7 @@ export default function itemsPage() {
     setOpenModal(true);
   };
 
-  return allItems ? (
+  return allItems, allLocations, allCategories, allSubCategories, allRooms, allConditions, allCompanies, allContracts ? (
     <div className={classes.root}>
 
       <ModalAddItem
