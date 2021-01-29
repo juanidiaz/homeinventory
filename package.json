@@ -9,8 +9,10 @@
     "seed": "node -r esm utils/seed.js"
   },
   "dependencies": {
+    "@date-io/date-fns": "^1.3.13",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/pickers": "^3.2.10",
     "aws-sdk": "^2.756.0",
     "axios": "^0.20.0",
     "bcrypt": "^5.0.0",
@@ -19,6 +21,7 @@
     "canada": "^0.1.0",
     "cookie": "^0.4.1",
     "country-list": "^2.2.0",
+    "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "file-type": "^16.0.0",

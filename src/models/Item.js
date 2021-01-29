@@ -1,11 +1,13 @@
 const mongoose = require("mongoose");
 const ItemSchema = new mongoose.Schema({
-  name: { type: String, required: true, unique: true, trim: true },
-  description: { type: String, default: "", trim: true },
+
+  // NON-VISUAL INFO
   isActive: { type: Boolean, default: true },
   user: { type: String, default: "automatic", trim: true },
-  pictures: { type: Array, default: [] },
-  files: { type: Array, default: [] },
+
+  // BASIC INFO
+  name: { type: String, required: true, unique: true, trim: true },
+  description: { type: String, default: "", trim: true },
   location: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Location",
@@ -18,15 +20,21 @@ const ItemSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
   },
+
+  // ADDITIONAL INFO
+  pictures: { type: Array, default: [] },
+  files: { type: Array, default: [] },
+
+  // ADVANCED INFO
   condition: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Condition",
   },
+  notes: { type: String, default: "", trim: true },
   estimatedValue: { type: Number, trim: true },
   model: { type: String, trim: true },
   brand: { type: String, trim: true },
   serialNumber: { type: String, trim: true },
-  notes: { type: String, default: "", trim: true },
   purchaseInfo: {
     purchaseDate: { type: Date },
     company: {
