@@ -1,0 +1,10 @@
+{
+  "form": {
+    "background": "#421b00",
+    "border": "#eb7100"
+  },
+  "text": {
+    "primary": "#ffc28a",
+    "secondary": "#eb7100"
+  }
+}

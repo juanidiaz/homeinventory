@@ -1,28 +1,12 @@
 import { useState, useRef } from "react";
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import mainConstants from "../../lib/mainConstants.json";
 
 import classes from "./auth-form.module.css";
 
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
-
-const validationSchemaLogin = yup.object({
-  email: yup
-    .string('Enter your email')
-    .email('Enter a valid email')
-    .required('Email is required'),
-  password: yup
-    .string('Enter your password')
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
-});
 
 async function createUser(firstName, lastName, email, password) {
   const response = await fetch('/api/auth/signup', {
@@ -44,31 +28,9 @@ async function createUser(firstName, lastName, email, password) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: "100%",
-    "& > * + *": {
+    width: '100%',
+    '& > * + *': {
       marginTop: theme.spacing(2),
-    },
-  },
-  controlForm: {
-    marginBottom: 20,
-
-    // (Note: space or no space after & matters. See SASS "parent selector".)
-    "& .MuiOutlinedInput-root": {  // - The Input-root, inside the TextField-root
-      backgroundColor: mainConstants.form.background,
-      borderColor: mainConstants.form.border,
-      color: mainConstants.text.primary,
-      "& fieldset": {               // - The <fieldset> inside the Input-root
-        borderColor: mainConstants.form.border,     // - Set the Input border
-      },
-      "&:hover fieldset": {
-        borderColor: mainConstants.form.border,     // - Set the Input border when parent has :hover
-      },
-      "&.Mui-focused fieldset": {   // - Set the Input border when parent is focused 
-        borderColor: mainConstants.form.border,
-      },
-    },
-    "& .MuiInputLabel-root": {
-      color: mainConstants.form.border,
     },
   },
 }));
@@ -136,21 +98,10 @@ function AuthForm() {
     }
   };
 
-  const formik = useFormik({
-    initialValues: {
-      email: 'foobar@example.com',
-      password: 'foobar',
-    },
-    validationSchema: validationSchemaLogin,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-
   return (
     <section className={classes.auth}>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={submitHandler}>
         {isLogin ? null : (
           <>
             <div className={classes.control}>
@@ -175,31 +126,20 @@ function AuthForm() {
           </>
         )}
 
-        <TextField
-          className={classesMUI.controlForm}
-          variant="outlined"
-          fullWidth
-          id="email"
-          name="email"
-          label="Email"
-          value={formik.values.email}
-          onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-        />
-        <TextField
-          className={classesMUI.controlForm}
-          variant="outlined"
-          fullWidth
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-        />
+        <div className={classes.control}>
+          <label htmlFor="email">Your Email</label>
+          <input type="email" id="email" required ref={emailInputRef} />
+        </div>
+
+        <div className={classes.control}>
+          <label htmlFor="password">Your Password</label>
+          <input
+            type="password"
+            id="password"
+            required
+            ref={passwordInputRef}
+          />
+        </div>
 
         {isLogin ? null : (
           <div className={classes.control}>

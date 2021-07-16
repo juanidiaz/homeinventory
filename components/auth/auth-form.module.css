@@ -27,7 +27,8 @@
 
 .control input {
   font: inherit;
-  background-color: #fcece1;
+  /* background-color: #fcece1; */
+  background-color: #421b00;
   color: #313131;
   border-radius: 4px;
   border: 1px solid white;
