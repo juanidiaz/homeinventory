@@ -27,7 +27,7 @@ async function handler(req, res) {
 
   const db = client.db();
 
-  const existingUser = await db.collection('users').findOne({ email: email });
+  const existingUser = await db.collection('contacts').findOne({ loginEmail: email });
 
   if (existingUser) {
     res.status(422).json({ message: 'User exists already!' });
@@ -37,11 +37,14 @@ async function handler(req, res) {
 
   const hashedPassword = await hashPassword(password);
 
-  const result = await db.collection('users').insertOne({
-    email: email,
+  const result = await db.collection('contacts').insertOne({
+    loginEmail: email,
     password: hashedPassword,
+    name: firstName,
     firstName,
-    lastName
+    lastName,
+    isAdmin: false,
+    isActive: false
   });
 
   res.status(201).json({ message: 'Created user!' });

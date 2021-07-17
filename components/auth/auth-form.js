@@ -21,7 +21,30 @@ const validationSchemaLogin = yup.object({
   password: yup
     .string('Enter your password')
     .min(8, 'Password should be of minimum 8 characters length')
+    .required('Password is required')
+});
+
+const validationSchemaRegister = yup.object({
+  firstName: yup
+    .string('Enter your first name')
+    .required('First name is required'),
+  email: yup
+    .string('Enter your email')
+    .email('Enter a valid email')
+    .required('Email is required'),
+  password: yup
+    .string('Enter your password')
+    .min(8, 'Password should be of minimum 8 characters length')
     .required('Password is required'),
+  passwordCheck: yup
+    .string('Enter your password confirmation')
+    .when("password", {
+      is: val => (val && val.length > 0 ? true : false),
+      then: yup.string().oneOf(
+        [yup.ref("password")],
+        "Both password need to be the same"
+      )
+    })
 });
 
 async function createUser(firstName, lastName, email, password) {
@@ -138,12 +161,53 @@ function AuthForm() {
 
   const formik = useFormik({
     initialValues: {
-      email: 'foobar@example.com',
-      password: 'foobar',
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      passwordCheck: "",
     },
-    validationSchema: validationSchemaLogin,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: isLogin ? validationSchemaLogin : validationSchemaRegister,
+    onSubmit: async values => {
+  
+      // if (isLogin) {
+      //   console.log("LOGIN")
+      //   alert(JSON.stringify(values, null, 2));
+      //   return
+      // }
+      // console.log("Register")
+      // alert(JSON.stringify(values, null, 2));
+
+      if (isLogin) {
+        const result = await signIn('credentials', {
+          redirect: false,
+          email: values.email,
+          password: values.password,
+        });
+  
+        if (!result.error) {
+          // set some auth state
+          router.replace('/profile');
+        }
+      } else {
+        try {
+          // const result = await createUser(enteredEmail, enteredPassword);
+          const result = await createUser(
+            values.firstName,
+            values.lastName,
+            values.email,
+            values.password
+          );
+          console.log(result);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+  
+
+
+
+
     },
   });
 
@@ -153,30 +217,40 @@ function AuthForm() {
       <form onSubmit={formik.handleSubmit}>
         {isLogin ? null : (
           <>
-            <div className={classes.control}>
-              <label htmlFor="fisrtName">Your Name</label>
-              <input
-                type="text"
-                id="fisrtName"
-                required
-                ref={firstNameInputRef}
-              />
-            </div>
 
-            <div className={classes.control}>
-              <label htmlFor="lastName">Your Lastname</label>
-              <input
-                type="text"
-                id="lastName"
-                required
-                ref={lastNameInputRef}
-              />
-            </div>
+            <TextField
+              className={classesMUI.controlForm}
+              required
+              variant="outlined"
+              fullWidth
+              id="firstName"
+              name="firstName"
+              label="First Name"
+              value={formik.values.firstName}
+              onChange={formik.handleChange}
+              error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+              helperText={formik.touched.firstName && formik.errors.firstName}
+            />
+
+            <TextField
+              className={classesMUI.controlForm}
+              variant="outlined"
+              fullWidth
+              id="lastName"
+              name="lastName"
+              label="Last Name"
+              value={formik.values.lastName}
+              onChange={formik.handleChange}
+              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+              helperText={formik.touched.lastName && formik.errors.lastName}
+            />
+
           </>
         )}
 
         <TextField
           className={classesMUI.controlForm}
+          required
           variant="outlined"
           fullWidth
           id="email"
@@ -187,8 +261,10 @@ function AuthForm() {
           error={formik.touched.email && Boolean(formik.errors.email)}
           helperText={formik.touched.email && formik.errors.email}
         />
+
         <TextField
           className={classesMUI.controlForm}
+          required
           variant="outlined"
           fullWidth
           id="password"
@@ -202,16 +278,20 @@ function AuthForm() {
         />
 
         {isLogin ? null : (
-          <div className={classes.control}>
-            <label htmlFor="passwordCheck">Confirm Password</label>
-            <input
-              type="password"
-              id="passwordCheck"
-              required
-              ref={passwordCheckInputRef}
-              error
-            />
-          </div>
+          <TextField
+            className={classesMUI.controlForm}
+            required
+            variant="outlined"
+            fullWidth
+            id="passwordCheck"
+            name="passwordCheck"
+            label="Confirm Password"
+            type="password"
+            value={formik.values.passwordCheck}
+            onChange={formik.handleChange}
+            error={formik.touched.passwordCheck && Boolean(formik.errors.passwordCheck)}
+            helperText={formik.touched.passwordCheck && formik.errors.passwordCheck}
+          />
         )}
 
         <div className={classesMUI.root}>
@@ -222,8 +302,18 @@ function AuthForm() {
           }
         </div>
 
-        <div className={classes.actions}>
+        <div className={classes.actions} disabled={Object.keys(formik.errors).length}>
           <button>{isLogin ? "Login" : "Create Account"}</button>
+
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth type="submit"
+            // disabled={Object.keys(formik.errors).length}
+          >
+            {isLogin ? "Login" : "Create Account"}
+          </Button>
+
           <button
             type="button"
             className={classes.toggle}

@@ -5,6 +5,7 @@
   },
   "text": {
     "primary": "#ffc28a",
-    "secondary": "#eb7100"
+    "secondary": "#eb7100",
+    "inactive": "#cfa986"
   }
 }

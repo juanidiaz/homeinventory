@@ -13,20 +13,20 @@ export default NextAuth({
       async authorize(credentials) {
         const client = await connectToDatabase();
 
-        const usersCollection = client.db().collection('users');
+        const contactsCollection = client.db().collection('contacts');
 
-        const user = await usersCollection.findOne({
-          email: credentials.email,
+        const contact = await contactsCollection.findOne({
+          loginEmail: credentials.email.toLowerCase(),
         });
 
-        if (!user) {
+        if (!contact) {
           client.close();
-          throw new Error('No user found!');
+          throw new Error('No contact found!');
         }
 
         const isValid = await verifyPassword(
           credentials.password,
-          user.password
+          contact.password
         );
 
         if (!isValid) {
@@ -35,8 +35,20 @@ export default NextAuth({
         }
 
         client.close();
-        return { email: user.email };
-        
+
+        const userInfo = { ...contact };
+        userInfo._id ? delete userInfo._id : null
+        userInfo.password ? delete userInfo.password : null
+        userInfo.createdAt ? delete userInfo.createdAt : null
+        userInfo.updatedAt ? delete userInfo.updatedAt : null
+        userInfo.__v ? delete userInfo.__v : null
+
+        return {
+          email: contact.loginEmail,
+          name: contact.name,
+          image: userInfo
+        };
+
       },
     }),
   ],

@@ -10,6 +10,9 @@ function MainNavigation() {
     signOut();
   }
 
+  console.log(" === MainNavigation ===", session)
+
+
   return (
     <header className={classes.header}>
       <Link href='/'>
