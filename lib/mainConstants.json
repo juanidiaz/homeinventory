@@ -1,7 +1,15 @@
 {
   "form": {
-    "background": "#421b00",
-    "border": "#eb7100"
+    "light": {
+      "background": "#f3f3f3",
+      "border": "#777777",
+      "backgroundFocus": "#ffebde",
+      "borderFocus": "#eb7100"
+    },
+    "dark": {
+      "background": "#421b00",
+      "border": "#eb7100"
+    }
   },
   "text": {
     "primary": "#ffc28a",

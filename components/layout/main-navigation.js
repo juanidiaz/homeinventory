@@ -5,13 +5,12 @@ import classes from './main-navigation.module.css';
 
 function MainNavigation() {
   const [session, loading] = useSession();
+  let userInfo = { isUserActive: false };
+  if (session && session.user) { userInfo = session.user.image }
 
   function logoutHandler() {
     signOut();
   }
-
-  console.log(" === MainNavigation ===", session)
-
 
   return (
     <header className={classes.header}>
@@ -27,10 +26,24 @@ function MainNavigation() {
               <Link href='/auth'>Login</Link>
             </li>
           )}
-          {session && (
-            <li>
-              <Link href='/profile'>Profile</Link>
-            </li>
+          {session && userInfo.isUserActive && (
+            <>
+              <li>
+                <Link href='/user-main'>Start</Link>
+              </li>
+              <li>
+                <Link href='/profile'>Profile</Link>
+              </li>
+              <li>
+                <Link href='/profile'>Profile</Link>
+              </li>
+              <li>
+                <Link href='/profile'>Profile</Link>
+              </li>
+              <li>
+                <Link href='/profile'>Profile</Link>
+              </li>
+            </>
           )}
           {session && (
             <li>

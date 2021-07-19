@@ -72,26 +72,55 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
     },
   },
-  controlForm: {
+  controlFormLight: {
     marginBottom: 20,
 
     // (Note: space or no space after & matters. See SASS "parent selector".)
     "& .MuiOutlinedInput-root": {  // - The Input-root, inside the TextField-root
-      backgroundColor: mainConstants.form.background,
-      borderColor: mainConstants.form.border,
-      color: mainConstants.text.primary,
+      backgroundColor: mainConstants.form.light.background,
+      borderColor: mainConstants.form.light.border,
       "& fieldset": {               // - The <fieldset> inside the Input-root
-        borderColor: mainConstants.form.border,     // - Set the Input border
+        borderColor: mainConstants.form.light.border,     // - Set the Input border
       },
       "&:hover fieldset": {
-        borderColor: mainConstants.form.border,     // - Set the Input border when parent has :hover
+        borderColor: mainConstants.form.light.border,     // - Set the Input border when parent has :hover
       },
-      "&.Mui-focused fieldset": {   // - Set the Input border when parent is focused 
-        borderColor: mainConstants.form.border,
+      "&.Mui-focused": {   // - Set the Input border when parent is focused 
+        color: mainConstants.form.light.borderFocus,
+        backgroundColor: mainConstants.form.light.backgroundFocus,
+        "& fieldset": {   // - Set the Input border when parent is focused 
+          borderColor: mainConstants.form.light.borderFocus,
+        },
       },
     },
     "& .MuiInputLabel-root": {
-      color: mainConstants.form.border,
+      color: mainConstants.form.light.border,
+      "&.Mui-focused": {
+        color: mainConstants.form.light.borderFocus,
+      },
+
+    },
+  },
+  controlFormDark: {
+    marginBottom: 20,
+
+    // (Note: space or no space after & matters. See SASS "parent selector".)
+    "& .MuiOutlinedInput-root": {  // - The Input-root, inside the TextField-root
+      backgroundColor: mainConstants.form.dark.background,
+      borderColor: mainConstants.form.dark.border,
+      color: mainConstants.text.primary,
+      "& fieldset": {               // - The <fieldset> inside the Input-root
+        borderColor: mainConstants.form.dark.border,     // - Set the Input border
+      },
+      "&:hover fieldset": {
+        borderColor: mainConstants.form.dark.border,     // - Set the Input border when parent has :hover
+      },
+      "&.Mui-focused fieldset": {   // - Set the Input border when parent is focused 
+        borderColor: mainConstants.form.dark.border,
+      },
+    },
+    "& .MuiInputLabel-root": {
+      color: mainConstants.form.dark.border,
     },
   },
 }));
@@ -169,14 +198,6 @@ function AuthForm() {
     },
     validationSchema: isLogin ? validationSchemaLogin : validationSchemaRegister,
     onSubmit: async values => {
-  
-      // if (isLogin) {
-      //   console.log("LOGIN")
-      //   alert(JSON.stringify(values, null, 2));
-      //   return
-      // }
-      // console.log("Register")
-      // alert(JSON.stringify(values, null, 2));
 
       if (isLogin) {
         const result = await signIn('credentials', {
@@ -184,7 +205,7 @@ function AuthForm() {
           email: values.email,
           password: values.password,
         });
-  
+
         if (!result.error) {
           // set some auth state
           router.replace('/profile');
@@ -203,10 +224,6 @@ function AuthForm() {
           console.log(error);
         }
       }
-  
-
-
-
 
     },
   });
@@ -219,7 +236,7 @@ function AuthForm() {
           <>
 
             <TextField
-              className={classesMUI.controlForm}
+              className={classesMUI.controlFormDark}
               required
               variant="outlined"
               fullWidth
@@ -233,7 +250,7 @@ function AuthForm() {
             />
 
             <TextField
-              className={classesMUI.controlForm}
+              className={classesMUI.controlFormDark}
               variant="outlined"
               fullWidth
               id="lastName"
@@ -249,7 +266,7 @@ function AuthForm() {
         )}
 
         <TextField
-          className={classesMUI.controlForm}
+          className={classesMUI.controlFormDark}
           required
           variant="outlined"
           fullWidth
@@ -263,7 +280,7 @@ function AuthForm() {
         />
 
         <TextField
-          className={classesMUI.controlForm}
+          className={classesMUI.controlFormDark}
           required
           variant="outlined"
           fullWidth
@@ -279,7 +296,7 @@ function AuthForm() {
 
         {isLogin ? null : (
           <TextField
-            className={classesMUI.controlForm}
+            className={classesMUI.controlFormDark}
             required
             variant="outlined"
             fullWidth
@@ -303,13 +320,11 @@ function AuthForm() {
         </div>
 
         <div className={classes.actions} disabled={Object.keys(formik.errors).length}>
-          <button>{isLogin ? "Login" : "Create Account"}</button>
-
           <Button
             color="primary"
             variant="contained"
             fullWidth type="submit"
-            // disabled={Object.keys(formik.errors).length}
+          // disabled={Object.keys(formik.errors).length}
           >
             {isLogin ? "Login" : "Create Account"}
           </Button>
@@ -322,7 +337,10 @@ function AuthForm() {
             {isLogin ? "Create new account" : "Login with existing account"}
           </button>
         </div>
+
+
       </form>
+
     </section>
   );
 }
