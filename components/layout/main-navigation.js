@@ -29,10 +29,10 @@ function MainNavigation() {
           {session && userInfo.isUserActive && (
             <>
               <li>
-                <Link href='/user-main'>Start</Link>
+                <Link href='/userMain'>Start</Link>
               </li>
               <li>
-                <Link href='/profile'>Profile</Link>
+                <Link href='/newItem'>Add item</Link>
               </li>
               <li>
                 <Link href='/profile'>Profile</Link>

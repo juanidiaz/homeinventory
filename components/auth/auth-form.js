@@ -128,12 +128,6 @@ const useStyles = makeStyles((theme) => ({
 function AuthForm() {
   const classesMUI = useStyles();
 
-  const firstNameInputRef = useRef();
-  const lastNameInputRef = useRef();
-  const emailInputRef = useRef();
-  const passwordInputRef = useRef();
-  const passwordCheckInputRef = useRef();
-
   const [isLogin, setIsLogin] = useState(true);
   const [errorMessage, setErrorMessage] = useState({ show: false, message: "" });
   const [warningMessage, setWarningMessage] = useState({ show: false, message: "" });
@@ -141,51 +135,6 @@ function AuthForm() {
 
   function switchAuthModeHandler() {
     setIsLogin((prevState) => !prevState);
-  };
-
-  async function submitHandler(event) {
-    event.preventDefault();
-
-    const enteredFirstName = firstNameInputRef.current ? firstNameInputRef.current.value : undefined;
-    const enteredLastName = lastNameInputRef.current ? lastNameInputRef.current.value : undefined;
-    const enteredEmail = emailInputRef.current ? emailInputRef.current.value : undefined;
-    const enteredPassword = passwordInputRef.current ? passwordInputRef.current.value : undefined;
-    const enteredPasswordCheck = passwordCheckInputRef.current ? passwordCheckInputRef.current.value : undefined;
-
-    // Validation 
-    if (enteredPassword != enteredPasswordCheck) {
-      const message = "Passwords do not match!"
-      setErrorMessage({ show: true, message });
-
-      console.log("PASSWORD DOESNT MATCH!");
-      return;
-    }
-
-    if (isLogin) {
-      const result = await signIn('credentials', {
-        redirect: false,
-        email: enteredEmail,
-        password: enteredPassword,
-      });
-
-      if (!result.error) {
-        // set some auth state
-        router.replace('/profile');
-      }
-    } else {
-      try {
-        // const result = await createUser(enteredEmail, enteredPassword);
-        const result = await createUser(
-          enteredFirstName,
-          enteredLastName,
-          enteredEmail,
-          enteredPassword
-        );
-        console.log(result);
-      } catch (error) {
-        console.log(error);
-      }
-    }
   };
 
   const formik = useFormik({
@@ -229,7 +178,8 @@ function AuthForm() {
   });
 
   return (
-    <section className={classes.auth}>
+    // <section className={classes.auth}>
+    <section>
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={formik.handleSubmit}>
         {isLogin ? null : (

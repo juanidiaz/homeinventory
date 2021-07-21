@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/client';
 
-import UserLanding from '../components/starting-page/user-landing-page';
+import UserLanding from '../components/starting-page/userLandingPage';
 
 function UserMainPage(props) {
   const { name, email, image } = props.session;
