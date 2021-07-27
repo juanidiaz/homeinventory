@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import mainConstants from "../../lib/mainConstants.json";
+import { getLocations } from "../../controllers/locations";
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -13,6 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Divider from '@material-ui/core/Divider';
 
 const validationSchema = yup.object({
   name: yup
@@ -32,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
     "& > * + *": {
       marginTop: theme.spacing(2),
     },
+  },
+  topPage: {
+    padding: theme.spacing(2),
   },
   controlFormLight: {
     marginBottom: 20,
@@ -95,8 +100,20 @@ const useStyles = makeStyles((theme) => ({
 
 function AddNewItemPage(props) {
   const { userInfo } = props;
-
   const classes = useStyles();
+
+  const [locations, setLocations] = useState([]);
+
+  useEffect(() => {
+    getAllLocations();
+  }, []);
+
+  const getAllLocations = () => {
+    console.log("getting stuff")
+    getLocations().then(locations => setLocations(locations))
+  }
+
+  console.log("--- LOCATIONS --- ", locations)
 
   const formik = useFormik({
     initialValues: {
@@ -105,7 +122,7 @@ function AddNewItemPage(props) {
       notes: "",
       isActive: false,
       user: "",
-      age: ""
+      location: ""
     },
     validationSchema,
     onSubmit: async values => {
@@ -116,10 +133,11 @@ function AddNewItemPage(props) {
   })
 
   return (
-    <section>
+    <section className={classes.topPage}>
       <h1>New item</h1>
 
       <form onSubmit={formik.handleSubmit}>
+        <h3>Basic info</h3>
         <TextField
           className={classes.controlFormLight}
           required
@@ -135,7 +153,7 @@ function AddNewItemPage(props) {
         />
 
         <TextField
-          className={classes.controlFormDark}
+          className={classes.controlFormLight}
           variant="outlined"
           fullWidth
           id="description"
@@ -147,12 +165,93 @@ function AddNewItemPage(props) {
           helperText={formik.touched.description && formik.errors.description}
         />
 
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="location-label">Location</InputLabel>
+          <Select
+            labelId="location-label"
+            id="location"
+            name="location"
+            value={formik.values.location}
+            onChange={formik.handleChange}
+            label="Location"
+          >
+            <MenuItem value="" disabled><em>Select one...</em></MenuItem>
+            {locations.map(location => <MenuItem key={location._id} value={location._id}>{location.name}</MenuItem>)}
+          </Select>
+        </FormControl>
+
+        {/* <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="room-label">Room</InputLabel>
+          <Select
+            labelId="room-label"
+            id="room"
+            name="room"
+            value={formik.values.room}
+            onChange={formik.handleChange}
+            label="Room"
+          >
+            <MenuItem value="">
+              <em>Select one...</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="category-label">Category</InputLabel>
+          <Select
+            labelId="category-label"
+            id="category"
+            name="category"
+            value={formik.values.category}
+            onChange={formik.handleChange}
+            label="Category"
+          >
+            <MenuItem value="">
+              <em>Select one...</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+
+        <Divider />
+        <h3>Aditional info</h3>
+        <p>Pictures...</p>
+        <p>Files...</p>
+
+        <Divider />
+        <h3>Advanced info</h3>
+
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="condition-label">Condition</InputLabel>
+          <Select
+            labelId="condition-label"
+            id="condition"
+            name="condition"
+            value={formik.values.condition}
+            onChange={formik.handleChange}
+            label="Condition"
+          >
+            <MenuItem value="">
+              <em>Select one...</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+
         <TextField
           className={classes.controlFormLight}
           variant="outlined"
           fullWidth
           id="notes"
           name="notes"
+          multiline
           label="Notes"
           value={formik.values.notes}
           onChange={formik.handleChange}
@@ -160,24 +259,141 @@ function AddNewItemPage(props) {
           helperText={formik.touched.notes && formik.errors.notes}
         />
 
+        <TextField
+          className={classes.controlFormLight}
+          variant="outlined"
+          fullWidth
+          id="estimatedValue"
+          name="estimatedValue"
+          label="Estimated value $"
+          value={formik.values.estimatedValue}
+          onChange={formik.handleChange}
+          error={formik.touched.estimatedValue && Boolean(formik.errors.estimatedValue)}
+          helperText={formik.touched.estimatedValue && formik.errors.estimatedValue}
+        />
+
+        <TextField
+          className={classes.controlFormLight}
+          variant="outlined"
+          fullWidth
+          id="model"
+          name="model"
+          label="Model"
+          value={formik.values.model}
+          onChange={formik.handleChange}
+          error={formik.touched.model && Boolean(formik.errors.model)}
+          helperText={formik.touched.model && formik.errors.model}
+        />
+
+        <TextField
+          className={classes.controlFormLight}
+          variant="outlined"
+          fullWidth
+          id="brand"
+          name="brand"
+          label="Brand or make"
+          value={formik.values.brand}
+          onChange={formik.handleChange}
+          error={formik.touched.brand && Boolean(formik.errors.brand)}
+          helperText={formik.touched.brand && formik.errors.brand}
+        />
+
+        <TextField
+          className={classes.controlFormLight}
+          variant="outlined"
+          fullWidth
+          id="serialNumber"
+          name="serialNumber"
+          label="Serial number"
+          value={formik.values.serialNumber}
+          onChange={formik.handleChange}
+          error={formik.touched.serialNumber && Boolean(formik.errors.serialNumber)}
+          helperText={formik.touched.serialNumber && formik.errors.serialNumber}
+        />
+
+        <h4>Purchase info</h4>
+
+        <TextField
+          className={classes.controlFormLight}
+          variant="outlined"
+          fullWidth
+          id="purchaseDate"
+          name="purchaseDate"
+          label="Purchase date"
+          value={formik.values.purchaseDate}
+          onChange={formik.handleChange}
+          error={formik.touched.purchaseDate && Boolean(formik.errors.purchaseDate)}
+          helperText={formik.touched.purchaseDate && formik.errors.purchaseDate}
+        />
+
         <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="demo-simple-select-outlined-label">Age</InputLabel>
+          <InputLabel id="company-label">Company</InputLabel>
           <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            name="age"
-            value={formik.values.age}
+            labelId="company-label"
+            id="company"
+            name="company"
+            value={formik.values.company}
             onChange={formik.handleChange}
-            label="Age"
+            label="Company"
           >
             <MenuItem value="">
-              <em>None</em>
+              <em>Select one...</em>
             </MenuItem>
             <MenuItem value={10}>Ten</MenuItem>
             <MenuItem value={20}>Twenty</MenuItem>
             <MenuItem value={30}>Thirty</MenuItem>
           </Select>
         </FormControl>
+
+        <TextField
+          className={classes.controlFormLight}
+          variant="outlined"
+          fullWidth
+          id="cost"
+          name="cost"
+          label="Purchase cost $"
+          value={formik.values.cost}
+          onChange={formik.handleChange}
+          error={formik.touched.cost && Boolean(formik.errors.cost)}
+          helperText={formik.touched.cost && formik.errors.cost}
+        />
+
+        <p>Has warranty (use chackbox!)</p>
+
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="contract-label">Contract</InputLabel>
+          <Select
+            labelId="contract-label"
+            id="contract"
+            name="contract"
+            value={formik.values.contract}
+            onChange={formik.handleChange}
+            label="Contract"
+          >
+            <MenuItem value="">
+              <em>Select one...</em>
+            </MenuItem>
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+
+        <p>invoice image</p>
+
+        <TextField
+          className={classes.controlFormLight}
+          variant="outlined"
+          fullWidth
+          id="purchaseNotes"
+          name="purchaseNotes"
+          label="Purchase notes"
+          multiline
+          value={formik.values.purchaseNotes}
+          onChange={formik.handleChange}
+          error={formik.touched.purchaseNotes && Boolean(formik.errors.purchaseNotes)}
+          helperText={formik.touched.purchaseNotes && formik.errors.purchaseNotes}
+        /> */}
 
         <Button
           color="primary"
@@ -187,8 +403,16 @@ function AddNewItemPage(props) {
           Add item
         </Button>
 
-
       </form>
+
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={getAllLocations}
+      >
+        STUFF
+      </Button>
+
 
     </section>
   );
