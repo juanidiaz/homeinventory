@@ -4,7 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import mainConstants from "../../lib/mainConstants.json";
+import { getCategories } from "../../controllers/categories";
+import { getCompanies } from "../../controllers/companies";
+import { getConditions } from "../../controllers/conditions";
+import { getContacts } from "../../controllers/contacts";
+import { getContracts } from "../../controllers/contracts";
+import { getItems } from "../../controllers/items";
 import { getLocations } from "../../controllers/locations";
+import { getRooms } from "../../controllers/rooms";
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -102,27 +109,49 @@ function AddNewItemPage(props) {
   const { userInfo } = props;
   const classes = useStyles();
 
-  const [locations, setLocations] = useState([]);
-
   useEffect(() => {
+    getAllCategories();
+    getAllCompanies();
+    getAllConditions();
+    getAllContacts();
+    getAllContracts();
+    getAllItems();
     getAllLocations();
+    getAllRooms();
   }, []);
 
-  const getAllLocations = () => {
-    console.log("getting stuff")
-    getLocations().then(locations => setLocations(locations))
-  }
+  const [categories, setCategories] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [conditions, setConditions] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [contracts, setContracts] = useState([]);
+  const [items, setItems] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
-  console.log("--- LOCATIONS --- ", locations)
+  const getAllCategories = () => getCategories().then(categories => setCategories(categories))
+  const getAllCompanies = () => getCompanies().then(companies => setCompanies(companies))
+  const getAllConditions = () => getConditions().then(conditions => setConditions(conditions))
+  const getAllContacts = () => getContacts().then(contacts => setContacts(contacts))
+  const getAllContracts = () => getContracts().then(contracts => setContracts(contracts))
+  const getAllItems = () => getItems().then(items => setItems(items))
+  const getAllLocations = () => getLocations().then(locations => setLocations(locations))
+  const getAllRooms = () => getRooms().then(rooms => setRooms(rooms))
 
   const formik = useFormik({
     initialValues: {
-      name: "",
+      category: "",
+      company: "",
+      condition: "",
+      contact: "",
+      contract: "",
       description: "",
-      notes: "",
       isActive: false,
+      location: "",
+      name: "",
+      notes: "",
+      room: "",
       user: "",
-      location: ""
     },
     validationSchema,
     onSubmit: async values => {
@@ -180,7 +209,7 @@ function AddNewItemPage(props) {
           </Select>
         </FormControl>
 
-        {/* <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="room-label">Room</InputLabel>
           <Select
             labelId="room-label"
@@ -190,12 +219,8 @@ function AddNewItemPage(props) {
             onChange={formik.handleChange}
             label="Room"
           >
-            <MenuItem value="">
-              <em>Select one...</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value="" disabled><em>Select one...</em></MenuItem>
+            {rooms.map(room => <MenuItem key={room._id} value={room._id}>{room.name}</MenuItem>)}
           </Select>
         </FormControl>
 
@@ -209,12 +234,8 @@ function AddNewItemPage(props) {
             onChange={formik.handleChange}
             label="Category"
           >
-            <MenuItem value="">
-              <em>Select one...</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value="" disabled><em>Select one...</em></MenuItem>
+            {categories.map(category => <MenuItem key={category._id} value={category._id}>{category.name}</MenuItem>)}
           </Select>
         </FormControl>
 
@@ -236,12 +257,8 @@ function AddNewItemPage(props) {
             onChange={formik.handleChange}
             label="Condition"
           >
-            <MenuItem value="">
-              <em>Select one...</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value="" disabled><em>Select one...</em></MenuItem>
+            {conditions.map(condition => <MenuItem key={condition._id} value={condition._id}>{condition.name}</MenuItem>)}
           </Select>
         </FormControl>
 
@@ -336,13 +353,10 @@ function AddNewItemPage(props) {
             onChange={formik.handleChange}
             label="Company"
           >
-            <MenuItem value="">
-              <em>Select one...</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value="" disabled><em>Select one...</em></MenuItem>
+            {companies.map(company => <MenuItem key={company._id} value={company._id}>{company.name}</MenuItem>)}
           </Select>
+
         </FormControl>
 
         <TextField
@@ -370,13 +384,10 @@ function AddNewItemPage(props) {
             onChange={formik.handleChange}
             label="Contract"
           >
-            <MenuItem value="">
-              <em>Select one...</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value="" disabled><em>Select one...</em></MenuItem>
+            {contracts.map(contract => <MenuItem key={contract._id} value={contract._id}>{contract.name}</MenuItem>)}
           </Select>
+
         </FormControl>
 
         <p>invoice image</p>
@@ -393,26 +404,18 @@ function AddNewItemPage(props) {
           onChange={formik.handleChange}
           error={formik.touched.purchaseNotes && Boolean(formik.errors.purchaseNotes)}
           helperText={formik.touched.purchaseNotes && formik.errors.purchaseNotes}
-        /> */}
+        />
 
         <Button
           color="primary"
           variant="contained"
-          fullWidth type="submit"
+          // fullWidth
+          type="submit"
         >
           Add item
         </Button>
 
       </form>
-
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={getAllLocations}
-      >
-        STUFF
-      </Button>
-
 
     </section>
   );

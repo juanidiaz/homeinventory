@@ -5,11 +5,11 @@ async function handler(req, res) {
   const doGet = async () => {
     try {
       const client = await connectToDatabase();
-      const itemsCollection = client.db().collection('items');
-      const items = await itemsCollection.find().toArray();
+      const roomsCollection = client.db().collection('rooms');
+      const rooms = await roomsCollection.find().toArray();
       client.close();
 
-      res.status(200).json({ success: true, data: items });
+      res.status(200).json({ success: true, data: rooms });
 
     } catch (error) {
       // console.log("ERROR: ", error);
