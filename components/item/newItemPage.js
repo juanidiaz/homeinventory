@@ -13,6 +13,8 @@ import { getItems } from "../../controllers/items";
 import { getLocations } from "../../controllers/locations";
 import { getRooms } from "../../controllers/rooms";
 
+import MomentUtils from '@date-io/moment';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
@@ -161,12 +163,35 @@ function AddNewItemPage(props) {
     }
   })
 
+  const [selectedDate, setSelectedDate] = useState(new Date('2014-08-18T21:11:54'));
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
   return (
     <section className={classes.topPage}>
       <h1>New item</h1>
 
       <form onSubmit={formik.handleSubmit}>
         <h3>Basic info</h3>
+
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <KeyboardDatePicker
+            disableToolbar
+            variant="inline"
+            format="MM/dd/yyyy"
+            margin="normal"
+            id="date-picker-inline"
+            label="Date picker inline"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+        </MuiPickersUtilsProvider>
+
         <TextField
           className={classes.controlFormLight}
           required
