@@ -149,6 +149,8 @@ function AuthForm() {
     onSubmit: async values => {
 
       if (isLogin) {
+
+        console.log("-----LOGIN IN-------", values)
         const result = await signIn('credentials', {
           redirect: false,
           email: values.email,
