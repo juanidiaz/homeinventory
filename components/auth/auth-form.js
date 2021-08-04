@@ -149,17 +149,13 @@ function AuthForm() {
     onSubmit: async values => {
 
       if (isLogin) {
-
         const result = await signIn('credentials', {
           redirect: false,
           email: values.email,
           password: values.password,
         });
 
-        console.log("-----LOGIN IN-------", { values, result });
-
-        if (result.ok || !result.error) {
-          console.log(" HERE ", { ok: result.ok, error: result.error })
+        if (!result.error) {
           // set some auth state
           router.replace('/profile');
         }
