@@ -11,8 +11,8 @@ function MainNavigation() {
   async function logoutHandler() {
     // signOut();
     // signOut({ callbackUrl: '/' });
-    const data = await signOut();
-    // const data = await signOut({redirect: false, callbackUrl: "/foo"});
+    // const data = await signOut();
+    const data = await signOut({redirect: false, callbackUrl: "/foo"});
 
     console.log("---- SIGN OUT ----", data)
   }
