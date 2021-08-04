@@ -8,7 +8,7 @@ function MainNavigation() {
   let userInfo = { isUserActive: false };
   if (session && session.user) { userInfo = session.user.image }
 
-  function logoutHandler() {
+  async function logoutHandler() {
     // signOut();
     // signOut({ callbackUrl: '/' });
     const data = await signOut();
