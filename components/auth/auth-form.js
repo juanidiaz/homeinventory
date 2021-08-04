@@ -159,6 +159,7 @@ function AuthForm() {
         console.log("-----LOGIN IN-------", { values, result });
 
         if (result.ok || !result.error) {
+          console.log(" HERE ", { ok: result.ok, error: result.error })
           // set some auth state
           router.replace('/profile');
         }
