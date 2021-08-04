@@ -9,7 +9,12 @@ function MainNavigation() {
   if (session && session.user) { userInfo = session.user.image }
 
   function logoutHandler() {
-    signOut();
+    // signOut();
+    // signOut({ callbackUrl: '/' });
+    const data = await signOut();
+    // const data = await signOut({redirect: false, callbackUrl: "/foo"});
+
+    console.log("---- SIGN OUT ----", data)
   }
 
   return (
