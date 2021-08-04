@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
@@ -158,7 +158,7 @@ function AuthForm() {
 
         console.log("-----LOGIN IN-------", { values, result });
 
-        if (!result.error) {
+        if (result.ok || !result.error) {
           // set some auth state
           router.replace('/profile');
         }
