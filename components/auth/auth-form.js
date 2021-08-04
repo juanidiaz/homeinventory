@@ -150,12 +150,13 @@ function AuthForm() {
 
       if (isLogin) {
 
-        console.log("-----LOGIN IN-------", values)
         const result = await signIn('credentials', {
           redirect: false,
           email: values.email,
           password: values.password,
         });
+
+        console.log("-----LOGIN IN-------", { values, result });
 
         if (!result.error) {
           // set some auth state
