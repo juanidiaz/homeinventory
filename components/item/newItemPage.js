@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
-import { makeStyles } from '@material-ui/core/styles';
-
-import { useFormik } from 'formik';
 import * as yup from 'yup';
+import clsx from 'clsx';
+import moment from 'moment';
+import MomentUtils from '@date-io/moment';
+import { useFormik } from 'formik';
+import { useState, useEffect } from "react";
+
+// --------- Local files
 import mainConstants from "../../lib/mainConstants.json";
 import { getCategories } from "../../controllers/categories";
 import { getCompanies } from "../../controllers/companies";
@@ -13,17 +16,18 @@ import { getItems } from "../../controllers/items";
 import { getLocations } from "../../controllers/locations";
 import { getRooms } from "../../controllers/rooms";
 
-import MomentUtils from '@date-io/moment';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+// --------- material-ui: Components
 import Alert from '@material-ui/lab/Alert';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import Divider from '@material-ui/core/Divider';
+import TextField from '@material-ui/core/TextField';
+import { MuiPickersUtilsProvider, KeyboardDatePicker, DatePicker } from '@material-ui/pickers';
+import { makeStyles } from '@material-ui/core/styles';
 
 const validationSchema = yup.object({
   name: yup
@@ -99,8 +103,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   formControl: {
-    margin: theme.spacing(1),
     minWidth: 120,
+  },
+  nicePadding: {
+    marginTop: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
@@ -154,6 +162,7 @@ function AddNewItemPage(props) {
       notes: "",
       room: "",
       user: "",
+      purchaseDate: null
     },
     validationSchema,
     onSubmit: async values => {
@@ -163,12 +172,6 @@ function AddNewItemPage(props) {
     }
   })
 
-  const [selectedDate, setSelectedDate] = useState(new Date('2014-08-18T21:11:54'));
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
-
   return (
     <section className={classes.topPage}>
       <h1>New item</h1>
@@ -176,24 +179,9 @@ function AddNewItemPage(props) {
       <form onSubmit={formik.handleSubmit}>
         <h3>Basic info</h3>
 
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <KeyboardDatePicker
-            disableToolbar
-            variant="inline"
-            format="MM/dd/yyyy"
-            margin="normal"
-            id="date-picker-inline"
-            label="Date picker inline"
-            value={selectedDate}
-            onChange={handleDateChange}
-            KeyboardButtonProps={{
-              'aria-label': 'change date',
-            }}
-          />
-        </MuiPickersUtilsProvider>
-
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           required
           variant="outlined"
           fullWidth
@@ -207,7 +195,8 @@ function AddNewItemPage(props) {
         />
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="description"
@@ -219,9 +208,11 @@ function AddNewItemPage(props) {
           helperText={formik.touched.description && formik.errors.description}
         />
 
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
           <InputLabel id="location-label">Location</InputLabel>
           <Select
+            fullWidth
+            margin="dense"
             labelId="location-label"
             id="location"
             name="location"
@@ -234,9 +225,11 @@ function AddNewItemPage(props) {
           </Select>
         </FormControl>
 
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
           <InputLabel id="room-label">Room</InputLabel>
           <Select
+            fullWidth
+            margin="dense"
             labelId="room-label"
             id="room"
             name="room"
@@ -249,9 +242,11 @@ function AddNewItemPage(props) {
           </Select>
         </FormControl>
 
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
           <InputLabel id="category-label">Category</InputLabel>
           <Select
+            fullWidth
+            margin="dense"
             labelId="category-label"
             id="category"
             name="category"
@@ -272,9 +267,11 @@ function AddNewItemPage(props) {
         <Divider />
         <h3>Advanced info</h3>
 
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
           <InputLabel id="condition-label">Condition</InputLabel>
           <Select
+            fullWidth
+            margin="dense"
             labelId="condition-label"
             id="condition"
             name="condition"
@@ -288,12 +285,15 @@ function AddNewItemPage(props) {
         </FormControl>
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="notes"
           name="notes"
           multiline
+          maxRows={6}
+          rows={2}
           label="Notes"
           value={formik.values.notes}
           onChange={formik.handleChange}
@@ -302,7 +302,8 @@ function AddNewItemPage(props) {
         />
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="estimatedValue"
@@ -315,7 +316,8 @@ function AddNewItemPage(props) {
         />
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="model"
@@ -328,7 +330,8 @@ function AddNewItemPage(props) {
         />
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="brand"
@@ -341,7 +344,8 @@ function AddNewItemPage(props) {
         />
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="serialNumber"
@@ -355,22 +359,36 @@ function AddNewItemPage(props) {
 
         <h4>Purchase info</h4>
 
-        <TextField
-          className={classes.controlFormLight}
-          variant="outlined"
-          fullWidth
-          id="purchaseDate"
-          name="purchaseDate"
-          label="Purchase date"
-          value={formik.values.purchaseDate}
-          onChange={formik.handleChange}
-          error={formik.touched.purchaseDate && Boolean(formik.errors.purchaseDate)}
-          helperText={formik.touched.purchaseDate && formik.errors.purchaseDate}
-        />
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <DatePicker
+            className={clsx(classes.controlFormLight, classes.nicePadding)}
+            disableToolbar
+            autoOk
+            disableFuture
+            fullWidth
+            showTodayButton
+            margin="dense"
+            maxDateMessage="Date cannot be in the future"
+            id="purchaseDate-picker-dialog"
+            label="Purchase date"
+            inputVariant="outlined"
+            format="DD/MMM/yyyy"
 
-        <FormControl variant="outlined" className={classes.formControl}>
+            value={formik.values.purchaseDate}
+            onChange={value => formik.setFieldValue("purchaseDate", value)}
+            error={formik.touched.purchaseDate && Boolean(formik.errors.purchaseDate)}
+            KeyboardButtonProps={{
+              "aria-label": "change purchase date"
+            }}
+          />
+        </MuiPickersUtilsProvider>
+
+
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
           <InputLabel id="company-label">Company</InputLabel>
           <Select
+            fullWidth
+            margin="dense"
             labelId="company-label"
             id="company"
             name="company"
@@ -385,7 +403,8 @@ function AddNewItemPage(props) {
         </FormControl>
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="cost"
@@ -399,9 +418,11 @@ function AddNewItemPage(props) {
 
         <p>Has warranty (use chackbox!)</p>
 
-        <FormControl variant="outlined" className={classes.formControl}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
           <InputLabel id="contract-label">Contract</InputLabel>
           <Select
+            fullWidth
+            margin="dense"
             labelId="contract-label"
             id="contract"
             name="contract"
@@ -418,13 +439,16 @@ function AddNewItemPage(props) {
         <p>invoice image</p>
 
         <TextField
-          className={classes.controlFormLight}
+          margin="dense"
+          className={clsx(classes.controlFormLight, classes.nicePadding)}
           variant="outlined"
           fullWidth
           id="purchaseNotes"
           name="purchaseNotes"
           label="Purchase notes"
           multiline
+          maxRows={6}
+          rows={2}
           value={formik.values.purchaseNotes}
           onChange={formik.handleChange}
           error={formik.touched.purchaseNotes && Boolean(formik.errors.purchaseNotes)}
@@ -434,7 +458,7 @@ function AddNewItemPage(props) {
         <Button
           color="primary"
           variant="contained"
-          // fullWidth
+          fullWidth
           type="submit"
         >
           Add item

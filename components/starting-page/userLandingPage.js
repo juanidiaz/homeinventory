@@ -3,7 +3,7 @@
 function UserLandingPageContent(props) {
   const { userInfo } = props;
 
-  console.log("UserLandingPageContent", userInfo)
+  // console.log("UserLandingPageContent", userInfo);
 
   return (
     <section>

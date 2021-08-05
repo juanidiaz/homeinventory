@@ -3,12 +3,13 @@ import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import mainConstants from "../../lib/mainConstants.json";
 
+// --------- Local files
+import mainConstants from "../../lib/mainConstants.json";
 import classes from "./auth-form.module.css";
 
+// --------- material-ui: Components
 import { makeStyles } from '@material-ui/core/styles';
-
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
@@ -178,8 +179,8 @@ function AuthForm() {
   });
 
   return (
-    // <section className={classes.auth}>
-    <section>
+    <section className={classes.auth}>
+    {/* <section> */}
       <h1>{isLogin ? "Login" : "Sign Up"}</h1>
       <form onSubmit={formik.handleSubmit}>
         {isLogin ? null : (
