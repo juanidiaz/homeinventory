@@ -12,7 +12,7 @@ import { getCompanies } from "../../controllers/companies";
 import { getConditions } from "../../controllers/conditions";
 import { getContacts } from "../../controllers/contacts";
 import { getContracts } from "../../controllers/contracts";
-import { getItems } from "../../controllers/items";
+import { getItems, addItem } from "../../controllers/items";
 import { getLocations } from "../../controllers/locations";
 import { getRooms } from "../../controllers/rooms";
 
@@ -156,7 +156,7 @@ function AddNewItemPage(props) {
       contact: "",
       contract: "",
       description: "",
-      isActive: false,
+      isActive: true,
       location: "",
       name: "",
       notes: "",
@@ -166,9 +166,10 @@ function AddNewItemPage(props) {
     },
     validationSchema,
     onSubmit: async values => {
-      console.log("=== NEW ITEM XXX")
-
-      console.log("=== NEW ITEM", values)
+      console.log("=== NEW ITEM", values);
+      addItem(values).then(item =>
+        console.log("I just added this item", item)
+      )
     }
   })
 
@@ -208,9 +209,10 @@ function AddNewItemPage(props) {
           helperText={formik.touched.description && formik.errors.description}
         />
 
-        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)} required>
           <InputLabel id="location-label">Location</InputLabel>
           <Select
+            required
             fullWidth
             margin="dense"
             labelId="location-label"
@@ -223,11 +225,13 @@ function AddNewItemPage(props) {
             <MenuItem value="" disabled><em>Select one...</em></MenuItem>
             {locations.map(location => <MenuItem key={location._id} value={location._id}>{location.name}</MenuItem>)}
           </Select>
+
         </FormControl>
 
-        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)} required>
           <InputLabel id="room-label">Room</InputLabel>
           <Select
+            required
             fullWidth
             margin="dense"
             labelId="room-label"
@@ -240,11 +244,13 @@ function AddNewItemPage(props) {
             <MenuItem value="" disabled><em>Select one...</em></MenuItem>
             {rooms.map(room => <MenuItem key={room._id} value={room._id}>{room.name}</MenuItem>)}
           </Select>
+
         </FormControl>
 
-        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)}>
+        <FormControl variant="outlined" className={clsx(classes.formControl, classes.nicePadding, classes.controlFormLight)} required>
           <InputLabel id="category-label">Category</InputLabel>
           <Select
+            required
             fullWidth
             margin="dense"
             labelId="category-label"
@@ -257,6 +263,7 @@ function AddNewItemPage(props) {
             <MenuItem value="" disabled><em>Select one...</em></MenuItem>
             {categories.map(category => <MenuItem key={category._id} value={category._id}>{category.name}</MenuItem>)}
           </Select>
+
         </FormControl>
 
         <Divider />
