@@ -19,10 +19,6 @@ async function handler(req, res) {
   };
 
   const doPost = async itemData => {
-
-    console.log("Adding new item 0", itemData);
-
-
     const newItemData = {
 
       // NON-VISUAL INFO
@@ -41,15 +37,12 @@ async function handler(req, res) {
       // files: { type: Array, default: [] },
 
       // ADVANCED INFO
-      // condition: {
-      //   type: mongoose.Schema.Types.ObjectId,
-      //   ref: "Condition",
-      // },
-      // notes: { type: String, default: "", trim: true },
-      // estimatedValue: { type: Number, trim: true },
-      // model: { type: String, trim: true },
-      // brand: { type: String, trim: true },
-      // serialNumber: { type: String, trim: true },
+      condition: itemData.condition || "",
+      notes: itemData.notes || "",
+      estimatedValue: itemData.estimatedValue || "",
+      model: itemData.model || "",
+      brand: itemData.brand || "",
+      serialNumber: itemData.serialNumber || "",
       // purchaseInfo: {
       //   purchaseDate: { type: Date },
       //   company: {
@@ -66,23 +59,17 @@ async function handler(req, res) {
       //   purchaseNotes: { type: String, default: "", trim: true }
     }
 
-    console.log("Adding new item", { newItemData, itemData });
-
-
     try {
       const client = await connectToDatabase();
       const itemsCollection = client.db().collection('items');
       const newItem = await itemsCollection.insertOne(itemData);
       client.close();
-      console.log("Adding new item 2", { newItem, newItemData, itemData });
-      // console.log("Adding new item 2", { newItemData, itemData });
 
       res.status(200).json({ success: true, data: newItem });
 
     } catch (error) {
-      console.log("ERROR: ", error);
-      res.status(500).json({ success: false, error });
-
+      console.log("ERROR adding item: ", error);
+      res.status(500).json({ success: false, data: "ERROR", error });
     }
   };
 

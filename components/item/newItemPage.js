@@ -26,8 +26,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
-import { MuiPickersUtilsProvider, KeyboardDatePicker, DatePicker } from '@material-ui/pickers';
+import { MuiPickersUtilsProvider, DatePicker } from '@material-ui/pickers';
 import { makeStyles } from '@material-ui/core/styles';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 const validationSchema = yup.object({
   name: yup
@@ -115,6 +117,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// function Alert(props) {
+//   return <MuiAlert elevation={6} variant="filled" {...props} />;
+// };
+
 function AddNewItemPage(props) {
   const { userInfo } = props;
   const classes = useStyles();
@@ -138,6 +144,7 @@ function AddNewItemPage(props) {
   const [items, setItems] = useState([]);
   const [locations, setLocations] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
 
   const getAllCategories = () => getCategories().then(categories => setCategories(categories))
   const getAllCompanies = () => getCompanies().then(companies => setCompanies(companies))
@@ -167,11 +174,24 @@ function AddNewItemPage(props) {
     validationSchema,
     onSubmit: async values => {
       console.log("=== NEW ITEM", values);
-      addItem(values).then(item =>
+      addItem(values).then(item => {
         console.log("I just added this item", item)
-      )
+        if (!item) {
+          console.log(" Tyed but I couldnot add item", item)
+          setShowAlert(true);
+        }
+      })
     }
   })
+
+  const handleCloseAlert = (event, reason) => {
+    console.log("Close alert")
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setShowAlert(false);
+  };
 
   return (
     <section className={classes.topPage}>
@@ -472,6 +492,12 @@ function AddNewItemPage(props) {
         </Button>
 
       </form>
+
+      <Snackbar open={showAlert} autoHideDuration={6000} onClose={handleCloseAlert}>
+        <Alert onClose={handleCloseAlert} severity="success">
+          This is a success message!
+        </Alert>
+      </Snackbar>
 
     </section>
   );
